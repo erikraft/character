@@ -74,8 +74,7 @@ character-710ddf1d/
 ## 🔗 Links Importantes
 
 - **WhatsApp Channel**: https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B
-- **Threads Post**: https://www.threads.com/@rtvr5656/post/DVuB19ZDP9P?xmt=AQF0jeGuOB9jF0cdNQjVF_Pbf3tsR3EXHQVOCPiSYRUeS4CrOJ3EnCjc1Hqun12aG96jd_Lu&slof=1
-- **WhatsApp Message**: https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B/104
+- **Threads Post**: https://www.threads.com/@erikraft.yt/post/DVwc_IYkSmw?xmt=AQF0SDeGgkODWgdir2VIiZhUeUDvpeQVQZTRDfboHhRoOg
 
 ## 🌐 Como Usar
 
