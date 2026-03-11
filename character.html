@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Details - Character Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-detail {
+            padding: 6rem 0 4rem;
+        }
+        
+        .character-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .character-large {
+            font-size: 8rem;
+            margin-bottom: 1rem;
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            display: inline-block;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .character-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .character-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+        
+        .character-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .info-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-button:hover {
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        .info-table {
+            width: 100%;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .info-table th,
+        .info-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+            width: 30%;
+        }
+        
+        .info-table tr:last-child th,
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .code-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .code-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .code-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .code-block {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: background 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .encoding-table {
+            width: 100%;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-top: 2rem;
+        }
+        
+        .encoding-table th,
+        .encoding-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        
+        .encoding-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .encoding-table tr:last-child th,
+        .encoding-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .images-section {
+            margin-top: 3rem;
+        }
+        
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+        
+        .image-info {
+            padding: 1rem;
+        }
+        
+        .image-info h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .image-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .image-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .image-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .character-large {
+                font-size: 5rem;
+            }
+            
+            .character-title {
+                font-size: 2rem;
+            }
+            
+            .info-tabs {
+                justify-content: flex-start;
+            }
+            
+            .tab-button {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .info-table th,
+            .info-table td {
+                padding: 0.75rem 1rem;
+            }
+            
+            .info-table th {
+                width: 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>Character Hub</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#about" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="character-detail">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Voltar para lista de caracteres
+            </a>
+
+            <div class="character-header">
+                <div class="character-large" id="characterDisplay">｜</div>
+                <h1 class="character-title" id="characterName">Vertical Line</h1>
+                <p class="character-subtitle" id="characterUnicode">U+007C</p>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCurrentCharacter()">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-outline" onclick="shareCurrentCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                    <a href="https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="info-tabs">
+                <button class="tab-button active" onclick="switchTab('properties')">
+                    <i class="fas fa-info-circle"></i> Propriedades
+                </button>
+                <button class="tab-button" onclick="switchTab('encoding')">
+                    <i class="fas fa-code"></i> Codificação
+                </button>
+                <button class="tab-button" onclick="switchTab('codes')">
+                    <i class="fas fa-keyboard"></i> Códigos para Copiar
+                </button>
+                <button class="tab-button" onclick="switchTab('images')">
+                    <i class="fas fa-image"></i> Imagens
+                </button>
+            </div>
+
+            <div id="properties" class="tab-content active">
+                <table class="info-table">
+                    <tbody id="propertiesTable">
+                        <!-- Propriedades serão inseridas aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="encoding" class="tab-content">
+                <table class="encoding-table">
+                    <thead>
+                        <tr>
+                            <th>Codificação</th>
+                            <th>Hex</th>
+                            <th>Dec (bytes)</th>
+                            <th>Dec</th>
+                            <th>Binary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="encodingTable">
+                        <!-- Dados de codificação serão inseridos aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="codes" class="tab-content">
+                <div class="code-grid" id="codesGrid">
+                    <!-- Códigos para copiar serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+
+            <div id="images" class="tab-content">
+                <div class="images-section">
+                    <h3>Prints do Caractere</h3>
+                    <div class="images-grid" id="imagesGrid">
+                        <!-- Imagens serão inseridas aqui via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Dados dos caracteres
+        const charactersData = {
+            'U+007C': {
+                character: '｜',
+                name: 'Vertical Line',
+                unicode: 'U+007C',
+                plane: '0: Plano Multilingue Básico',
+                block: 'Latin-1 Supplement',
+                subBlock: 'Punctuation',
+                version: '1.1 (1993)',
+                category: 'Symbol, Math',
+                script: 'Common',
+                bidiType: 'ON',
+                compositionExclusion: 'No',
+                caseMapping: '007C',
+                simpleCaseMapping: '007C',
+                graphemeBase: '+',
+                properties: {
+                    'Nome no Unicode': 'Vertical Line',
+                    'Número no Unicode': 'U+007C',
+                    'Plano': '0: Plano Multilingue Básico',
+                    'Bloco Unicode': 'Latin-1 Supplement',
+                    'Sub-bloco Unicode': 'Punctuation',
+                    'Versão Unicode': '1.1 (1993)',
+                    'Categoria': 'Symbol, Math',
+                    'Script': 'Common',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'ON',
+                    'Exclusão de composição': 'No',
+                    'Mudança de caso': '007C',
+                    'Alteração simples de maiúsculas e minúsculas': '007C',
+                    'Grapheme_Base': '+'
+                },
+                encoding: {
+                    'UTF-8': { hex: '7C', decBytes: '124', dec: '124', binary: '01111100' },
+                    'UTF-16BE': { hex: '00 7C', decBytes: '0 124', dec: '124', binary: '00000000 01111100' },
+                    'UTF-16LE': { hex: '7C 00', decBytes: '124 0', dec: '31744', binary: '01111100 00000000' },
+                    'UTF-32BE': { hex: '00 00 00 7C', decBytes: '0 0 0 124', dec: '124', binary: '00000000 00000000 00000000 01111100' },
+                    'UTF-32LE': { hex: '7C 00 00 00', decBytes: '124 0 0 0', dec: '2080374784', binary: '01111100 00000000 00000000 00000000' }
+                },
+                codes: {
+                    'HTML': '&#124;',
+                    'CSS': '\\007C',
+                    'JavaScript, JSON': '\\u007C',
+                    'Unix, C, PHP, JAVA': '0x007C',
+                    'Ruby, PHP': '\\u{007C}',
+                    'Perl': '\\x{007C}',
+                    'URL-encode': '%7C'
+                }
+            },
+            'U+1160': {
+                character: 'ㅤ',
+                name: 'Hangul Filler',
+                unicode: 'U+1160',
+                plane: '0: Plano Multilingue Básico',
+                block: 'Hangul Jamo',
+                subBlock: 'Jamo',
+                version: '2.0 (1996)',
+                category: 'Other, Format',
+                script: 'Hangul',
+                bidiType: 'L',
+                compositionExclusion: 'No',
+                caseMapping: '1160',
+                simpleCaseMapping: '1160',
+                graphemeBase: '-',
+                properties: {
+                    'Nome no Unicode': 'Hangul Filler',
+                    'Número no Unicode': 'U+1160',
+                    'Plano': '0: Plano Multilingue Básico',
+                    'Bloco Unicode': 'Hangul Jamo',
+                    'Sub-bloco Unicode': 'Jamo',
+                    'Versão Unicode': '2.0 (1996)',
+                    'Categoria': 'Other, Format',
+                    'Script': 'Hangul',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'L',
+                    'Exclusão de composição': 'No',
+                    'Mudança de caso': '1160',
+                    'Alteração simples de maiúsculas e minúsculas': '1160',
+                    'Grapheme_Base': '-'
+                },
+                encoding: {
+                    'UTF-8': { hex: 'E1 85 A0', decBytes: '225 133 160', dec: '3710432', binary: '11100001 10000101 10100000' },
+                    'UTF-16BE': { hex: '11 60', decBytes: '17 96', dec: '4448', binary: '00010001 01100000' },
+                    'UTF-16LE': { hex: '60 11', decBytes: '96 17', dec: '4481', binary: '01100000 00010001' },
+                    'UTF-32BE': { hex: '00 01 16 60', decBytes: '0 1 22 96', dec: '70400', binary: '00000000 00000001 00010110 01100000' },
+                    'UTF-32LE': { hex: '60 16 01 00', decBytes: '96 22 1 0', dec: '1610643776', binary: '01100000 00010110 00000001 00000000' }
+                },
+                codes: {
+                    'HTML': '&#4448;',
+                    'CSS': '\\1160',
+                    'JavaScript, JSON': '\\u1160',
+                    'Unix, C, PHP, JAVA': '0x1160',
+                    'Ruby, PHP': '\\u{1160}',
+                    'Perl': '\\x{1160}',
+                    'URL-encode': '%E1%85%A0'
+                }
+            },
+            'U+0E18': {
+                character: 'ธ',
+                name: 'Thai Character Tho Thong',
+                unicode: 'U+0E18',
+                plane: '0: Plano Multilingue Básico',
+                block: 'Thai',
+                subBlock: 'Thai',
+                version: '1.1 (1993)',
+                category: 'Letter, Other',
+                script: 'Thai',
+                bidiType: 'L',
+                compositionExclusion: 'No',
+                caseMapping: '0E18',
+                simpleCaseMapping: '0E18',
+                graphemeBase: '+',
+                properties: {
+                    'Nome no Unicode': 'Thai Character Tho Thong',
+                    'Número no Unicode': 'U+0E18',
+                    'Plano': '0: Plano Multilingue Básico',
+                    'Bloco Unicode': 'Thai',
+                    'Sub-bloco Unicode': 'Thai',
+                    'Versão Unicode': '1.1 (1993)',
+                    'Categoria': 'Letter, Other',
+                    'Script': 'Thai',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'L',
+                    'Exclusão de composição': 'No',
+                    'Mudança de caso': '0E18',
+                    'Alteração simples de maiúsculas e minúsculas': '0E18',
+                    'Grapheme_Base': '+'
+                },
+                encoding: {
+                    'UTF-8': { hex: 'E0 B8 98', decBytes: '224 184 152', dec: '3687384', binary: '11100000 10111000 10011000' },
+                    'UTF-16BE': { hex: '0E 18', decBytes: '14 24', dec: '3608', binary: '00001110 00011000' },
+                    'UTF-16LE': { hex: '18 0E', decBytes: '24 14', dec: '3598', binary: '00011000 00001110' },
+                    'UTF-32BE': { hex: '00 00 0E 18', decBytes: '0 0 14 24', dec: '3616', binary: '00000000 00000000 00001110 00011000' },
+                    'UTF-32LE': { hex: '18 0E 00 00', decBytes: '24 14 0 0', dec: '921600', binary: '00011000 00001110 00000000 00000000' }
+                },
+                codes: {
+                    'HTML': '&#3608;',
+                    'CSS': '\\0E18',
+                    'JavaScript, JSON': '\\u0E18',
+                    'Unix, C, PHP, JAVA': '0x0E18',
+                    'Ruby, PHP': '\\u{0E18}',
+                    'Perl': '\\x{0E18}',
+                    'URL-encode': '%E0%B8%98'
+                }
+            },
+            'U+0E34': {
+                character: 'ิ',
+                name: 'Thai Character Sara I',
+                unicode: 'U+0E34',
+                plane: '0: Plano Multilingue Básico',
+                block: 'Thai',
+                subBlock: 'Thai',
+                version: '1.1 (1993)',
+                category: 'Mark, Nonspacing',
+                script: 'Thai',
+                bidiType: 'NSM',
+                compositionExclusion: 'No',
+                caseMapping: '0E34',
+                simpleCaseMapping: '0E34',
+                graphemeBase: '-',
+                properties: {
+                    'Nome no Unicode': 'Thai Character Sara I',
+                    'Número no Unicode': 'U+0E34',
+                    'Plano': '0: Plano Multilingue Básico',
+                    'Bloco Unicode': 'Thai',
+                    'Sub-bloco Unicode': 'Thai',
+                    'Versão Unicode': '1.1 (1993)',
+                    'Categoria': 'Mark, Nonspacing',
+                    'Script': 'Thai',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'NSM',
+                    'Exclusão de composição': 'No',
+                    'Mudança de caso': '0E34',
+                    'Alteração simples de maiúsculas e minúsculas': '0E34',
+                    'Grapheme_Base': '-'
+                },
+                encoding: {
+                    'UTF-8': { hex: 'E0 B8 B4', decBytes: '224 184 180', dec: '3687412', binary: '11100000 10111000 10110100' },
+                    'UTF-16BE': { hex: '0E 34', decBytes: '14 52', dec: '3636', binary: '00001110 00110100' },
+                    'UTF-16LE': { hex: '34 0E', decBytes: '52 14', dec: '3630', binary: '00110100 00001110' },
+                    'UTF-32BE': { hex: '00 00 0E 34', decBytes: '0 0 14 52', dec: '3636', binary: '00000000 00000000 00001110 00110100' },
+                    'UTF-32LE': { hex: '34 0E 00 00', decBytes: '52 14 0 0', dec: '933888', binary: '00110100 00001110 00000000 00000000' }
+                },
+                codes: {
+                    'HTML': '&#3636;',
+                    'CSS': '\\0E34',
+                    'JavaScript, JSON': '\\u0E34',
+                    'Unix, C, PHP, JAVA': '0x0E34',
+                    'Ruby, PHP': '\\u{0E34}',
+                    'Perl': '\\x{0E34}',
+                    'URL-encode': '%E0%B8%B4'
+                }
+            },
+            'U+0E2C': {
+                character: '์',
+                name: 'Thai Character Thanthakhat',
+                unicode: 'U+0E2C',
+                plane: '0: Plano Multilingue Básico',
+                block: 'Thai',
+                subBlock: 'Thai',
+                version: '1.1 (1993)',
+                category: 'Mark, Nonspacing',
+                script: 'Thai',
+                bidiType: 'NSM',
+                compositionExclusion: 'No',
+                caseMapping: '0E2C',
+                simpleCaseMapping: '0E2C',
+                graphemeBase: '-',
+                properties: {
+                    'Nome no Unicode': 'Thai Character Thanthakhat',
+                    'Número no Unicode': 'U+0E2C',
+                    'Plano': '0: Plano Multilingue Básico',
+                    'Bloco Unicode': 'Thai',
+                    'Sub-bloco Unicode': 'Thai',
+                    'Versão Unicode': '1.1 (1993)',
+                    'Categoria': 'Mark, Nonspacing',
+                    'Script': 'Thai',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'NSM',
+                    'Exclusão de composição': 'No',
+                    'Mudança de caso': '0E2C',
+                    'Alteração simples de maiúsculas e minúsculas': '0E2C',
+                    'Grapheme_Base': '-'
+                },
+                encoding: {
+                    'UTF-8': { hex: 'E0 B8 AC', decBytes: '224 184 172', dec: '3687404', binary: '11100000 10111000 10101100' },
+                    'UTF-16BE': { hex: '0E 2C', decBytes: '14 44', dec: '3628', binary: '00001110 00101100' },
+                    'UTF-16LE': { hex: '2C 0E', decBytes: '44 14', dec: '3628', binary: '00101100 00001110' },
+                    'UTF-32BE': { hex: '00 00 0E 2C', decBytes: '0 0 14 44', dec: '3628', binary: '00000000 00000000 00001110 00101100' },
+                    'UTF-32LE': { hex: '2C 0E 00 00', decBytes: '44 14 0 0', dec: '933888', binary: '00101100 00001110 00000000 00000000' }
+                },
+                codes: {
+                    'HTML': '&#3628;',
+                    'CSS': '\\0E2C',
+                    'JavaScript, JSON': '\\u0E2C',
+                    'Unix, C, PHP, JAVA': '0x0E2C',
+                    'Ruby, PHP': '\\u{0E2C}',
+                    'Perl': '\\x{0E2C}',
+                    'URL-encode': '%E0%B8%AC'
+                }
+            }
+        };
+
+        let currentCharacter = null;
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const unicodeCode = urlParams.get('unicode');
+            
+            if (unicodeCode && charactersData[unicodeCode]) {
+                loadCharacter(unicodeCode);
+            } else {
+                // Caracter padrão se nenhum for especificado
+                loadCharacter('U+007C');
+            }
+        });
+
+        function loadCharacter(unicodeCode) {
+            currentCharacter = charactersData[unicodeCode];
+            if (!currentCharacter) return;
+
+            // Atualizar informações básicas
+            document.getElementById('characterDisplay').textContent = currentCharacter.character;
+            document.getElementById('characterName').textContent = currentCharacter.name;
+            document.getElementById('characterUnicode').textContent = currentCharacter.unicode;
+
+            // Carregar propriedades
+            loadProperties();
+            
+            // Carregar codificação
+            loadEncoding();
+            
+            // Carregar códigos
+            loadCodes();
+            
+            // Carregar imagens
+            loadImages();
+        }
+
+        function loadProperties() {
+            const tbody = document.getElementById('propertiesTable');
+            tbody.innerHTML = '';
+            
+            for (const [key, value] of Object.entries(currentCharacter.properties)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <th>${key}</th>
+                    <td>${value}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        function loadEncoding() {
+            const tbody = document.getElementById('encodingTable');
+            tbody.innerHTML = '';
+            
+            for (const [encoding, data] of Object.entries(currentCharacter.encoding)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${encoding}</td>
+                    <td>${data.hex}</td>
+                    <td>${data.decBytes}</td>
+                    <td>${data.dec}</td>
+                    <td>${data.binary}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        function loadCodes() {
+            const grid = document.getElementById('codesGrid');
+            grid.innerHTML = '';
+            
+            for (const [language, code] of Object.entries(currentCharacter.codes)) {
+                const card = document.createElement('div');
+                card.className = 'code-card';
+                card.innerHTML = `
+                    <h4>${language}</h4>
+                    <div class="code-block">
+                        ${code}
+                        <button class="copy-btn" onclick="copyText('${code}')">Copiar</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function loadImages() {
+            const grid = document.getElementById('imagesGrid');
+            grid.innerHTML = '';
+            
+            // Imagens de exemplo (placeholder)
+            const images = [
+                {
+                    title: 'Print do WhatsApp',
+                    description: 'Caractere sendo exibido no WhatsApp',
+                    link: 'https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B/104'
+                },
+                {
+                    title: 'Print do Threads',
+                    description: 'Caractere sendo exibido no Threads com spoiler',
+                    link: 'https://www.threads.com/@rtvr5656/post/DVuB19ZDP9P?xmt=AQF0jeGuOB9jF0cdNQjVF_Pbf3tsR3EXHQVOCPiSYRUeS4CrOJ3EnCjc1Hqun12aG96jd_Lu&slof=1'
+                }
+            ];
+            
+            images.forEach(image => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <div class="image-placeholder">
+                        <i class="fas fa-image fa-3x"></i>
+                    </div>
+                    <div class="image-info">
+                        <h4>${image.title}</h4>
+                        <p>${image.description}</p>
+                        <a href="${image.link}" target="_blank" class="image-link">
+                            <i class="fas fa-external-link-alt"></i> Ver original
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function switchTab(tabName) {
+            // Remover classe active de todas as abas e conteúdos
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Adicionar classe active à aba e conteúdo selecionados
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function copyCurrentCharacter() {
+            if (currentCharacter) {
+                copyCharacter(currentCharacter.character);
+            }
+        }
+
+        function shareCurrentCharacter() {
+            if (currentCharacter) {
+                shareCharacter(currentCharacter.character, currentCharacter.unicode);
+            }
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('Código copiado com sucesso!', 'success');
+            }).catch(function(err) {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+    </script>
+</body>
+</html>
