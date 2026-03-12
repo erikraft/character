@@ -14,27 +14,41 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 2rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
         }
 
         .character-display {
-            background: white;
-            border: 2px solid var(--border-color);
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
             border-radius: 1rem;
-            padding: 2.5rem 1.5rem;
+            color: white;
             text-align: center;
             margin: 2rem 0;
-            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .character-display .char {
-            font-size: 3rem;
-            line-height: 1;
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .character-display .label {
-            margin-top: 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .space-indicator {
