@@ -313,467 +313,438 @@
 
     <script>
         const allCharacters = [
-            // Invisíveis - Zero Width
             {
-                char: '​',
+                char: '\u200B',
                 name: 'Zero Width Space',
                 code: 'U+200B',
-                category: 'Invisível',
-                description: 'Espaço de largura zero que permite quebra de linha sem mostrar espaço.',
-                page: 'character/U+200B.html'
+                category: 'Invis?vel',
+                description: 'Espa?o de largura zero que permite quebra de linha sem mostrar espa?o.',
+                page: 'U+200B.html',
             },
             {
-                char: '‌',
+                char: '\u200C',
                 name: 'Zero Width Non-Joiner',
                 code: 'U+200C',
-                category: 'Invisível',
+                category: 'Invis?vel',
                 description: 'Impede que letras se conectem em certos alfabetos.',
-                page: 'character/U+200C.html'
+                page: 'U+200C.html',
             },
             {
-                char: '‍',
+                char: '\u200D',
                 name: 'Zero Width Joiner',
                 code: 'U+200D',
-                category: 'Invisível',
-                description: 'Força junção de caracteres (muito usado em emojis).',
-                page: 'character/U+200D.html'
+                category: 'Invis?vel',
+                description: 'For?a jun??o de caracteres (muito usado em emojis).',
+                page: 'U+200D.html',
             },
             {
-                char: '⁠',
+                char: '\u2060',
                 name: 'Word Joiner',
                 code: 'U+2060',
-                category: 'Invisível',
+                category: 'Invis?vel',
                 description: 'Evita quebra de linha entre palavras.',
-                page: 'character/U+2060.html'
+                page: 'U+2060.html',
             },
-            
-            // Espaços invisíveis raros
             {
-                char: ' ',
+                char: '\u200A',
                 name: 'Hair Space',
                 code: 'U+200A',
-                category: 'Espaço',
-                description: 'Espaço ultra fino usado em tipografia profissional.',
-                page: 'character/U+200A.html'
+                category: 'Espa?o',
+                description: 'Espa?o ultra fino usado em tipografia profissional.',
+                page: 'U+200A.html',
             },
             {
-                char: ' ',
+                char: '\u2009',
                 name: 'Thin Space',
                 code: 'U+2009',
-                category: 'Espaço',
-                description: 'Espaço fino usado em tipografia.',
-                page: 'character/U+2009.html'
+                category: 'Espa?o',
+                description: 'Espa?o fino usado em tipografia.',
+                page: 'U+2009.html',
             },
             {
-                char: ' ',
+                char: '\u2006',
                 name: 'Six-Per-Em Space',
                 code: 'U+2006',
-                category: 'Espaço',
-                description: 'Espaço com 1/6 da largura de um em.',
-                page: 'character/U+2006.html'
+                category: 'Espa?o',
+                description: 'Espa?o com 1/6 da largura de um em.',
+                page: 'U+2006.html',
             },
             {
-                char: ' ',
+                char: '\u2007',
                 name: 'Figure Space',
                 code: 'U+2007',
-                category: 'Espaço',
-                description: 'Espaço com largura igual a números.',
-                page: 'character/U+2007.html'
+                category: 'Espa?o',
+                description: 'Espa?o com largura igual a n?meros.',
+                page: 'U+2007.html',
             },
             {
-                char: ' ',
+                char: '\u2008',
                 name: 'Punctuation Space',
                 code: 'U+2008',
-                category: 'Espaço',
-                description: 'Espaço com largura igual à pontuação.',
-                page: 'character/U+2008.html'
+                category: 'Espa?o',
+                description: 'Espa?o com largura igual ? pontua??o.',
+                page: 'U+2008.html',
             },
-            
-            // Espaços extremamente raros
             {
-                char: ' ',
+                char: '\u2004',
                 name: 'Three-Per-Em Space',
                 code: 'U+2004',
-                category: 'Espaço',
-                description: 'Espaço com 1/3 da largura de um em.',
-                page: 'character/U+2004.html'
+                category: 'Espa?o',
+                description: 'Espa?o com 1/3 da largura de um em.',
+                page: 'U+2004.html',
             },
             {
-                char: ' ',
+                char: '\u2005',
                 name: 'Four-Per-Em Space',
                 code: 'U+2005',
-                category: 'Espaço',
-                description: 'Espaço com 1/4 da largura de um em.',
-                page: 'character/U+2005.html'
+                category: 'Espa?o',
+                description: 'Espa?o com 1/4 da largura de um em.',
+                page: 'U+2005.html',
             },
             {
-                char: '　',
+                char: '\u3000',
                 name: 'Ideographic Space',
                 code: 'U+3000',
-                category: 'Espaço',
-                description: 'Espaço usado em japonês/chinês (largo).',
-                page: 'character/U+3000.html'
+                category: 'Espa?o',
+                description: 'Espa?o usado em japon?s/chin?s (largo).',
+                page: 'U+3000.html',
             },
-            
-            // Caracteres invisíveis especiais
             {
-                char: '⁣',
+                char: '\u2063',
                 name: 'Invisible Separator',
                 code: 'U+2063',
-                category: 'Invisível',
-                description: 'Separador invisível usado em notação matemática.',
-                page: 'character/U+2063.html'
+                category: 'Invis?vel',
+                description: 'Separador invis?vel usado em nota??o matem?tica.',
+                page: 'U+2063.html',
             },
             {
-                char: '⁤',
+                char: '\u2064',
                 name: 'Invisible Plus',
                 code: 'U+2064',
-                category: 'Invisível',
-                description: 'Sinal de mais invisível usado em matemática.',
-                page: 'character/U+2064.html'
+                category: 'Invis?vel',
+                description: 'Sinal de mais invis?vel usado em matem?tica.',
+                page: 'U+2064.html',
             },
             {
-                char: '⁡',
+                char: '\u2061',
                 name: 'Function Application',
                 code: 'U+2061',
-                category: 'Invisível',
-                description: 'Indica aplicação de função em matemática.',
-                page: 'character/U+2061.html'
+                category: 'Invis?vel',
+                description: 'Indica aplica??o de fun??o em matem?tica.',
+                page: 'U+2061.html',
             },
-            
-            // Hangul filler
             {
-                char: 'ᅟ',
+                char: '\u115F',
                 name: 'Hangul Choseong Filler',
                 code: 'U+115F',
-                category: 'Invisível',
+                category: 'Invis?vel',
                 description: 'Preenchimento de consoante inicial Hangul.',
-                page: 'character/U+115F.html'
+                page: 'U+115F.html',
             },
             {
-                char: 'ᅠ',
+                char: '\u1160',
                 name: 'Hangul Jungseong Filler',
                 code: 'U+1160',
-                category: 'Invisível',
+                category: 'Invis?vel',
                 description: 'Preenchimento de vogal medial Hangul.',
-                page: 'U+1160.html'
+                page: 'U+1160.html',
             },
-            
-            // Separadores e linhas especiais
             {
-                char: '¦',
+                char: '\u00A6',
                 name: 'Broken Bar',
                 code: 'U+00A6',
                 category: 'Separador',
                 description: 'Barra vertical quebrada usada como separador.',
-                page: 'character/U+00A6.html'
+                page: 'U+00A6.html',
             },
             {
-                char: '‖',
+                char: '\u2016',
                 name: 'Double Vertical Line',
                 code: 'U+2016',
                 category: 'Separador',
                 description: 'Dupla linha vertical usada como separador.',
-                page: 'character/U+2016.html'
+                page: 'U+2016.html',
             },
             {
-                char: '⋮',
+                char: '\u22EE',
                 name: 'Vertical Ellipsis',
                 code: 'U+22EE',
                 category: 'Separador',
                 description: 'Elipse vertical usada para indicar continuidade.',
-                page: 'character/U+22EE.html'
+                page: 'U+22EE.html',
             },
             {
-                char: '⋯',
-                name: 'Triple Vertical Dot',
+                char: '\u22EF',
+                name: 'Triple Dots',
                 code: 'U+22EF',
                 category: 'Separador',
-                description: 'Três pontos verticais usados como separador.',
-                page: 'character/U+22EF.html'
+                description: 'Ellipsis em linha m?dia para continuidade matem?tica.',
+                page: 'U+22EF.html',
             },
             {
-                char: '⁂',
+                char: '\u2042',
                 name: 'Asterism',
                 code: 'U+2042',
                 category: 'Separador',
-                description: 'Símbolo literário raro usado para separar seções.',
-                page: 'character/U+2042.html'
+                description: 'S?mbolo tipogr?fico raro usado para separar se??es.',
+                page: 'U+2042.html',
             },
-            
-            // Símbolos decorativos
             {
-                char: '❦',
+                char: '\u2766',
                 name: 'Floral Heart',
                 code: 'U+2766',
                 category: 'Decorativo',
-                description: 'Coração floral decorativo.',
-                page: 'character/U+2766.html'
+                description: 'Cora??o floral decorativo.',
+                page: 'U+2766.html',
             },
             {
-                char: '✻',
+                char: '\u273B',
                 name: 'Heavy Teardrop Spoked Asterisk',
                 code: 'U+273B',
                 category: 'Decorativo',
-                description: 'Asterisco decorativo com pontas em forma de lágrima.',
-                page: 'character/U+273B.html'
+                description: 'Asterisco decorativo com pontas em forma de l?grima.',
+                page: 'U+273B.html',
             },
             {
-                char: '✷',
+                char: '\u2737',
                 name: 'Eight Pointed Star',
                 code: 'U+2737',
                 category: 'Decorativo',
                 description: 'Estrela de oito pontas decorativa.',
-                page: 'character/U+2737.html'
+                page: 'U+2737.html',
             },
             {
-                char: '❇',
+                char: '\u2747',
                 name: 'Sparkle',
                 code: 'U+2747',
                 category: 'Decorativo',
-                description: 'Símbolo de brilho/piscar.',
-                page: 'character/U+2747.html'
+                description: 'S?mbolo de brilho/piscar.',
+                page: 'U+2747.html',
             },
             {
-                char: '✠',
-                name: 'Cross Pattée',
+                char: '\u2720',
+                name: 'Cross Patt?e',
                 code: 'U+2720',
                 category: 'Decorativo',
-                description: 'Cruz pattée decorativa.',
-                page: 'character/U+2720.html'
+                description: 'Cruz patt?e decorativa.',
+                page: 'U+2720.html',
             },
-            
-            // Setas especiais
             {
-                char: '⇒',
+                char: '\u21D2',
                 name: 'Seta Dupla Direita',
                 code: 'U+21D2',
                 category: 'Seta',
                 description: 'Seta dupla apontando para a direita.',
-                page: 'character/U+21D2.html'
+                page: 'U+21D2.html',
             },
             {
-                char: '⇐',
+                char: '\u21D0',
                 name: 'Seta Dupla Esquerda',
                 code: 'U+21D0',
                 category: 'Seta',
                 description: 'Seta dupla apontando para a esquerda.',
-                page: 'character/U+21D0.html'
+                page: 'U+21D0.html',
             },
             {
-                char: '↷',
+                char: '\u21B7',
                 name: 'Seta Curva',
                 code: 'U+21B7',
                 category: 'Seta',
                 description: 'Seta curva para a direita.',
-                page: 'character/U+21B7.html'
+                page: 'U+21B7.html',
             },
             {
-                char: '↺',
+                char: '\u21BA',
                 name: 'Seta Circular',
                 code: 'U+21BA',
                 category: 'Seta',
-                description: 'Seta circular no sentido horário.',
-                page: 'character/U+21BA.html'
+                description: 'Seta circular no sentido hor?rio.',
+                page: 'U+21BA.html',
             },
             {
-                char: '⇑',
+                char: '\u21D1',
                 name: 'Seta Para Cima Dupla',
                 code: 'U+21D1',
                 category: 'Seta',
                 description: 'Seta dupla apontando para cima.',
-                page: 'character/U+21D1.html'
+                page: 'U+21D1.html',
             },
-            
-            // Símbolos especiais
             {
-                char: '⌘',
+                char: '\u2318',
                 name: 'Command Key',
                 code: 'U+2318',
-                category: 'Símbolo',
-                description: 'Símbolo da tecla Command (Mac).',
-                page: 'character/U+2318.html'
+                category: 'S?mbolo',
+                description: 'S?mbolo da tecla Command (Mac).',
+                page: 'U+2318.html',
             },
             {
-                char: '⏏',
+                char: '\u23CF',
                 name: 'Eject Symbol',
                 code: 'U+23CF',
-                category: 'Símbolo',
-                description: 'Símbolo de ejetar mídia.',
-                page: 'character/U+23CF.html'
+                category: 'S?mbolo',
+                description: 'S?mbolo de ejetar m?dia.',
+                page: 'U+23CF.html',
             },
             {
-                char: '⏸',
+                char: '\u23F8',
                 name: 'Pause Symbol',
                 code: 'U+23F8',
-                category: 'Símbolo',
-                description: 'Símbolo de pausa.',
-                page: 'character/U+23F8.html'
+                category: 'S?mbolo',
+                description: 'S?mbolo de pausa.',
+                page: 'U+23F8.html',
             },
-            
-            // Caracteres "glitch" interessantes
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
                 category: 'Glitch',
-                description: 'Combinação impressionante de caracteres tailandeses com diacríticos empilhados criando efeito visual único.',
-                page: 'Super-Stack-Character.html'
+                description: 'Combina??o de caracteres tailandeses com diacr?ticos empilhados criando efeito visual ?nico.',
+                page: 'Super-Stack-Character.html',
             },
             {
-                char: 'Z̑̾͋̓',
+                char: 'Z\u0311\u033E\u034B\u0313',
                 name: 'Glitch Z',
                 code: 'Glitch',
                 category: 'Glitch',
                 description: 'Letra Z com efeito glitch usando combining marks.',
-                page: 'Glitch-Z.html'
+                page: 'Glitch-Z.html',
             },
-            
-            // Caracteres super raros
             {
-                char: '‽',
+                char: '\u203D',
                 name: 'Interrobang',
                 code: 'U+203D',
                 category: 'Raro',
-                description: 'Ponto de interrogação e exclamação combinados (?!).',
-                page: 'character/U+203D.html'
+                description: 'Ponto de interroga??o e exclama??o combinados (?!).',
+                page: 'U+203D.html',
             },
             {
-                char: '⸘',
+                char: '\u2E18',
                 name: 'Double Interrobang',
                 code: 'U+2E18',
                 category: 'Raro',
-                description: 'Duplo interrobang invertido.',
-                page: 'character/U+2E18.html'
+                description: 'Interrobang invertido usado em tipografia rara.',
+                page: 'U+2E18.html',
             },
             {
-                char: '※',
+                char: '\u203B',
                 name: 'Reference Mark',
                 code: 'U+203B',
                 category: 'Raro',
-                description: 'Marca de referência usada em textos.',
-                page: 'character/U+203B.html'
+                description: 'Marca de refer?ncia usada em textos.',
+                page: 'U+203B.html',
             },
-            
-            // Símbolos usados em design
             {
-                char: '★',
+                char: '\u2605',
                 name: 'Black Star',
                 code: 'U+2605',
                 category: 'Decorativo',
-                description: 'Estrela preta sólida.',
-                page: 'character/U+2605.html'
+                description: 'Estrela preta s?lida.',
+                page: 'U+2605.html',
             },
             {
-                char: '☆',
+                char: '\u2606',
                 name: 'White Star',
                 code: 'U+2606',
                 category: 'Decorativo',
                 description: 'Estrela branca contornada.',
-                page: 'character/U+2606.html'
+                page: 'U+2606.html',
             },
             {
-                char: '⊙',
+                char: '\u2299',
                 name: 'Circle with Dot',
                 code: 'U+2299',
-                category: 'Símbolo',
-                description: 'Círculo com ponto no centro.',
-                page: 'character/U+2299.html'
+                category: 'S?mbolo',
+                description: 'C?rculo com ponto no centro.',
+                page: 'U+2299.html',
             },
             {
-                char: '⊕',
+                char: '\u2295',
                 name: 'Circle with Plus',
                 code: 'U+2295',
-                category: 'Símbolo',
-                description: 'Círculo com sinal de mais.',
-                page: 'character/U+2295.html'
+                category: 'S?mbolo',
+                description: 'C?rculo com sinal de mais.',
+                page: 'U+2295.html',
             },
             {
-                char: '⊗',
+                char: '\u2297',
                 name: 'Circle with Cross',
                 code: 'U+2297',
-                category: 'Símbolo',
-                description: 'Círculo com cruz no centro.',
-                page: 'character/U+2297.html'
+                category: 'S?mbolo',
+                description: 'C?rculo com cruz no centro.',
+                page: 'U+2297.html',
             },
-            
-            // Mais estrelas decorativas
             {
-                char: '☀',
+                char: '\u2600',
                 name: 'Sun with Rays',
                 code: 'U+2600',
                 category: 'Decorativo',
                 description: 'Sol com raios decorativo.',
-                page: 'character/U+2600.html'
+                page: 'U+2600.html',
             },
             {
-                char: '☁',
+                char: '\u2601',
                 name: 'Cloud',
                 code: 'U+2601',
                 category: 'Decorativo',
                 description: 'Nuvem decorativa.',
-                page: 'character/U+2601.html'
+                page: 'U+2601.html',
             },
             {
-                char: '✦',
+                char: '\u2726',
                 name: 'Black Diamond Minus White X',
                 code: 'U+2726',
                 category: 'Decorativo',
                 description: 'Diamante preto com X branco.',
-                page: 'character/U+2726.html'
+                page: 'U+2726.html',
             },
-            
-            // Mongolian Vowel Separator (super raro)
             {
-                char: '᠎',
+                char: '\u180E',
                 name: 'Mongolian Vowel Separator',
                 code: 'U+180E',
                 category: 'Raro',
-                description: 'Um dos caracteres mais raros do Unicode, usado em mongol.',
-                page: 'character/U+180E.html'
+                description: 'Caractere raro usado em mongol.',
+                page: 'U+180E.html',
             },
-            
-            // Caracteres existentes
             {
                 char: '|',
                 name: 'Vertical Line',
                 code: 'U+007C',
-                category: 'Símbolo',
-                description: 'Um símbolo matemático usado para representar uma linha vertical ou separador.',
-                page: 'U+007C.html'
+                category: 'S?mbolo',
+                description: 'S?mbolo matem?tico usado como separador.',
+                page: 'U+007C.html',
             },
             {
-                char: ' ',
-                name: 'Invisível Médio',
+                char: '\u2000',
+                name: 'En Quad',
                 code: 'U+2000',
-                category: 'Espaço',
-                description: 'En Quad - espaço com largura exata de um "en" (meia largura de em). Usado em tipografia.',
-                page: 'U+2000.html'
+                category: 'Espa?o',
+                description: 'En Quad: espa?o com largura de um en.',
+                page: 'U+2000.html',
             },
             {
-                char: ' ',
-                name: 'Invisível Pequeno',
+                char: '\u205F',
+                name: 'Medium Mathematical Space',
                 code: 'U+205F',
-                category: 'Espaço',
-                description: 'Medium Mathematical Space - espaço usado em fórmulas matemáticas com quatro oitavos de em.',
-                page: 'U+205F.html'
+                category: 'Espa?o',
+                description: 'Espa?o matem?tico m?dio usado em f?rmulas.',
+                page: 'U+205F.html',
             },
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
-                category: 'Combinação',
-                description: 'Combinação impressionante de caracteres tailandeses com diacríticos empilhados criando efeito visual único.',
-                page: 'Super-Stack-Character.html'
+                category: 'Combina??o',
+                description: 'Combina??o impressionante de caracteres empilhados.',
+                page: 'Super-Stack-Character.html',
             },
             {
-                char: 'Z̑̾͋̓',
+                char: 'Z\u0311\u033E\u034B\u0313',
                 name: 'Glitch Z',
                 code: 'Glitch',
-                category: 'Combinação',
+                category: 'Combina??o',
                 description: 'Letra Z com efeito glitch usando combining marks.',
-                page: 'Glitch-Z.html'
-            }
+                page: 'Glitch-Z.html',
+            },
         ];
 
         let currentPage = 1;

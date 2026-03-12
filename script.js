@@ -91,6 +91,35 @@ function copyCharacter(character, event) {
     });
 }
 
+// Função para copiar código Unicode
+function copyUnicode(code, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+
+    navigator.clipboard.writeText(code).then(function() {
+        showToast('Código Unicode copiado!', 'success');
+    }).catch(function() {
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            showToast('Código Unicode copiado!', 'success');
+        } catch (err) {
+            showToast('Erro ao copiar código', 'error');
+        }
+
+        document.body.removeChild(textArea);
+    });
+}
+
 // Função para mostrar notificações toast
 function showToast(message, type = 'success') {
     // Remover toast existente se houver
@@ -173,7 +202,7 @@ function performSearch() {
         return;
     }
 
-    window.location.href = `./search/?q=${encodeURIComponent(searchTerm)}`;
+    window.location.href = `/search/?q=${encodeURIComponent(searchTerm)}`;
 }
 
 
