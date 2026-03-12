@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Explorar Caracteres</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .list-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .search-section {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+        }
+        
+        .search-input::placeholder {
+            color: #6b7280 !important;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .results-info {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .list-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .list-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        
+        .character-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .character-list-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .character-list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+        
+        .character-list-display {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            line-height: 0.8;
+            overflow: hidden;
+        }
+        
+        .character-list-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .character-list-info p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .character-list-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #4b5563, #374151);
+            transform: translateY(-2px);
+        }
+        
+        .character-list-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .character-list-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            
+            .back-btn {
+                position: static;
+                margin-bottom: 2rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Voltar para Lista
+    </a>
+
+    <div class="character-list-container">
+        <div class="list-header">
+            <h1>Explorar Caracteres</h1>
+            <p>Explore todos os caracteres especiais Unicode disponíveis</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Pesquisar caracteres..." class="search-input">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="category-filter" id="categoryFilter">
+                <button class="category-btn active" onclick="filterByCategory('all')">Todos</button>
+                <button class="category-btn" onclick="filterByCategory('Invisível')">Invisíveis</button>
+                <button class="category-btn" onclick="filterByCategory('Espaço')">Espaços</button>
+                <button class="category-btn" onclick="filterByCategory('Decorativo')">Decorativos</button>
+                <button class="category-btn" onclick="filterByCategory('Seta')">Setas</button>
+                <button class="category-btn" onclick="filterByCategory('Separador')">Separadores</button>
+                <button class="category-btn" onclick="filterByCategory('Símbolo')">Símbolos</button>
+                <button class="category-btn" onclick="filterByCategory('Glitch')">Glitch</button>
+                <button class="category-btn" onclick="filterByCategory('Raro')">Raros</button>
+                <button class="category-btn" onclick="filterByCategory('Combinação')">Combinações</button>
+            </div>
+        </div>
+
+        <div class="results-info" id="resultsInfo"></div>
+
+        <div class="character-list-grid" id="characterGrid">
+            <!-- Characters will be loaded here -->
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const allCharacters = [
+            // Invisíveis - Zero Width
+            {
+                char: '​',
+                name: 'Zero Width Space',
+                code: 'U+200B',
+                category: 'Invisível',
+                description: 'Espaço de largura zero que permite quebra de linha sem mostrar espaço.',
+                page: 'character/U+200B.html'
+            },
+            {
+                char: '‌',
+                name: 'Zero Width Non-Joiner',
+                code: 'U+200C',
+                category: 'Invisível',
+                description: 'Impede que letras se conectem em certos alfabetos.',
+                page: 'character/U+200C.html'
+            },
+            {
+                char: '‍',
+                name: 'Zero Width Joiner',
+                code: 'U+200D',
+                category: 'Invisível',
+                description: 'Força junção de caracteres (muito usado em emojis).',
+                page: 'character/U+200D.html'
+            },
+            {
+                char: '⁠',
+                name: 'Word Joiner',
+                code: 'U+2060',
+                category: 'Invisível',
+                description: 'Evita quebra de linha entre palavras.',
+                page: 'character/U+2060.html'
+            },
+            
+            // Espaços invisíveis raros
+            {
+                char: ' ',
+                name: 'Hair Space',
+                code: 'U+200A',
+                category: 'Espaço',
+                description: 'Espaço ultra fino usado em tipografia profissional.',
+                page: 'character/U+200A.html'
+            },
+            {
+                char: ' ',
+                name: 'Thin Space',
+                code: 'U+2009',
+                category: 'Espaço',
+                description: 'Espaço fino usado em tipografia.',
+                page: 'character/U+2009.html'
+            },
+            {
+                char: ' ',
+                name: 'Six-Per-Em Space',
+                code: 'U+2006',
+                category: 'Espaço',
+                description: 'Espaço com 1/6 da largura de um em.',
+                page: 'character/U+2006.html'
+            },
+            {
+                char: ' ',
+                name: 'Figure Space',
+                code: 'U+2007',
+                category: 'Espaço',
+                description: 'Espaço com largura igual a números.',
+                page: 'character/U+2007.html'
+            },
+            {
+                char: ' ',
+                name: 'Punctuation Space',
+                code: 'U+2008',
+                category: 'Espaço',
+                description: 'Espaço com largura igual à pontuação.',
+                page: 'character/U+2008.html'
+            },
+            
+            // Espaços extremamente raros
+            {
+                char: ' ',
+                name: 'Three-Per-Em Space',
+                code: 'U+2004',
+                category: 'Espaço',
+                description: 'Espaço com 1/3 da largura de um em.',
+                page: 'character/U+2004.html'
+            },
+            {
+                char: ' ',
+                name: 'Four-Per-Em Space',
+                code: 'U+2005',
+                category: 'Espaço',
+                description: 'Espaço com 1/4 da largura de um em.',
+                page: 'character/U+2005.html'
+            },
+            {
+                char: '　',
+                name: 'Ideographic Space',
+                code: 'U+3000',
+                category: 'Espaço',
+                description: 'Espaço usado em japonês/chinês (largo).',
+                page: 'character/U+3000.html'
+            },
+            
+            // Caracteres invisíveis especiais
+            {
+                char: '⁣',
+                name: 'Invisible Separator',
+                code: 'U+2063',
+                category: 'Invisível',
+                description: 'Separador invisível usado em notação matemática.',
+                page: 'character/U+2063.html'
+            },
+            {
+                char: '⁤',
+                name: 'Invisible Plus',
+                code: 'U+2064',
+                category: 'Invisível',
+                description: 'Sinal de mais invisível usado em matemática.',
+                page: 'character/U+2064.html'
+            },
+            {
+                char: '⁡',
+                name: 'Function Application',
+                code: 'U+2061',
+                category: 'Invisível',
+                description: 'Indica aplicação de função em matemática.',
+                page: 'character/U+2061.html'
+            },
+            
+            // Hangul filler
+            {
+                char: 'ᅟ',
+                name: 'Hangul Choseong Filler',
+                code: 'U+115F',
+                category: 'Invisível',
+                description: 'Preenchimento de consoante inicial Hangul.',
+                page: 'character/U+115F.html'
+            },
+            {
+                char: 'ᅠ',
+                name: 'Hangul Jungseong Filler',
+                code: 'U+1160',
+                category: 'Invisível',
+                description: 'Preenchimento de vogal medial Hangul.',
+                page: 'U+1160.html'
+            },
+            
+            // Separadores e linhas especiais
+            {
+                char: '¦',
+                name: 'Broken Bar',
+                code: 'U+00A6',
+                category: 'Separador',
+                description: 'Barra vertical quebrada usada como separador.',
+                page: 'character/U+00A6.html'
+            },
+            {
+                char: '‖',
+                name: 'Double Vertical Line',
+                code: 'U+2016',
+                category: 'Separador',
+                description: 'Dupla linha vertical usada como separador.',
+                page: 'character/U+2016.html'
+            },
+            {
+                char: '⋮',
+                name: 'Vertical Ellipsis',
+                code: 'U+22EE',
+                category: 'Separador',
+                description: 'Elipse vertical usada para indicar continuidade.',
+                page: 'character/U+22EE.html'
+            },
+            {
+                char: '⋯',
+                name: 'Triple Vertical Dot',
+                code: 'U+22EF',
+                category: 'Separador',
+                description: 'Três pontos verticais usados como separador.',
+                page: 'character/U+22EF.html'
+            },
+            {
+                char: '⁂',
+                name: 'Asterism',
+                code: 'U+2042',
+                category: 'Separador',
+                description: 'Símbolo literário raro usado para separar seções.',
+                page: 'character/U+2042.html'
+            },
+            
+            // Símbolos decorativos
+            {
+                char: '❦',
+                name: 'Floral Heart',
+                code: 'U+2766',
+                category: 'Decorativo',
+                description: 'Coração floral decorativo.',
+                page: 'character/U+2766.html'
+            },
+            {
+                char: '✻',
+                name: 'Heavy Teardrop Spoked Asterisk',
+                code: 'U+273B',
+                category: 'Decorativo',
+                description: 'Asterisco decorativo com pontas em forma de lágrima.',
+                page: 'character/U+273B.html'
+            },
+            {
+                char: '✷',
+                name: 'Eight Pointed Star',
+                code: 'U+2737',
+                category: 'Decorativo',
+                description: 'Estrela de oito pontas decorativa.',
+                page: 'character/U+2737.html'
+            },
+            {
+                char: '❇',
+                name: 'Sparkle',
+                code: 'U+2747',
+                category: 'Decorativo',
+                description: 'Símbolo de brilho/piscar.',
+                page: 'character/U+2747.html'
+            },
+            {
+                char: '✠',
+                name: 'Cross Pattée',
+                code: 'U+2720',
+                category: 'Decorativo',
+                description: 'Cruz pattée decorativa.',
+                page: 'character/U+2720.html'
+            },
+            
+            // Setas especiais
+            {
+                char: '⇒',
+                name: 'Seta Dupla Direita',
+                code: 'U+21D2',
+                category: 'Seta',
+                description: 'Seta dupla apontando para a direita.',
+                page: 'character/U+21D2.html'
+            },
+            {
+                char: '⇐',
+                name: 'Seta Dupla Esquerda',
+                code: 'U+21D0',
+                category: 'Seta',
+                description: 'Seta dupla apontando para a esquerda.',
+                page: 'character/U+21D0.html'
+            },
+            {
+                char: '↷',
+                name: 'Seta Curva',
+                code: 'U+21B7',
+                category: 'Seta',
+                description: 'Seta curva para a direita.',
+                page: 'character/U+21B7.html'
+            },
+            {
+                char: '↺',
+                name: 'Seta Circular',
+                code: 'U+21BA',
+                category: 'Seta',
+                description: 'Seta circular no sentido horário.',
+                page: 'character/U+21BA.html'
+            },
+            {
+                char: '⇑',
+                name: 'Seta Para Cima Dupla',
+                code: 'U+21D1',
+                category: 'Seta',
+                description: 'Seta dupla apontando para cima.',
+                page: 'character/U+21D1.html'
+            },
+            
+            // Símbolos especiais
+            {
+                char: '⌘',
+                name: 'Command Key',
+                code: 'U+2318',
+                category: 'Símbolo',
+                description: 'Símbolo da tecla Command (Mac).',
+                page: 'character/U+2318.html'
+            },
+            {
+                char: '⏏',
+                name: 'Eject Symbol',
+                code: 'U+23CF',
+                category: 'Símbolo',
+                description: 'Símbolo de ejetar mídia.',
+                page: 'character/U+23CF.html'
+            },
+            {
+                char: '⏸',
+                name: 'Pause Symbol',
+                code: 'U+23F8',
+                category: 'Símbolo',
+                description: 'Símbolo de pausa.',
+                page: 'character/U+23F8.html'
+            },
+            
+            // Caracteres "glitch" interessantes
+            {
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                name: 'Super Stack Character',
+                code: 'Stacked',
+                category: 'Glitch',
+                description: 'Combinação impressionante de caracteres tailandeses com diacríticos empilhados criando efeito visual único.',
+                page: 'Super-Stack-Character.html'
+            },
+            {
+                char: 'Z̑̾͋̓',
+                name: 'Glitch Z',
+                code: 'Glitch',
+                category: 'Glitch',
+                description: 'Letra Z com efeito glitch usando combining marks.',
+                page: 'Glitch-Z.html'
+            },
+            
+            // Caracteres super raros
+            {
+                char: '‽',
+                name: 'Interrobang',
+                code: 'U+203D',
+                category: 'Raro',
+                description: 'Ponto de interrogação e exclamação combinados (?!).',
+                page: 'character/U+203D.html'
+            },
+            {
+                char: '⸘',
+                name: 'Double Interrobang',
+                code: 'U+2E18',
+                category: 'Raro',
+                description: 'Duplo interrobang invertido.',
+                page: 'character/U+2E18.html'
+            },
+            {
+                char: '※',
+                name: 'Reference Mark',
+                code: 'U+203B',
+                category: 'Raro',
+                description: 'Marca de referência usada em textos.',
+                page: 'character/U+203B.html'
+            },
+            
+            // Símbolos usados em design
+            {
+                char: '★',
+                name: 'Black Star',
+                code: 'U+2605',
+                category: 'Decorativo',
+                description: 'Estrela preta sólida.',
+                page: 'character/U+2605.html'
+            },
+            {
+                char: '☆',
+                name: 'White Star',
+                code: 'U+2606',
+                category: 'Decorativo',
+                description: 'Estrela branca contornada.',
+                page: 'character/U+2606.html'
+            },
+            {
+                char: '⊙',
+                name: 'Circle with Dot',
+                code: 'U+2299',
+                category: 'Símbolo',
+                description: 'Círculo com ponto no centro.',
+                page: 'character/U+2299.html'
+            },
+            {
+                char: '⊕',
+                name: 'Circle with Plus',
+                code: 'U+2295',
+                category: 'Símbolo',
+                description: 'Círculo com sinal de mais.',
+                page: 'character/U+2295.html'
+            },
+            {
+                char: '⊗',
+                name: 'Circle with Cross',
+                code: 'U+2297',
+                category: 'Símbolo',
+                description: 'Círculo com cruz no centro.',
+                page: 'character/U+2297.html'
+            },
+            
+            // Mais estrelas decorativas
+            {
+                char: '☀',
+                name: 'Sun with Rays',
+                code: 'U+2600',
+                category: 'Decorativo',
+                description: 'Sol com raios decorativo.',
+                page: 'character/U+2600.html'
+            },
+            {
+                char: '☁',
+                name: 'Cloud',
+                code: 'U+2601',
+                category: 'Decorativo',
+                description: 'Nuvem decorativa.',
+                page: 'character/U+2601.html'
+            },
+            {
+                char: '✦',
+                name: 'Black Diamond Minus White X',
+                code: 'U+2726',
+                category: 'Decorativo',
+                description: 'Diamante preto com X branco.',
+                page: 'character/U+2726.html'
+            },
+            
+            // Mongolian Vowel Separator (super raro)
+            {
+                char: '᠎',
+                name: 'Mongolian Vowel Separator',
+                code: 'U+180E',
+                category: 'Raro',
+                description: 'Um dos caracteres mais raros do Unicode, usado em mongol.',
+                page: 'character/U+180E.html'
+            },
+            
+            // Caracteres existentes
+            {
+                char: '|',
+                name: 'Vertical Line',
+                code: 'U+007C',
+                category: 'Símbolo',
+                description: 'Um símbolo matemático usado para representar uma linha vertical ou separador.',
+                page: 'U+007C.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Médio',
+                code: 'U+2000',
+                category: 'Espaço',
+                description: 'En Quad - espaço com largura exata de um "en" (meia largura de em). Usado em tipografia.',
+                page: 'U+2000.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Pequeno',
+                code: 'U+205F',
+                category: 'Espaço',
+                description: 'Medium Mathematical Space - espaço usado em fórmulas matemáticas com quatro oitavos de em.',
+                page: 'U+205F.html'
+            },
+            {
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                name: 'Super Stack Character',
+                code: 'Stacked',
+                category: 'Combinação',
+                description: 'Combinação impressionante de caracteres tailandeses com diacríticos empilhados criando efeito visual único.',
+                page: 'Super-Stack-Character.html'
+            },
+            {
+                char: 'Z̑̾͋̓',
+                name: 'Glitch Z',
+                code: 'Glitch',
+                category: 'Combinação',
+                description: 'Letra Z com efeito glitch usando combining marks.',
+                page: 'Glitch-Z.html'
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 12;
+        let filteredCharacters = [...allCharacters];
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        function renderCharacters() {
+            const grid = document.getElementById('characterGrid');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageCharacters = filteredCharacters.slice(startIndex, endIndex);
+
+            if (pageCharacters.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Nenhum caractere encontrado</h3>
+                        <p style="color: var(--text-secondary);">Tente ajustar sua pesquisa ou categoria.</p>
+                    </div>
+                `;
+                document.getElementById('pagination').innerHTML = '';
+                updateResultsInfo(0);
+                return;
+            }
+
+            grid.innerHTML = pageCharacters.map(character => `
+                <div class="character-list-item" onclick="navigateToCharacter('${character.page}')">
+                    <div class="character-list-display ${character.code === 'Stacked' || character.code === 'Glitch' ? 'super-stack-display' : ''}">${character.char}</div>
+                    <div class="character-list-info">
+                        <h3>${character.name}</h3>
+                        <p>${character.code}</p>
+                        <p style="color: var(--primary-color); font-size: 0.8rem;">${character.category}</p>
+                    </div>
+                    <div class="character-list-description">${character.description}</div>
+                    <div class="character-list-actions">
+                        <button class="btn btn-sm btn-primary" onclick="copyCharacter('${character.char}', event)">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${character.char}', '${character.code}', event)">
+                            <i class="fas fa-share-alt"></i> Compartilhar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination();
+            updateResultsInfo(filteredCharacters.length);
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredCharacters.length / itemsPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredCharacters.length / itemsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderCharacters();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            currentSearch = searchInput.value.toLowerCase().trim();
+            applyFilters();
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            applyFilters();
+        }
+
+        function applyFilters() {
+            filteredCharacters = allCharacters.filter(character => {
+                const matchesCategory = currentCategory === 'all' || character.category === currentCategory;
+                const matchesSearch = currentSearch === '' || 
+                    character.name.toLowerCase().includes(currentSearch) ||
+                    character.code.toLowerCase().includes(currentSearch) ||
+                    character.description.toLowerCase().includes(currentSearch) ||
+                    character.char.includes(currentSearch);
+                
+                return matchesCategory && matchesSearch;
+            });
+            
+            currentPage = 1;
+            renderCharacters();
+        }
+
+        function updateResultsInfo(total) {
+            const resultsInfo = document.getElementById('resultsInfo');
+            if (currentSearch || currentCategory !== 'all') {
+                const categoryText = currentCategory !== 'all' ? `categoria "${currentCategory}"` : '';
+                const searchText = currentSearch ? `pesquisa "${currentSearch}"` : '';
+                const separator = (categoryText && searchText) ? ' e ' : '';
+                
+                resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${categoryText}${separator}${searchText}`;
+            } else {
+                resultsInfo.innerHTML = `Mostrando ${total} caracteres no total`;
+            }
+        }
+
+        function navigateToCharacter(page) {
+            if (page && page !== '#') {
+                window.location.href = page;
+            }
+        }
+
+        function copyCharacter(character, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Caractere copiado com sucesso!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+
+        function shareCharacter(character, code, event) {
+            if (event) event.stopPropagation();
+            const shareData = {
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCharacters();
+            
+            // Add search on Enter key
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Add real-time search
+            document.getElementById('searchInput').addEventListener('input', () => {
+                performSearch();
+            });
+        });
+    </script>
+</body>
+</html>

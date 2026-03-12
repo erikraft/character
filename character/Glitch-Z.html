@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Glitch Z</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .stack-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .stack-display {
+            font-size: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            word-break: break-all;
+            line-height: 1.2;
+            margin: 1.5rem 0;
+            text-align: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+        
+        .character-display-large {
+            font-size: 2.5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            word-break: break-all;
+            line-height: 1.2;
+            margin: 1.5rem 0;
+            text-align: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .stack-segment {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .threads-embed {
+            margin: 2rem auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info-card h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .character-breakdown {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+        }
+        
+        .character-part {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+        }
+        
+        .character-part .char {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            min-width: 2rem;
+            text-align: center;
+        }
+        
+        .character-part .info {
+            flex: 1;
+        }
+        
+        .character-part .info .name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .character-part .info .code {
+            font-family: monospace;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="../character-list.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Lista
+        </a>
+        
+        <section class="character-detail">
+            <div class="container">
+                <div class="character-header">
+                    <div class="character-display-large">Z&#785;&#830;&#843;&#787;</div>
+                    <div class="character-info">
+                        <h1>Glitch Z</h1>
+                        <p class="unicode-code">Combining Marks Effect</p>
+                        <p class="character-description">Letra Z com efeito visual glitch criado através da combinação de diacríticos Unicode. Este não é um caractere único, mas uma combinação de múltiplos combining marks aplicados à letra Z.</p>
+                        <div class="character-actions">
+                            <button class="btn btn-primary" onclick="copyCharacter('Z\u0311\u033E\u034B\u0313')">
+                                <i class="fas fa-copy"></i> Copiar Glitch Z
+                            </button>
+                                                        <button class="btn btn-secondary" onclick="shareCharacter()">
+                                <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-details">
+                    <div class="detail-section">
+                        <div class="info-tabs" role="tablist">
+                            <button class="info-tab active" data-tab="info">Informações técnicas</button>
+                            <button class="info-tab" data-tab="props">Propriedades</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para copiar e colar</button>
+                        </div>
+                        <div class="info-panels">
+                            <div class="info-panel active" data-panel="info">
+                                <table class="unicode-table">
+                                    <tr><td>Nome no Unicode</td><td>Glitch Z (Custom Combination)</td></tr>
+                                    <tr><td>Número no Unicode</td><td>Sequência de caracteres</td></tr>
+                                    <tr><td>Plano</td><td>0: Plano Multilingue Básico</td></tr>
+                                    <tr><td>Bloco Unicode</td><td>Combining Diacritical Marks</td></tr>
+                                    <tr><td>Sub-bloco Unicode</td><td>Custom Combination</td></tr>
+                                    <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="props">
+                                <table class="unicode-table">
+                                    <tr><td>Categoria</td><td>Combinação personalizada</td></tr>
+                                    <tr><td>Script</td><td>Latin</td></tr>
+                                    <tr><td>Tipo de suporte de espelho emparelhado (bidi)</td><td>L</td></tr>
+                                    <tr><td>Exclusão de composição</td><td>Custom</td></tr>
+                                    <tr><td>Mudança de caso</td><td>Custom</td></tr>
+                                    <tr><td>Alteração simples de maiúsculas e minúsculas</td><td>Custom</td></tr>
+                                    <tr><td>Grapheme_Base</td><td>+</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="encoding">
+                                <table class="encoding-table">
+                                    <thead>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32LE</td>
+                                            <td data-label="hex">5A 00 00 00 11 03 00 00 3E 03 00 00 4B 03 00 00 13 03 00 00</td>
+                                            <td data-label="dec (bytes)">90 0 0 0 17 3 0 0 62 3 0 0 75 3 0 0 19 3 0 0</td>
+                                            <td data-label="dec">90 785 830 843 787</td>
+                                            <td data-label="binary">01011010 00000000 00000000 00000000 00010001 00000011 00000000 00000000 00111110 00000011 00000000 00000000 01001011 00000011 00000000 00000000 00010011 00000011 00000000 00000000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="codes">
+                                <p>Copie e cole esses códigos para usar o caractere Glitch Z em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+                                <div class="code-list">
+                                    <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">Z&amp;#771;&amp;#818;&amp;#843;&amp;#787;</span></div>
+                                    <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">Z\311 \33E \34B \313</span></div>
+                                    <div class="code-row"><span class="code-label">JavaScript, JSON</span><span class="code-pill">Z\u0311\u033E\u034B\u0313</span></div>
+                                    <div class="code-row"><span class="code-label">Unix, C, PHP, JAVA</span><span class="code-pill">0x005A 0x0311 0x033E 0x034B 0x0313</span></div>
+                                    <div class="code-row"><span class="code-label">Ruby, PHP</span><span class="code-pill">Z\u{005A} \u{0311} \u{033E} \u{034B} \u{0313}</span></div>
+                                    <div class="code-row"><span class="code-label">Perl</span><span class="code-pill">Z\x{005A} \x{0311} \x{033E} \x{034B} \x{0313}</span></div>
+                                    <div class="code-row"><span class="code-label">URL-encode</span><span class="code-pill">Z%CD%BE%CC%BE%CC%8B%CC%93</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-breakdown">
+                    <h3>Análise dos Componentes</h3>
+                    <div class="character-part">
+                        <div class="char">Z</div>
+                        <div class="info">
+                            <div class="name">Latin Capital Letter Z</div>
+                            <div class="code">U+005A - Caractere base</div>
+                        </div>
+                    </div>
+                    <div class="character-part">
+                        <div class="char">&#785;</div>
+                        <div class="info">
+                            <div class="name">Combining Inverted Breve</div>
+                            <div class="code">U+0311 - Diacrítico invertido</div>
+                        </div>
+                    </div>
+                    <div class="character-part">
+                        <div class="char">&#830;</div>
+                        <div class="info">
+                            <div class="name">Combining Right Half Ring Below</div>
+                            <div class="code">U+033E - Anel inferior direito</div>
+                        </div>
+                    </div>
+                    <div class="character-part">
+                        <div class="char">&#843;</div>
+                        <div class="info">
+                            <div class="name">Combining Double Vertical Line Below</div>
+                            <div class="code">U+034B - Linhas verticais duplas</div>
+                        </div>
+                    </div>
+                    <div class="character-part">
+                        <div class="char">&#787;</div>
+                        <div class="info">
+                            <div class="name">Combining Comma Above</div>
+                            <div class="code">U+0313 - Vírgula superior</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stack-container">
+                    <h3><i class="fas fa-magic"></i> Exemplos de Uso</h3>
+                    
+                    <div class="stack-segment">
+                        <h4>Texto Corrompido</h4>
+                        <div class="stack-display">H&#785;&#830;&#843;&#787;e&#785;&#830;&#843;&#787;l&#785;&#830;&#843;&#787;l&#785;&#830;&#843;&#787;o&#785;&#830;&#843;&#787; &#785;&#830;&#843;&#787;W&#785;&#830;&#843;&#787;o&#785;&#830;&#843;&#787;r&#785;&#830;&#843;&#787;l&#785;&#830;&#843;&#787;d&#785;&#830;&#843;&#787;!&#785;&#830;&#843;&#787;</div>
+                    </div>
+                    
+                    <div class="stack-segment">
+                        <h4>Nomes com Glitch</h4>
+                        <div class="stack-display">S&#785;&#830;&#843;&#787;y&#785;&#830;&#843;&#787;s&#785;&#830;&#843;&#787;t&#785;&#830;&#843;&#787;e&#785;&#830;&#843;&#787;m&#785;&#830;&#843;&#787; &#785;&#830;&#843;&#787;E&#785;&#830;&#843;&#787;r&#785;&#830;&#843;&#787;r&#785;&#830;&#843;&#787;o&#785;&#830;&#843;&#787;r&#785;&#830;&#843;&#787;</div>
+                    </div>
+                    
+                    <div class="stack-segment">
+                        <h4>Efeito Digital</h4>
+                        <div class="stack-display">M&#785;&#830;&#843;&#787;A&#785;&#830;&#843;&#787;T&#785;&#830;&#843;&#787;R&#785;&#830;&#843;&#787;I&#785;&#830;&#843;&#787;X&#785;&#830;&#843;&#787; &#785;&#830;&#843;&#787;L&#785;&#830;&#843;&#787;O&#785;&#830;&#843;&#787;A&#785;&#830;&#843;&#787;D&#785;&#830;&#843;&#787;I&#785;&#830;&#843;&#787;N&#785;&#830;&#843;&#787;G&#785;&#830;&#843;&#787;</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Glitch Z copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyComponents() {
+            const components = 'Z\u0311\u033E\u034B\u0313';
+            navigator.clipboard.writeText(components).then(() => {
+                showToast('Componentes copiados!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar componentes', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Glitch Z',
+                text: 'Confira este efeito glitch com combining marks: Z\u0311\u033E\u034B\u0313',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Double Arrow Right</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #4a90e2, #7b68ee, #9b59b6);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 2s ease-in-out infinite;
+        }
+        
+        @keyframes slideIn {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .arrow-variations {
+            background: linear-gradient(135deg, #4a90e2, #7b68ee, #9b59b6);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .arrow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .arrow-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .arrow-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .arrow-item .char {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .arrow-item .name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .arrow-item .code {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            font-family: monospace;
+        }
+        
+        .direction-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .direction-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .direction-example .arrow {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .direction-example .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .flow-examples {
+            background: linear-gradient(135deg, #4a90e2, #7b68ee, #9b59b6);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .flow-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .flow-example .step {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .flow-example .arrow {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char">⇒</div>
+                    <div class="label">Double Arrow Right</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Double Arrow Right</h1>
+                    <p class="unicode-code">U+21D2</p>
+                    <p class="character-description">Uma seta dupla apontando para a direita, usada para indicar progressão, consequência lógica, implicação ou movimento para frente. É amplamente utilizada em matemática, lógica, interfaces de usuário e documentação técnica.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Informações Técnicas</h3>
+                        <table>
+                            <tr><td>Nome Unicode</td><td>RIGHTWARDS DOUBLE ARROW</td></tr>
+                            <tr><td>Categoria</td><td>Mathematical Symbols, So</td></tr>
+                            <tr><td>Bidirecional</td><td>ON (Other Neutrals)</td></tr>
+                            <tr><td>Combinação</td><td>Não</td></tr>
+                            <tr><td>Mirror</td><td>Não</td></tr>
+                            <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-arrow-right"></i> Propriedades de Direção</h3>
+                        <table>
+                            <tr><td>Direção</td><td>Direita</td></tr>
+                            <tr><td>Tipo</td><td>Seta dupla</td></tr>
+                            <tr><td>Uso Principal</td><td>Implicação lógica</td></tr>
+                            <tr><td>Renderização</td><td>Universalmente consistente</td></tr>
+                            <tr><td>Popularidade</td><td>Alta</td></tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="arrow-variations">
+                    <h3><i class="fas fa-arrows-alt"></i> Variações de Setas Duplas</h3>
+                    
+                    <div class="arrow-grid">
+                        <div class="arrow-item">
+                            <div class="char">⇒</div>
+                            <div class="name">Right Double Arrow</div>
+                            <div class="code">U+21D2</div>
+                        </div>
+                        <div class="arrow-item">
+                            <div class="char">⇐</div>
+                            <div class="name">Left Double Arrow</div>
+                            <div class="code">U+21D0</div>
+                        </div>
+                        <div class="arrow-item">
+                            <div class="char">⇑</div>
+                            <div class="name">Up Double Arrow</div>
+                            <div class="code">U+21D1</div>
+                        </div>
+                        <div class="arrow-item">
+                            <div class="char">⇓</div>
+                            <div class="name">Down Double Arrow</div>
+                            <div class="code">U+21D3</div>
+                        </div>
+                        <div class="arrow-item">
+                            <div class="char">⇔</div>
+                            <div class="name">Left Right Double Arrow</div>
+                            <div class="code">U+21D4</div>
+                        </div>
+                        <div class="arrow-item">
+                            <div class="char">⇕</div>
+                            <div class="name">Up Down Double Arrow</div>
+                            <div class="code">U+21D5</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-examples">
+                    <h3><i class="fas fa-sitemap"></i> Exemplos de Fluxo</h3>
+                    
+                    <div class="flow-example">
+                        <div class="step">Input</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Process</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Output</div>
+                    </div>
+                    
+                    <div class="flow-example">
+                        <div class="step">Causa</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Efeito</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Consequência</div>
+                    </div>
+                    
+                    <div class="flow-example">
+                        <div class="step">Problema</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Análise</div>
+                        <div class="arrow">⇒</div>
+                        <div class="step">Solução</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Cópias para Programação</h3>
+                    
+                    <div class="usage-example">
+                        <strong>HTML:</strong> &amp;#8658; ou &amp;#x21D2;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>JavaScript:</strong> '\u21d2'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Python:</strong> '\u21d2'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>URL Encode:</strong> %E2%87%92
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>UTF-8:</strong> E2 87 92
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Principais</h3>
+                    
+                    <div class="info-card">
+                        <h4>1. Lógica e Matemática</h4>
+                        <p>Usado para representar implicação lógica (A ⇒ B significa "se A então B").</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>2. Interfaces de Usuário</h4>
+                        <p>Indica navegação para frente, próximo passo ou progressão em wizards e formulários.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>3. Documentação Técnica</h4>
+                        <p>Mostra fluxo de processos, transformações de dados e sequências de operações.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>4. Diagramas e Fluxogramas</h4>
+                        <p>Representa movimento direcional e transições entre estados ou processos.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-keyboard"></i> Exemplos de Uso</h3>
+                    
+                    <div class="usage-example">
+                        <strong>Lógica:</strong> P ⇒ Q (Se P então Q)
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Interface:</strong> Continuar ⇒ Próxima etapa
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Processo:</strong> Dados ⇒ Processamento ⇒ Resultados
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Navegação:</strong> Home ⇒ Produtos ⇒ Checkout
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Causa-Efeito:</strong> Ação ⇒ Reação
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-exchange-alt"></i> Contextos Específicos</h3>
+                    
+                    <div class="info-card">
+                        <h4>Programação</h4>
+                        <p>Usado em documentação de APIs para mostrar fluxo de dados e transformações.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Educação</h4>
+                        <p>Empregado em material didático para explicar conceitos de causa e efeito.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Business</h4>
+                        <p>Utilizado em apresentações para mostrar processos de negócio e tomada de decisão.</p>
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('⇒')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+21D2')">
+                        <i class="fas fa-code"></i> Copiar Código
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Double Arrow Right copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Double Arrow Right (U+21D2)',
+                text: 'Confira esta seta de implicação lógica: Double Arrow Right ⇒',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

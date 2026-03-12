@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Punctuation Space</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 4rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            pointer-events: none;
+        }
+        
+        .character-display .char {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .character-display .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+        
+        .space-indicator {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .space-comparison {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .space-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: monospace;
+        }
+        
+        .space-example .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .space-example .visual {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .visual-indicator {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            font-size: 0.8rem;
+            margin: 0 0.2rem;
+        }
+        
+        .character-details {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .info-tab {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .info-tab:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .info-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .info-panels {
+            margin-top: 1rem;
+        }
+        
+        .info-panel {
+            display: none;
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+        
+        .info-panel.active {
+            display: block;
+        }
+        
+        .unicode-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .unicode-table td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .unicode-table td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .encoding-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .encoding-table th {
+            background: var(--bg-tertiary);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .encoding-table td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .code-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .code-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+        
+        .code-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: var(--text-secondary);
+        }
+        
+        .code-pill {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char"> <span class="space-indicator">ESPAÇO DE PONTUAÇÃO</span></div>
+                    <div class="label">Punctuation Space</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Punctuation Space</h1>
+                    <p class="unicode-code">U+2008</p>
+                    <p class="character-description">Um espaço com largura igual à dos caracteres de pontuação em fontes monoespaçadas. É usado para criar espaçamento consistente entre palavras e pontuação, garantindo alinhamento visual harmonioso em textos técnicos e editoriais.</p>
+                </div>
+                
+                <div class="character-details">
+                    <div class="detail-section">
+                        <div class="info-tabs" role="tablist">
+                            <button class="info-tab active" data-tab="info">Informações Técnicas</button>
+                            <button class="info-tab" data-tab="props">Propriedades</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para Copiar e Colar</button>
+                        </div>
+                        <div class="info-panels">
+                            <div class="info-panel active" data-panel="info">
+                                <table class="unicode-table">
+                                    <tr><td>Nome no Unicode</td><td>Punctuation Space</td></tr>
+                                    <tr><td>Número no Unicode</td><td>U+2008</td></tr>
+                                    <tr><td>Plano</td><td>0: Plano Multilíngue Básico</td></tr>
+                                    <tr><td>Bloco Unicode</td><td>General Punctuation</td></tr>
+                                    <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="props">
+                                <table class="unicode-table">
+                                    <tr><td>Categoria</td><td>Separator, Space</td></tr>
+                                    <tr><td>Script</td><td>Common</td></tr>
+                                    <tr><td>Tipo de suporte de espelho emparelhado (bidi)</td><td>WS</td></tr>
+                                    <tr><td>Espelhado</td><td>Não</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="encoding">
+                                <table class="encoding-table">
+                                    <thead>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-8</td>
+                                            <td data-label="hex">E2 80 88</td>
+                                            <td data-label="dec (bytes)">226 128 136</td>
+                                            <td data-label="dec">8200</td>
+                                            <td data-label="binary">11100010 10000000 10001000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16BE</td>
+                                            <td data-label="hex">20 08</td>
+                                            <td data-label="dec (bytes)">32 8</td>
+                                            <td data-label="dec">8200</td>
+                                            <td data-label="binary">00100000 00001000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16LE</td>
+                                            <td data-label="hex">08 20</td>
+                                            <td data-label="dec (bytes)">8 32</td>
+                                            <td data-label="dec">8200</td>
+                                            <td data-label="binary">00001000 00100000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32BE</td>
+                                            <td data-label="hex">00 00 20 08</td>
+                                            <td data-label="dec (bytes)">0 0 32 8</td>
+                                            <td data-label="dec">8200</td>
+                                            <td data-label="binary">00000000 00000000 00100000 00001000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32LE</td>
+                                            <td data-label="hex">08 20 00 00</td>
+                                            <td data-label="dec (bytes)">8 32 0 0</td>
+                                            <td data-label="dec">8200</td>
+                                            <td data-label="binary">00001000 00100000 00000000 00000000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="codes">
+                                <p>Copie e cole esses códigos para usar o caractere Punctuation Space em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+                                <div class="code-list">
+                                    <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">&#8200;</span></div>
+                                    <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">\2008</span></div>
+                                    <div class="code-row"><span class="code-label">JavaScript, JSON</span><span class="code-pill">\u2008</span></div>
+                                    <div class="code-row"><span class="code-label">Unix, C, PHP, JAVA</span><span class="code-pill">0x2008</span></div>
+                                    <div class="code-row"><span class="code-label">Ruby, PHP</span><span class="code-pill">\u{2008}</span></div>
+                                    <div class="code-row"><span class="code-label">Perl</span><span class="code-pill">\x{2008}</span></div>
+                                    <div class="code-row"><span class="code-label">URL-encode</span><span class="code-pill">%E2%80%88</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-comparison">
+                    <h3><i class="fas fa-balance-scale"></i> Comparação de Espaços</h3>
+                    
+                    <div class="space-example">
+                        <div class="label">Punctuation Space (U+2008)</div>
+                        <div class="visual">Palavra ,<span class="visual-indicator">ALINHADO</span> ponto</div>
+                    </div>
+                    
+                    <div class="space-example">
+                        <div class="label">Espaço Regular</div>
+                        <div class="visual">Palavra, <span class="visual-indicator">NORMAL</span> ponto</div>
+                    </div>
+                    
+                    <div class="space-example">
+                        <div class="label">Thin Space (U+2009)</div>
+                        <div class="visual">Palavra, <span class="visual-indicator">FINO</span> ponto</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Cópias para Programação</h3>
+                    
+                    <div class="usage-example">
+                        <strong>HTML:</strong> &amp;#8200; ou &amp;#x2008;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>JavaScript:</strong> '\u2008'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Python:</strong> '\u2008'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>URL Encode:</strong> %E2%80%88
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>UTF-8:</strong> E2 80 88
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Práticas</h3>
+                    
+                    <div class="info-card">
+                        <h4>1. Tipografia Profissional</h4>
+                        <p>Usado por tipógrafos para criar espaçamento consistente entre palavras e pontuação em layouts editoriais.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>2. Textos Técnicos</h4>
+                        <p>Empregado em documentação técnica e científica para alinhamento preciso de fórmulas e equações.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>3. Design Editorial</h4>
+                        <p>Utilizado em jornais e revistas para espaçamento consistente entre texto e pontuação.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>4. Formatação de Código</h4>
+                        <p>Aplicado em formatação de código fonte para alinhamento visual de comentários e pontuação.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-text-width"></i> Exemplos de Uso</h3>
+                    
+                    <div class="usage-example">
+                        <strong>Frases:</strong> Olá mundo!
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Citações:</strong> "Texto citado"
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Abreviações:</strong> etc. ;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Referências:</strong> [1] p. 25
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Listas:</strong> Item a) ;
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter(' ')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+2008')">
+                        <i class="fas fa-code"></i> Copiar Código
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Punctuation Space copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Punctuation Space (U+2008)',
+                text: 'Confira este espaço para pontuação: Punctuation Space',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Tab functionality
+        document.querySelectorAll('.info-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetPanel = tab.getAttribute('data-tab');
+                const allTabs = tab.parentElement.querySelectorAll('.info-tab');
+                const allPanels = tab.closest('.detail-section').querySelectorAll('.info-panel');
+                
+                allTabs.forEach(t => t.classList.remove('active'));
+                allPanels.forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.querySelector(`[ data-panel="${targetPanel}"]`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Broken Bar</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .separator-comparison {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .separator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .separator-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .separator-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .separator-item .char {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .separator-item .name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .separator-item .code {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            font-family: monospace;
+        }
+        
+        .context-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .context-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+        }
+        
+        .context-example h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .context-example .example {
+            font-family: monospace;
+            background: var(--bg-tertiary);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin: 0.5rem 0;
+        }
+        
+        .history-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .history-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+        }
+        
+        .history-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .history-content p {
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char">¦</div>
+                    <div class="label">Broken Bar</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Broken Bar</h1>
+                    <p class="unicode-code">U+00A6</p>
+                    <p class="character-description">Uma barra vertical com uma pequena interrupção no centro, criando um visual de linha "quebrada". Usada historicamente como separador em textos e documentos, e em alguns contextos como alternativa à barra vertical regular.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Informações Técnicas</h3>
+                        <table>
+                            <tr><td>Nome Unicode</td><td>BROKEN BAR</td></tr>
+                            <tr><td>Categoria</td><td>Latin-1 Supplement, So</td></tr>
+                            <tr><td>Bidirecional</td><td>ON (Other Neutrals)</td></tr>
+                            <tr><td>Combinação</td><td>Não</td></tr>
+                            <tr><td>Mirror</td><td>Não</td></tr>
+                            <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-grip-lines-vertical"></i> Propriedades Visuais</h3>
+                        <table>
+                            <tr><td>Estilo</td><td>Vertical com interrupção</td></tr>
+                            <tr><td>Altura</td><td>Similar a barra vertical</td></tr>
+                            <tr><td>Uso Principal</td><td>Separador visual</td></tr>
+                            <tr><td>Renderização</td><td>Consistente</td></tr>
+                            <tr><td>Popularidade</td><td>Média</td></tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="separator-comparison">
+                    <h3><i class="fas fa-columns"></i> Comparação de Separadores Verticais</h3>
+                    
+                    <div class="separator-grid">
+                        <div class="separator-item">
+                            <div class="char">|</div>
+                            <div class="name">Vertical Bar</div>
+                            <div class="code">U+007C</div>
+                        </div>
+                        <div class="separator-item">
+                            <div class="char">¦</div>
+                            <div class="name">Broken Bar</div>
+                            <div class="code">U+00A6</div>
+                        </div>
+                        <div class="separator-item">
+                            <div class="char">‖</div>
+                            <div class="name">Double Vertical</div>
+                            <div class="code">U+2016</div>
+                        </div>
+                        <div class="separator-item">
+                            <div class="char">⋮</div>
+                            <div class="name">Vertical Ellipsis</div>
+                            <div class="code">U+22EE</div>
+                        </div>
+                        <div class="separator-item">
+                            <div class="char">⋯</div>
+                            <div class="name">Triple Dots</div>
+                            <div class="code">U+22EF</div>
+                        </div>
+                        <div class="separator-item">
+                            <div class="char">⁂</div>
+                            <div class="name">Asterism</div>
+                            <div class="code">U+2042</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Cópias para Programação</h3>
+                    
+                    <div class="usage-example">
+                        <strong>HTML:</strong> &amp;#166; ou &amp;#x00A6;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>JavaScript:</strong> '\u00a6'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Python:</strong> '\u00a6'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>URL Encode:</strong> %C2%A6
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>UTF-8:</strong> C2 A6
+                    </div>
+                </div>
+                
+                <div class="context-examples">
+                    <h3><i class="fas fa-text-width"></i> Contextos de Uso</h3>
+                    
+                    <div class="context-example">
+                        <h4>Documentação Formal</h4>
+                        <div class="example">Seção 1 ¦ Subseção A ¦ Parágrafo 3</div>
+                        <p>Usado para separar seções em documentos formais e técnicos.</p>
+                    </div>
+                    
+                    <div class="context-example">
+                        <h4>Listas e Enumerações</h4>
+                        <div class="example">Item A ¦ Item B ¦ Item C</div>
+                        <p>Alternativa visualmente distinta à barra vertical regular.</p>
+                    </div>
+                    
+                    <div class="context-example">
+                        <h4>Design Tipográfico</h4>
+                        <div class="example">Título ¦ Subtítulo ¦ Autor</div>
+                        <p>Usado em design editorial para criar separação visual elegante.</p>
+                    </div>
+                    
+                    <div class="context-example">
+                        <h4>Programação</h4>
+                        <div class="example">Opção1 ¦ Opção2 ¦ Opção3</div>
+                        <p>Usado em interfaces para separar opções de forma visual clara.</p>
+                    </div>
+                </div>
+                
+                <div class="history-section">
+                    <h3><i class="fas fa-history"></i> Contexto Histórico</h3>
+                    
+                    <div class="history-content">
+                        <h4>Origem em ISO 8859-1</h4>
+                        <p>O Broken Bar foi incluído no padrão ISO 8859-1 (Latin-1) e posteriormente no Unicode. Originalmente criado como um caractere separador visual distinto da barra vertical regular.</p>
+                    </div>
+                    
+                    <div class="history-content">
+                        <h4>Uso em Sistemas Legados</h4>
+                        <p>Em alguns sistemas mais antigos, especialmente em terminais e impressoras de matriz de pontos, o Broken Bar era usado para representar a barra vertical quando o caractere padrão não estava disponível.</p>
+                    </div>
+                    
+                    <div class="history-content">
+                        <h4>Confusão Histórica</h4>
+                        <p>Existiu alguma confusão histórica entre o Broken Bar (¦) e a barra vertical (|) em certos sistemas de codificação, mas no Unicode eles são caracteres distintos com propósitos diferentes.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Modernas</h3>
+                    
+                    <div class="info-card">
+                        <h4>1. Design Editorial</h4>
+                        <p>Usado em jornais, revistas e livros para separar elementos de forma elegante.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>2. Interfaces de Usuário</h4>
+                        <p>Empregado em menus e listas para criar separação visual distinta.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>3. Documentação Técnica</h4>
+                        <p>Usado em manuais e especificações para separar seções e categorias.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>4. Design Gráfico</h4>
+                        <p>Utilizado em materiais de design para adicionar estilo e separação visual.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-exchange-alt"></i> Alternativas e Substitutos</h3>
+                    
+                    <div class="info-card">
+                        <h4>Vertical Bar (|)</h4>
+                        <p>Alternativa mais comum e universalmente suportada.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Double Vertical (‖)</h4>
+                        <p>Para quando se deseja maior ênfase na separação.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Travessão (—)</h4>
+                        <p>Alternativa horizontal para separação de elementos.</p>
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('¦')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+00A6')">
+                        <i class="fas fa-code"></i> Copiar Código
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Broken Bar copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Broken Bar (U+00A6)',
+                text: 'Confira este separador visual elegante: Broken Bar ¦',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

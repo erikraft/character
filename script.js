@@ -41,6 +41,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.character-card, .feature-card, .contact-card').forEach(el => {
         observer.observe(el);
     });
+
+    // Tabs de informa????es t??cnicas
+    document.querySelectorAll('.info-tabs').forEach(tabList => {
+        const tabs = tabList.querySelectorAll('.info-tab');
+        const panels = tabList.parentElement.querySelectorAll('.info-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                panels.forEach(panel => {
+                    panel.classList.toggle('active', panel.getAttribute('data-panel') === target);
+                });
+            });
+        });
+    });
 });
 
 // Função para copiar caracteres
@@ -123,7 +141,7 @@ function openCharacter(unicodeCode) {
 
 // Função para abrir lista completa de caracteres
 function openCharacterList() {
-    window.location.href = 'character-list.html';
+    window.location.href = './character/explore.html';
 }
 
 // Função para compartilhar caractere
@@ -148,56 +166,16 @@ function shareCharacter(character, unicodeCode) {
 
 // Função para pesquisar caracteres
 function performSearch() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    const searchTerm = document.getElementById('searchInput').value.trim();
     
     if (!searchTerm) {
-        // If search is empty, show all characters
-        document.querySelectorAll('.character-card').forEach(card => {
-            card.style.display = 'block';
-        });
+        showToast('Digite algo para pesquisar', 'error');
         return;
     }
-    
-    const characters = [
-        { name: 'vertical line', code: 'U+007C', char: '｜', page: 'character/U+007C.html' },
-        { name: 'hangul filler', code: 'U+1160', char: 'ㅤ', page: 'character/U+1160.html' },
-        { name: 'thai character tho thong', code: 'U+0E18', char: 'ธ', page: 'character/U+0E18.html' },
-        { name: 'thai character sara i', code: 'U+0E34', char: 'ิ', page: '#' },
-        { name: 'thai character thanthakhat', code: 'U+0E2C', char: '์', page: '#' },
-        { name: 'super stack', code: 'stacked', char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์', page: 'character/Super-Stack-Character.html' }
-    ];
-    
-    const results = characters.filter(char => 
-        char.name.includes(searchTerm) || 
-        char.code.toLowerCase().includes(searchTerm) ||
-        char.char.includes(searchTerm)
-    );
-    
-    if (results.length === 0) {
-        showToast('Nenhum caractere encontrado', 'error');
-        return;
-    }
-    
-    if (results.length === 1) {
-        // Direct navigation if only one result
-        window.location.href = results[0].page;
-    } else {
-        // Show multiple results or navigate to characters section
-        document.getElementById('characters').scrollIntoView({ behavior: 'smooth' });
-        
-        // Highlight matching cards
-        document.querySelectorAll('.character-card').forEach(card => {
-            const cardText = card.textContent.toLowerCase();
-            const matches = results.some(char => cardText.includes(char.char) || cardText.includes(char.code));
-            card.style.display = matches ? 'block' : 'none';
-            if (matches) {
-                card.classList.add('search-highlight');
-            } else {
-                card.classList.remove('search-highlight');
-            }
-        });
-    }
+
+    window.location.href = `./search/?q=${encodeURIComponent(searchTerm)}`;
 }
+
 
 // Handle Enter key in search input
 document.addEventListener('DOMContentLoaded', function() {

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Command Key</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #333333, #666666, #999999);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+            to { box-shadow: 0 0 30px rgba(255,255,255,0.3); }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .platform-examples {
+            background: linear-gradient(135deg, #333333, #666666, #999999);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .platform-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .platform-example h4 {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .platform-example .shortcuts {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin: 0.5rem 0;
+        }
+        
+        .platform-example .description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .keyboard-layout {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .keyboard-visual {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .key {
+            display: inline-block;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            font-family: monospace;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .key.command {
+            background: #333;
+            color: white;
+            border-color: #000;
+        }
+        
+        .key.modifier {
+            background: #e0e0e0;
+        }
+        
+        .key-letter {
+            background: #f8f8f8;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char">⌘</div>
+                    <div class="label">Command Key</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Command Key</h1>
+                    <p class="unicode-code">U+2318</p>
+                    <p class="character-description">O símbolo universal da tecla Command (ou Cmd) encontrada em teclados Apple Macintosh. Representa uma das teclas modificadoras mais importantes no ecossistema Apple, usada para atalhos de teclado e comandos do sistema.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Informações Técnicas</h3>
+                        <table>
+                            <tr><td>Nome Unicode</td><td>PLACE OF INTEREST SIGN</td></tr>
+                            <tr><td>Categoria</td><td>Symbol, Other, So</td></tr>
+                            <tr><td>Bidirecional</td><td>ON (Other Neutrals)</td></tr>
+                            <tr><td>Combinação</td><td>Não</td></tr>
+                            <tr><td>Mirror</td><td>Não</td></tr>
+                            <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-keyboard"></i> Propriedades do Sistema</h3>
+                        <table>
+                            <tr><td>Plataforma</td><td>Apple macOS</td></tr>
+                            <tr><td>Função</td><td>Tecla Modificadora</td></tr>
+                            <tr><td>Posição</td><td>Lado esquerdo e direito do teclado</td></tr>
+                            <tr><td>Equivalente Windows</td><td>Ctrl (em muitos casos)</td></tr>
+                            <tr><td>Renderização</td><td>Universalmente reconhecido</td></tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div classkeyboard-layout>
+                    <h3><i class="fas fa-desktop"></i> Layout do Teclado</h3>
+                    
+                    <div class="keyboard-visual">
+                        <div style="margin-bottom: 1rem;">
+                            <span class="key command">⌘</span>
+                            <span class="key modifier">⌥ Option</span>
+                            <span class="key modifier">⌃ Control</span>
+                            <span class="key modifier">⇧ Shift</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                            Teclado Mac padrão mostrando as teclas modificadoras
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platform-examples">
+                    <h3><i class="fas fa-laptop"></i> Atalhos Comuns no macOS</h3>
+                    
+                    <div class="platform-example">
+                        <h4>Atalhos de Sistema</h4>
+                        <div class="shortcuts">⌘ + C = Copiar</div>
+                        <div class="shortcuts">⌘ + V = Colar</div>
+                        <div class="shortcuts">⌘ + X = Recortar</div>
+                        <div class="shortcuts">⌘ + Z = Desfazer</div>
+                        <div class="shortcuts">⌘ + S = Salvar</div>
+                        <div class="description">Atalhos universais disponíveis em quase todos os aplicativos</div>
+                    </div>
+                    
+                    <div class="platform-example">
+                        <h4>Atalhos de Aplicativos</h4>
+                        <div class="shortcuts">⌘ + Q = Sair do aplicativo</div>
+                        <div class="shortcuts">⌘ + W = Fechar janela</div>
+                        <div class="shortcuts">⌘ + N = Novo documento/janela</div>
+                        <div class="shortcuts">⌘ + , = Preferências</div>
+                        <div class="description">Comandos específicos de aplicativos e sistema</div>
+                    </div>
+                    
+                    <div class="platform-example">
+                        <h4>Atalhos Avançados</h4>
+                        <div class="shortcuts">⌘ + ⌥ + ESC = Forçar sair</div>
+                        <div class="shortcuts">⌘ + Tab = Alternar aplicativos</div>
+                        <div class="shortcuts">⌘ + Espaço = Spotlight</div>
+                        <div class="shortcuts">⌘ + Shift + 3 = Screenshot</div>
+                        <div class="description">Funções avançadas do sistema operacional</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Cópias para Programação</h3>
+                    
+                    <div class="usage-example">
+                        <strong>HTML:</strong> &amp;#8984; ou &amp;#x2318;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>JavaScript:</strong> '\u2318'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Python:</strong> '\u2318'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>URL Encode:</strong> %E2%8C%98
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>UTF-8:</strong> E2 8C 98
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-history"></i> História do Símbolo</h3>
+                    
+                    <div class="info-card">
+                        <h4>Origem do Design</h4>
+                        <p>Criado por Susan Kare em 1983 para o Apple Lisa. O design foi inspirado num símbolo de atração turística visto em um dicionário de símbolos.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Evolução</h4>
+                        <p>O símbolo permaneceu consistente através de todas as gerações de computadores Apple, tornando-se um dos ícones mais reconhecíveis da tecnologia.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Significado Cultural</h4>
+                        <p>Além de sua função técnica, tornou-se um símbolo cultural do design Apple e da computação intuitiva.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-globe"></i> Uso em Documentação</h3>
+                    
+                    <div class="info-card">
+                        <h4>Manuais e Tutoriais</h4>
+                        <p>Amplamente usado em documentação de software para indicar atalhos de teclado específicos do macOS.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Interface de Usuário</h4>
+                        <p>Aparece em menus de aplicativos para mostrar atalhos de teclado disponíveis.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Design Gráfico</h4>
+                        <p>Usado em materiais de design relacionados à tecnologia Apple e computação em geral.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-exchange-alt"></i> Equivalentes em Outros Sistemas</h3>
+                    
+                    <div class="info-card">
+                        <h4>Windows/Linux</h4>
+                        <p>A tecla Ctrl geralmente serve como equivalente, mas nem sempre com a mesma funcionalidade.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>ChromeOS</h4>
+                        <p>Usa uma combinação de Ctrl + Alt para muitas funções equivalentes ao Command.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Aplicações Cross-Platform</h4>
+                        <p>Desenvolvedores precisam implementar suporte para ambos os sistemas (Ctrl/Cmd).</p>
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('⌘')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+2318')">
+                        <i class="fas fa-code"></i> Copiar Código
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Command Key copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Command Key (U+2318)',
+                text: 'Confira o símbolo da tecla Command do macOS: ⌘',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

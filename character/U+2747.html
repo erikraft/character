@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Sparkle</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #ff6ec7, #ffc858, #ff6b9d);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+            25% { 
+                transform: scale(1.1) rotate(5deg);
+                filter: brightness(1.2);
+            }
+            50% { 
+                transform: scale(1.05) rotate(-3deg);
+                filter: brightness(1.1);
+            }
+            75% { 
+                transform: scale(1.08) rotate(2deg);
+                filter: brightness(1.15);
+            }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .sparkle-variations {
+            background: linear-gradient(135deg, #ff6ec7, #ffc858, #ff6b9d);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .sparkle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .sparkle-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sparkle-item:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sparkle-item .char {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.95); }
+        }
+        
+        .sparkle-item .name {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .sparkle-item .code {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            font-family: monospace;
+        }
+        
+        .context-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .context-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .context-example .sparkle-text {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .context-example .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .design-examples {
+            background: linear-gradient(135deg, #ff6ec7, #ffc858, #ff6b9d);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .design-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .design-example h4 {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .design-example .example {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char">❇</div>
+                    <div class="label">Sparkle</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Sparkle</h1>
+                    <p class="unicode-code">U+2747</p>
+                    <p class="character-description">Um símbolo decorativo que representa brilho, cintilação ou faísca. Usado ampliamente em design para adicionar um toque de magia, elegância ou destaque visual a textos e elementos gráficos.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Informações Técnicas</h3>
+                        <table>
+                            <tr><td>Nome Unicode</td><td>SPARKLE</td></tr>
+                            <tr><td>Categoria</td><td>Dingbats, So</td></tr>
+                            <tr><td>Bidirecional</td><td>ON (Other Neutrals)</td></tr>
+                            <tr><td>Combinação</td><td>Não</td></tr>
+                            <tr><td>Mirror</td><td>Não</td></tr>
+                            <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-star"></i> Propriedades Visuais</h3>
+                        <table>
+                            <tr><td>Estilo</td><td>Decorativo / Brilhante</td></tr>
+                            <tr><td>Elementos</td><td>Pontos brilhantes</td></tr>
+                            <tr><td>Uso Principal</td><td>Destaque e magia</td></tr>
+                            <tr><td>Renderização</td><td>Consistente</td></tr>
+                            <tr><td>Popularidade</td><td>Média-Alta</td></tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="sparkle-variations">
+                    <h3><i class="fas fa-sparkles"></i> Variações de Brilho</h3>
+                    
+                    <div class="sparkle-grid">
+                        <div class="sparkle-item">
+                            <div class="char">❇</div>
+                            <div class="name">Sparkle</div>
+                            <div class="code">U+2747</div>
+                        </div>
+                        <div class="sparkle-item">
+                            <div class="char">✨</div>
+                            <div class="name">Sparkles</div>
+                            <div class="code">U+2728</div>
+                        </div>
+                        <div class="sparkle-item">
+                            <div class="char">✦</div>
+                            <div class="name">Black Diamond</div>
+                            <div class="code">U+2726</div>
+                        </div>
+                        <div class="sparkle-item">
+                            <div class="char">✧</div>
+                            <div class="name">White Diamond</div>
+                            <div class="code">U+2727</div>
+                        </div>
+                        <div class="sparkle-item">
+                            <div class="char">✩</div>
+                            <div class="name">Stressed Star</div>
+                            <div class="code">U+2729</div>
+                        </div>
+                        <div class="sparkle-item">
+                            <div class="char">✪</div>
+                            <div class="name">Circled Star</div>
+                            <div class="code">U+272A</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="context-examples">
+                    <h3><i class="fas fa-magic"></i> Exemplos de Uso</h3>
+                    
+                    <div class="context-example">
+                        <div class="sparkle-text">Novo ❇ Recurso</div>
+                        <div class="description">Destacando novidades e atualizações</div>
+                    </div>
+                    
+                    <div class="context-example">
+                        <div class="sparkle-text">Premium ❇ Membro</div>
+                        <div class="description">Indicando status especial ou VIP</div>
+                    </div>
+                    
+                    <div class="context-example">
+                        <div class="sparkle-text">Mágico ❇ Momento</div>
+                        <div class="description">Adicionando toque de magia e fantasia</div>
+                    </div>
+                    
+                    <div class="context-example">
+                        <div class="sparkle-text">Especial ❇ Oferta</div>
+                        <div class="description">Marcando promoções e ofertas especiais</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Cópias para Programação</h3>
+                    
+                    <div class="usage-example">
+                        <strong>HTML:</strong> &amp;#10055; ou &amp;#x2747;
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>JavaScript:</strong> '\u2747'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Python:</strong> '\u2747'
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>URL Encode:</strong> %E2%9D%87
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>UTF-8:</strong> E2 9D 87
+                    </div>
+                </div>
+                
+                <div class="design-examples">
+                    <h3><i class="fas fa-palette"></i> Aplicações de Design</h3>
+                    
+                    <div class="design-example">
+                        <h4>Interface de Usuário</h4>
+                        <div class="example">Botão ❇ Ação Especial</div>
+                        <p>Usado em botões e elementos interativos para indicar funcionalidades especiais</p>
+                    </div>
+                    
+                    <div class="design-example">
+                        <h4>Marketing e Publicidade</h4>
+                        <div class="example">Oferta ❇ Limitada</div>
+                        <p>Empregado em materiais de marketing para criar destaque visual</p>
+                    </div>
+                    
+                    <div class="design-example">
+                        <h4>Gamificação</h4>
+                        <div class="example">Conquista ❇ Desbloqueada</div>
+                        <p>Utilizado em sistemas de gamificação para indicar recompensas e conquistas</p>
+                    </div>
+                    
+                    <div class="design-example">
+                        <h4>Redes Sociais</h4>
+                        <div class="example">Post ❇ Viral</div>
+                        <p>Aplicado em conteúdo de redes sociais para chamar atenção</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Contextos de Uso</h3>
+                    
+                    <div class="info-card">
+                        <h4>1. E-commerce</h4>
+                        <p>Destacar produtos premium, ofertas especiais e novos lançamentos.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>2. Aplicativos</h4>
+                        <p>Indicar recursos premium, funcionalidades especiais e elementos de destaque.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>3. Conteúdo Digital</h4>
+                        <p>Usado em blogs, artigos e mídias sociais para adicionar apelo visual.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>4. Branding</h4>
+                        <p>Empregado em identidade visual para criar uma imagem de qualidade e magia.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-keyboard"></i> Exemplos Práticos</h3>
+                    
+                    <div class="usage-example">
+                        <strong>Status:</strong> Usuário ❇ VIP
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Notificação:</strong> Mensagem ❇ Nova
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Destaque:</strong> Conteúdo ❇ Exclusivo
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Botão:</strong> Comprar ❇ Agora
+                    </div>
+                    
+                    <div class="usage-example">
+                        <strong>Badge:</strong> Nível ❇ Mestre
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('❇')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+2747')">
+                        <i class="fas fa-code"></i> Copiar Código
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Sparkle copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Código Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Sparkle (U+2747)',
+                text: 'Confira este símbolo de brilho: Sparkle ❇',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Pesquisa</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .search-page {
+            padding: 8rem 1rem 4rem;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+        }
+
+        .search-header {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-header p {
+            color: var(--text-secondary);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 220px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+        }
+
+        .search-results {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .character-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .character-list-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .character-list-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .character-list-display {
+            font-size: 2.25rem;
+            margin-bottom: 0.75rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            line-height: 1;
+        }
+
+        .character-list-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .character-list-info p {
+            color: var(--text-secondary);
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .no-results {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="../index.html#home" class="nav-link">InÃ­cio</a></li>
+                    <li class="nav-item"><a href="../index.html#characters" class="nav-link">Caracteres</a></li>
+                    <li class="nav-item"><a href="../index.html#contact" class="nav-link">Contato</a></li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="search-page">
+        <div class="search-header">
+            <h1>Resultados da pesquisa</h1>
+            <p id="searchSubtitle">Digite um termo para pesquisar.</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Pesquisar caracteres...">
+                <button class="btn btn-primary" onclick="performSearch()">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+
+        <div class="search-results" id="searchResults"></div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+        const characters = [
+            // Invisíveis - Zero Width
+            {
+                char: '​',
+                name: 'Zero Width Space',
+                code: 'U+200B',
+                page: '../character/U+200B.html'
+            },
+            {
+                char: '‌',
+                name: 'Zero Width Non-Joiner',
+                code: 'U+200C',
+                page: '../character/U+200C.html'
+            },
+            {
+                char: '‍',
+                name: 'Zero Width Joiner',
+                code: 'U+200D',
+                page: '../character/U+200D.html'
+            },
+            {
+                char: '⁠',
+                name: 'Word Joiner',
+                code: 'U+2060',
+                page: '../character/U+2060.html'
+            },
+            
+            // Espaços invisíveis raros
+            {
+                char: ' ',
+                name: 'Hair Space',
+                code: 'U+200A',
+                page: '../character/U+200A.html'
+            },
+            {
+                char: ' ',
+                name: 'Thin Space',
+                code: 'U+2009',
+                page: '../character/U+2009.html'
+            },
+            {
+                char: ' ',
+                name: 'Six-Per-Em Space',
+                code: 'U+2006',
+                page: '../character/U+2006.html'
+            },
+            {
+                char: ' ',
+                name: 'Figure Space',
+                code: 'U+2007',
+                page: '../character/U+2007.html'
+            },
+            {
+                char: ' ',
+                name: 'Punctuation Space',
+                code: 'U+2008',
+                page: '../character/U+2008.html'
+            },
+            
+            // Espaços extremamente raros
+            {
+                char: ' ',
+                name: 'Three-Per-Em Space',
+                code: 'U+2004',
+                page: '../character/U+2004.html'
+            },
+            {
+                char: ' ',
+                name: 'Four-Per-Em Space',
+                code: 'U+2005',
+                page: '../character/U+2005.html'
+            },
+            {
+                char: '　',
+                name: 'Ideographic Space',
+                code: 'U+3000',
+                page: '../character/U+3000.html'
+            },
+            
+            // Caracteres invisíveis especiais
+            {
+                char: '⁣',
+                name: 'Invisible Separator',
+                code: 'U+2063',
+                page: '../character/U+2063.html'
+            },
+            {
+                char: '⁤',
+                name: 'Invisible Plus',
+                code: 'U+2064',
+                page: '../character/U+2064.html'
+            },
+            {
+                char: '⁡',
+                name: 'Function Application',
+                code: 'U+2061',
+                page: '../character/U+2061.html'
+            },
+            
+            // Hangul filler
+            {
+                char: 'ᅟ',
+                name: 'Hangul Choseong Filler',
+                code: 'U+115F',
+                page: '../character/U+115F.html'
+            },
+            {
+                char: 'ᅠ',
+                name: 'Hangul Jungseong Filler',
+                code: 'U+1160',
+                page: '../character/U+1160.html'
+            },
+            
+            // Separadores e linhas especiais
+            {
+                char: '¦',
+                name: 'Broken Bar',
+                code: 'U+00A6',
+                page: '../character/U+00A6.html'
+            },
+            {
+                char: '‖',
+                name: 'Double Vertical Line',
+                code: 'U+2016',
+                page: '../character/U+2016.html'
+            },
+            {
+                char: '⋮',
+                name: 'Vertical Ellipsis',
+                code: 'U+22EE',
+                page: '../character/U+22EE.html'
+            },
+            {
+                char: '⋯',
+                name: 'Triple Vertical Dot',
+                code: 'U+22EF',
+                page: '../character/U+22EF.html'
+            },
+            {
+                char: '⁂',
+                name: 'Asterism',
+                code: 'U+2042',
+                page: '../character/U+2042.html'
+            },
+            
+            // Símbolos decorativos
+            {
+                char: '❦',
+                name: 'Floral Heart',
+                code: 'U+2766',
+                page: '../character/U+2766.html'
+            },
+            {
+                char: '✻',
+                name: 'Heavy Teardrop Spoked Asterisk',
+                code: 'U+273B',
+                page: '../character/U+273B.html'
+            },
+            {
+                char: '✷',
+                name: 'Eight Pointed Star',
+                code: 'U+2737',
+                page: '../character/U+2737.html'
+            },
+            {
+                char: '❇',
+                name: 'Sparkle',
+                code: 'U+2747',
+                page: '../character/U+2747.html'
+            },
+            {
+                char: '✠',
+                name: 'Cross Pattée',
+                code: 'U+2720',
+                page: '../character/U+2720.html'
+            },
+            
+            // Setas especiais
+            {
+                char: '⇒',
+                name: 'Seta Dupla Direita',
+                code: 'U+21D2',
+                page: '../character/U+21D2.html'
+            },
+            {
+                char: '⇐',
+                name: 'Seta Dupla Esquerda',
+                code: 'U+21D0',
+                page: '../character/U+21D0.html'
+            },
+            {
+                char: '↷',
+                name: 'Seta Curva',
+                code: 'U+21B7',
+                page: '../character/U+21B7.html'
+            },
+            {
+                char: '↺',
+                name: 'Seta Circular',
+                code: 'U+21BA',
+                page: '../character/U+21BA.html'
+            },
+            {
+                char: '⇑',
+                name: 'Seta Para Cima Dupla',
+                code: 'U+21D1',
+                page: '../character/U+21D1.html'
+            },
+            
+            // Símbolos especiais
+            {
+                char: '⌘',
+                name: 'Command Key',
+                code: 'U+2318',
+                page: '../character/U+2318.html'
+            },
+            {
+                char: '⏏',
+                name: 'Eject Symbol',
+                code: 'U+23CF',
+                page: '../character/U+23CF.html'
+            },
+            {
+                char: '⏸',
+                name: 'Pause Symbol',
+                code: 'U+23F8',
+                page: '../character/U+23F8.html'
+            },
+            
+            // Caracteres "glitch" interessantes
+            {
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                name: 'Super Stack Character',
+                code: 'Stacked',
+                page: '../character/Super-Stack-Character.html'
+            },
+            {
+                char: 'Z̑̾͋̓',
+                name: 'Glitch Z',
+                code: 'Glitch',
+                page: '../character/Glitch-Z.html'
+            },
+            
+            // Caracteres super raros
+            {
+                char: '‽',
+                name: 'Interrobang',
+                code: 'U+203D',
+                page: '../character/U+203D.html'
+            },
+            {
+                char: '⸘',
+                name: 'Double Interrobang',
+                code: 'U+2E18',
+                page: '../character/U+2E18.html'
+            },
+            {
+                char: '※',
+                name: 'Reference Mark',
+                code: 'U+203B',
+                page: '../character/U+203B.html'
+            },
+            
+            // Símbolos usados em design
+            {
+                char: '★',
+                name: 'Black Star',
+                code: 'U+2605',
+                page: '../character/U+2605.html'
+            },
+            {
+                char: '☆',
+                name: 'White Star',
+                code: 'U+2606',
+                page: '../character/U+2606.html'
+            },
+            {
+                char: '⊙',
+                name: 'Circle with Dot',
+                code: 'U+2299',
+                page: '../character/U+2299.html'
+            },
+            {
+                char: '⊕',
+                name: 'Circle with Plus',
+                code: 'U+2295',
+                page: '../character/U+2295.html'
+            },
+            {
+                char: '⊗',
+                name: 'Circle with Cross',
+                code: 'U+2297',
+                page: '../character/U+2297.html'
+            },
+            
+            // Mais estrelas decorativas
+            {
+                char: '☀',
+                name: 'Sun with Rays',
+                code: 'U+2600',
+                page: '../character/U+2600.html'
+            },
+            {
+                char: '☁',
+                name: 'Cloud',
+                code: 'U+2601',
+                page: '../character/U+2601.html'
+            },
+            {
+                char: '✦',
+                name: 'Black Diamond Minus White X',
+                code: 'U+2726',
+                page: '../character/U+2726.html'
+            },
+            
+            // Mongolian Vowel Separator (super raro)
+            {
+                char: '᠎',
+                name: 'Mongolian Vowel Separator',
+                code: 'U+180E',
+                page: '../character/U+180E.html'
+            },
+            
+            // Caracteres existentes
+            {
+                char: '|',
+                name: 'Vertical Line',
+                code: 'U+007C',
+                page: '../character/U+007C.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Médio',
+                code: 'U+2000',
+                page: '../character/U+2000.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Pequeno',
+                code: 'U+205F',
+                page: '../character/U+205F.html'
+            },
+            {
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                name: 'Super Stack Character',
+                code: 'Stacked',
+                page: '../character/Super-Stack-Character.html'
+            },
+            {
+                char: 'Z̑̾͋̓',
+                name: 'Glitch Z',
+                code: 'Glitch',
+                page: '../character/Glitch-Z.html'
+            }
+        ];
+
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name) || '';
+        }
+
+        function renderResults(term) {
+            const resultsEl = document.getElementById('searchResults');
+            const subtitle = document.getElementById('searchSubtitle');
+
+            if (!term) {
+                subtitle.textContent = 'Digite um termo para pesquisar.';
+                resultsEl.innerHTML = '<div class="no-results">Nenhum termo informado.</div>';
+                return;
+            }
+
+            document.getElementById('searchInput').value = term;
+            subtitle.textContent = `Resultados para "${term}"`;
+
+            const normalized = term.toLowerCase().trim();
+            const results = characters.filter(char =>
+                char.name.toLowerCase().includes(normalized) ||
+                char.code.toLowerCase().includes(normalized) ||
+                char.char.includes(normalized)
+            );
+
+            if (!results.length) {
+                resultsEl.innerHTML = '<div class="no-results">Nenhum caractere encontrado.</div>';
+                return;
+            }
+
+            resultsEl.innerHTML = `
+                <div class="character-list-grid">
+                    ${results.map(character => `
+                        <div class="character-list-item" onclick="window.location.href='${character.page}'">
+                            <div class="character-list-display">${character.char}</div>
+                            <div class="character-list-info">
+                                <h3>${character.name}</h3>
+                                <p>${character.code}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const term = searchInput.value.trim();
+            
+            if (term) {
+                window.location.href = `./?q=${encodeURIComponent(term)}`;
+            } else {
+                showToast('Digite um termo para pesquisar', 'error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderResults(getQueryParam('q'));
+            
+            // Add search on Enter key
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

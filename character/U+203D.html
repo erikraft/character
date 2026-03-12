@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Interrobang</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-example {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .punctuation-examples {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .punctuation-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .punctuation-example h4 {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .punctuation-example .example {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            font-family: monospace;
+        }
+        
+        .punctuation-example .description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .style-variations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .style-variation {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .style-variation:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .style-variation .char {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .style-variation .name {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .history-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .history-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 2px solid white;
+        }
+        
+        .timeline-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-item p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html#home" class="nav-link">Incio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="character-container">
+                <div class="character-display">
+                    <div class="char"></div>
+                    <div class="label">Interrobang</div>
+                </div>
+                
+                <div class="character-header">
+                    <h1>Interrobang</h1>
+                    <p class="unicode-code">U+203D</p>
+                    <p class="character-description">Um caractere de pontuao inovador que combina a funo de ponto de interrogao e ponto de exclamao. Usado para expressar simultaneamente surpresa, dvida e nfase em uma nica marca de pontuao.</p>
+                </div>
+
+                
+                <div class="character-details">
+                    <div class="detail-section">
+                        <div class="info-tabs" role="tablist">
+                            <button class="info-tab active" data-tab="info">Informações técnicas</button>
+                            <button class="info-tab" data-tab="props">Propriedades</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para copiar e colar</button>
+                        </div>
+                        <div class="info-panels">
+                            <div class="info-panel active" data-panel="info">
+                                <table class="unicode-table">
+                                    <tr><td>Nome no Unicode</td><td>Interrobang</td></tr>
+                                    <tr><td>Número no Unicode</td><td>U+203D</td></tr>
+                                    <tr><td>Plano</td><td>0: Plano Multilingue Básico</td></tr>
+                                    <tr><td>Bloco Unicode</td><td>General Punctuation</td></tr>
+                                    <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="props">
+                                <table class="unicode-table">
+                                    <tr><td>Categoria</td><td>Other Punctuation</td></tr>
+                                    <tr><td>Script</td><td>Common</td></tr>
+                                    <tr><td>Tipo de suporte de espelho emparelhado (bidi)</td><td>ON</td></tr>
+                                    <tr><td>Espelhado</td><td>No</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="encoding">
+                                <table class="encoding-table">
+                                    <thead>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-8</td>
+                                            <td data-label="hex">E2 80 BD</td>
+                                            <td data-label="dec (bytes)">226 128 189</td>
+                                            <td data-label="dec">8253</td>
+                                            <td data-label="binary">11100010 10000000 10111101</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16BE</td>
+                                            <td data-label="hex">20 3D</td>
+                                            <td data-label="dec (bytes)">32 61</td>
+                                            <td data-label="dec">8253</td>
+                                            <td data-label="binary">00100000 00111101</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16LE</td>
+                                            <td data-label="hex">3D 20</td>
+                                            <td data-label="dec (bytes)">61 32</td>
+                                            <td data-label="dec">8253</td>
+                                            <td data-label="binary">00111101 00100000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32BE</td>
+                                            <td data-label="hex">00 00 20 3D</td>
+                                            <td data-label="dec (bytes)">0 0 32 61</td>
+                                            <td data-label="dec">8253</td>
+                                            <td data-label="binary">00000000 00000000 00100000 00111101</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32LE</td>
+                                            <td data-label="hex">3D 20 00 00</td>
+                                            <td data-label="dec (bytes)">61 32 0 0</td>
+                                            <td data-label="dec">8253</td>
+                                            <td data-label="binary">00111101 00100000 00000000 00000000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="codes">
+                                <p>Copie e cole esses códigos para usar o caractere Interrobang em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+                                <div class="code-list">
+                                    <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">&#8253;</span></div>
+                                    <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">\203D</span></div>
+                                    <div class="code-row"><span class="code-label">JavaScript, JSON</span><span class="code-pill">\u203D</span></div>
+                                    <div class="code-row"><span class="code-label">Unix, C, PHP, JAVA</span><span class="code-pill">0x203D</span></div>
+                                    <div class="code-row"><span class="code-label">Ruby, PHP</span><span class="code-pill">\u{203D}</span></div>
+                                    <div class="code-row"><span class="code-label">Perl</span><span class="code-pill">\x{203D}</span></div>
+                                    <div class="code-row"><span class="code-label">URL-encode</span><span class="code-pill">%E2%80%BD</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                
+                
+                <div class="punctuation-examples">
+                    <h3><i class="fas fa-question-circle"></i> Comparaes de Pontuao</h3>
+                    
+                    <div class="style-variations">
+                        <div class="style-variation">
+                            <div class="char"></div>
+                            <div class="name">Ponto de Interrogao</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">!</div>
+                            <div class="name">Ponto de Exclamao</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">!</div>
+                            <div class="name">Combinao Tradicional</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">!</div>
+                            <div class="name">Combinao Alternativa</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char"></div>
+                            <div class="name">Interrobang</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char"></div>
+                            <div class="name">Double Interrobang</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="punctuation-examples">
+                    <h3><i class="fas fa-comment"></i> Exemplos de Uso</h3>
+                    
+                    <div class="punctuation-example">
+                        <h4>Surpresa e Dvida</h4>
+                        <div class="example">Voc ganhou na loteria</div>
+                        <div class="description">Expressa incredulidade e surpresa simultaneamente</div>
+                    </div>
+                    
+                    <div class="punctuation-example">
+                        <h4>Rethorical Question</h4>
+                        <div class="example">Voc realmente fez isso</div>
+                        <div class="description">Combina questionamento com choque</div>
+                    </div>
+                    
+                    <div class="punctuation-example">
+                        <h4>Ironia</h4>
+                        <div class="example">Que ideia brilhante</div>
+                        <div class="description">Expressa sarcasmo e dvida</div>
+                    </div>
+                    
+                    <div class="punctuation-example">
+                        <h4>Confuso</h4>
+                        <div class="example">O que acabou de acontecer</div>
+                        <div class="description">Mostra confuso e surpresa</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Modernas</h3>
+                    
+                    <div class="info-card">
+                        <h4>1. Redes Sociais</h4>
+                        <p>Popular em mensagens informais para expressar emoes complexas de forma concisa.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>2. Chat e Mensagens</h4>
+                        <p>Usado em comunicao digital para transmitir surpresa e dvida rapidamente.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>3. Creative Writing</h4>
+                        <p>Empregado em escrita criativa para dar tom e expressar emoes mistas.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>4. Design Grfico</h4>
+                        <p>Usado em design para adicionar personalidade e impacto visual.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Controvrsias e Limitaes</h3>
+                    
+                    <div class="info-card">
+                        <h4>Adoo Limitada</h4>
+                        <p>Nunca foi amplamente adotado na escrita formal ou jornalismo tradicional.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Compatibilidade</h4>
+                        <p>Alguns sistemas mais antigos podem no renderizar corretamente.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Uso Formal</h4>
+                        <p>No aceito em escrita acadmica ou documentos formais.</p>
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyUnicode('U+203D')">
+                        <i class="fas fa-code"></i> Copiar C?digo
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Interrobang copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('C?digo Unicode copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar cdigo', 'error');
+            });
+        }
+        
+        function shareCharacter() {
+            const shareData = {
+                title: 'Character Hub - Interrobang (U+203D)',
+                text: 'Confira este caractere de pontuao inovador: Interrobang ',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success'  '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
