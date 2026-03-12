@@ -839,17 +839,17 @@ section {
 .codes-table td:nth-child(2) {
     cursor: pointer;
     transition: all 0.3s ease;
-    background: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
+    background: rgba(59, 130, 246, 0.18);
+    color: #e5f3ff;
     font-weight: 600;
 }
 
 .codes-table td:nth-child(2):hover {
-    background: rgba(76, 175, 80, 0.4);
-    color: #81c784;
+    background: rgba(59, 130, 246, 0.35);
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.45);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 768px) {
