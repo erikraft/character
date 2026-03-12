@@ -768,6 +768,8 @@ section {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .info-category h4 {
@@ -791,6 +793,7 @@ section {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 0.5rem;
     overflow: hidden;
+    table-layout: fixed;
 }
 
 .unicode-table td, .encoding-table td, .encoding-table th, .codes-table td {
@@ -799,6 +802,8 @@ section {
     text-align: left;
     color: white;
     transition: all 0.3s ease;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .unicode-table tr:hover td,
@@ -858,6 +863,8 @@ section {
     
     .unicode-table, .encoding-table, .codes-table {
         font-size: 0.85rem;
+        display: block;
+        min-width: 520px;
     }
     
     .unicode-table td, .encoding-table td, .encoding-table th, .codes-table td {
@@ -894,6 +901,8 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #f8fafc;
+    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
 }
 
 .character-info h1 {
@@ -959,6 +968,11 @@ section {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.character-part .char {
+    color: #f8fafc;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 768px) {
