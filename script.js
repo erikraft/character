@@ -383,6 +383,7 @@ function getCharacterScript(character) {
 // Exportar funções para uso global
 window.CharacterHub = {
     copyCharacter,
+    copyUnicode,
     shareCharacter,
     searchCharacters,
     filterByCategory,
