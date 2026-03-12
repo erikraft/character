@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character Hub - Super Stack Character</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -39,11 +40,14 @@
         }
         
         .threads-embed {
-            margin: 2rem 0;
+            margin: 2rem auto;
             background: white;
             border-radius: 1rem;
             padding: 1rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
+            display: flex;
+            justify-content: center;
         }
         
         .info-grid {
@@ -139,6 +143,9 @@
     </header>
 
     <main>
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Início
+        </a>
         <section class="character-detail">
             <div class="container">
                 <div class="character-header">
@@ -204,13 +211,13 @@
                 </div>
                 
                 <div class="character-actions">
-                    <button class="btn btn-primary" onclick="copyCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์')">
-                        <i class="fas fa-copy"></i> Copiar Super Stack
+                    <button class="btn btn-primary" onclick="copyCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์')">
+                        <i class="fas fa-copy"></i> Copiar Combo
                     </button>
-                    <button class="btn btn-outline" onclick="shareCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์', 'Super Stack Character')">
-                        <i class="fas fa-share"></i> Compartilhar
+                    <button class="btn btn-secondary" onclick="shareCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์', 'Stacked')">
+                        <i class="fas fa-share-alt"></i> Compartilhar
                     </button>
-                    <a href="https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B" target="_blank" class="btn btn-secondary">
+                </div>    <a href="https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B" target="_blank" class="btn btn-secondary">
                         <i class="fab fa-whatsapp"></i> WhatsApp Channel
                     </a>
                 </div>

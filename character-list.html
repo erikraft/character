@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Lista Completa de Caracteres</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .list-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .list-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .list-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        
+        .character-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .character-list-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .character-list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+        
+        .character-list-display {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            line-height: 0.8;
+            overflow: hidden;
+        }
+        
+        .character-list-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .character-list-info p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .character-list-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #4b5563, #374151);
+            transform: translateY(-2px);
+        }
+        
+        .character-list-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .character-list-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            
+            .back-btn {
+                position: static;
+                margin-bottom: 2rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Voltar para Início
+    </a>
+
+    <div class="character-list-container">
+        <div class="list-header">
+            <h1>Lista Completa de Caracteres</h1>
+            <p>Explore todos os caracteres especiais Unicode disponíveis</p>
+        </div>
+
+        <div class="character-list-grid" id="characterGrid">
+            <!-- Characters will be loaded here -->
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const allCharacters = [
+            {
+                char: '｜',
+                name: 'Vertical Line',
+                code: 'U+007C',
+                category: 'Símbolo',
+                description: 'Um símbolo matemático usado para representar uma linha vertical ou separador.',
+                page: 'character/U+007C.html'
+            },
+            {
+                char: 'ㅤ',
+                name: 'Invisível Grande',
+                code: 'U+1160',
+                category: 'Formato',
+                description: 'Caractere de preenchimento do Hangul usado para espaçamento invisível em textos coreanos.',
+                page: 'character/U+1160.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Médio',
+                code: 'U+2000',
+                category: 'Espaço',
+                description: 'En Quad - espaço com largura exata de um "en" (meia largura de em). Usado em tipografia.',
+                page: 'character/U+2000.html'
+            },
+            {
+                char: ' ',
+                name: 'Invisível Pequeno',
+                code: 'U+205F',
+                category: 'Espaço',
+                description: 'Medium Mathematical Space - espaço usado em fórmulas matemáticas com quatro oitavos de em.',
+                page: 'character/U+205F.html'
+            },
+            {
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                name: 'Super Stack Character',
+                code: 'Stacked',
+                category: 'Combinação',
+                description: 'Combinação impressionante de caracteres tailandeses com diacríticos empilhados criando efeito visual único.',
+                page: 'character/Super-Stack-Character.html'
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 6;
+
+        function renderCharacters() {
+            const grid = document.getElementById('characterGrid');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageCharacters = allCharacters.slice(startIndex, endIndex);
+
+            grid.innerHTML = pageCharacters.map(character => `
+                <div class="character-list-item" onclick="navigateToCharacter('${character.page}')">
+                    <div class="character-list-display ${character.code === 'Stacked' ? 'super-stack-display' : ''}">${character.char}</div>
+                    <div class="character-list-info">
+                        <h3>${character.name}</h3>
+                        <p>${character.code}</p>
+                        <p style="color: var(--primary-color); font-size: 0.8rem;">${character.category}</p>
+                    </div>
+                    <div class="character-list-description">${character.description}</div>
+                    <div class="character-list-actions">
+                        <button class="btn btn-sm btn-primary" onclick="copyCharacter('${character.char}', event)">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${character.char}', '${character.code}', event)">
+                            <i class="fas fa-share-alt"></i> Compartilhar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(allCharacters.length / itemsPerPage);
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(allCharacters.length / itemsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderCharacters();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function navigateToCharacter(page) {
+            if (page && page !== '#') {
+                window.location.href = page;
+            }
+        }
+
+        function copyCharacter(character, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(character).then(() => {
+                showToast('Caractere copiado com sucesso!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+
+        function shareCharacter(character, code, event) {
+            if (event) event.stopPropagation();
+            const shareData = {
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderCharacters);
+    </script>
+</body>
+</html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character Details - Character Hub</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -189,65 +190,6 @@
             border-bottom: none;
         }
         
-        .images-section {
-            margin-top: 3rem;
-        }
-        
-        .images-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .image-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease;
-        }
-        
-        .image-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-        }
-        
-        .image-info {
-            padding: 1rem;
-        }
-        
-        .image-info h4 {
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .image-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .image-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        
-        .image-link:hover {
-            color: var(--primary-dark);
-        }
-        
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -300,16 +242,13 @@
                 </div>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link">Início</a>
+                        <a href="../index.html" class="nav-link">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a href="index.html#characters" class="nav-link">Caracteres</a>
+                        <a href="../index.html#characters" class="nav-link">Caracteres</a>
                     </li>
                     <li class="nav-item">
-                        <a href="index.html#about" class="nav-link">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="index.html#contact" class="nav-link">Contato</a>
+                        <a href="../index.html#contact" class="nav-link">Contato</a>
                     </li>
                 </ul>
                 <div class="nav-toggle" id="mobile-menu">
@@ -323,7 +262,7 @@
 
     <main class="character-detail">
         <div class="container">
-            <a href="index.html" class="back-link">
+            <a href="../index.html" class="back-link">
                 <i class="fas fa-arrow-left"></i>
                 Voltar para lista de caracteres
             </a>
@@ -356,9 +295,6 @@
                 <button class="tab-button" onclick="switchTab('codes')">
                     <i class="fas fa-keyboard"></i> Códigos para Copiar
                 </button>
-                <button class="tab-button" onclick="switchTab('images')">
-                    <i class="fas fa-image"></i> Imagens
-                </button>
             </div>
 
             <div id="properties" class="tab-content active">
@@ -389,15 +325,6 @@
             <div id="codes" class="tab-content">
                 <div class="code-grid" id="codesGrid">
                     <!-- Códigos para copiar serão inseridos aqui via JavaScript -->
-                </div>
-            </div>
-
-            <div id="images" class="tab-content">
-                <div class="images-section">
-                    <h3>Prints do Caractere</h3>
-                    <div class="images-grid" id="imagesGrid">
-                        <!-- Imagens serão inseridas aqui via JavaScript -->
-                    </div>
                 </div>
             </div>
         </div>
@@ -508,145 +435,98 @@
                     'URL-encode': '%E1%85%A0'
                 }
             },
-            'U+0E18': {
-                character: 'ธ',
-                name: 'Thai Character Tho Thong',
-                unicode: 'U+0E18',
+            'U+2000': {
+                character: ' ',
+                name: 'En Quad',
+                unicode: 'U+2000',
                 plane: '0: Plano Multilingue Básico',
-                block: 'Thai',
-                subBlock: 'Thai',
+                block: 'General Punctuation',
+                subBlock: 'Spaces',
                 version: '1.1 (1993)',
-                category: 'Letter, Other',
-                script: 'Thai',
-                bidiType: 'L',
+                category: 'Separator, Space',
+                script: 'Common',
+                bidiType: 'WS',
                 compositionExclusion: 'No',
-                caseMapping: '0E18',
-                simpleCaseMapping: '0E18',
-                graphemeBase: '+',
-                properties: {
-                    'Nome no Unicode': 'Thai Character Tho Thong',
-                    'Número no Unicode': 'U+0E18',
-                    'Plano': '0: Plano Multilingue Básico',
-                    'Bloco Unicode': 'Thai',
-                    'Sub-bloco Unicode': 'Thai',
-                    'Versão Unicode': '1.1 (1993)',
-                    'Categoria': 'Letter, Other',
-                    'Script': 'Thai',
-                    'Tipo de suporte de espelho emparelhado (bidi)': 'L',
-                    'Exclusão de composição': 'No',
-                    'Mudança de caso': '0E18',
-                    'Alteração simples de maiúsculas e minúsculas': '0E18',
-                    'Grapheme_Base': '+'
-                },
-                encoding: {
-                    'UTF-8': { hex: 'E0 B8 98', decBytes: '224 184 152', dec: '3687384', binary: '11100000 10111000 10011000' },
-                    'UTF-16BE': { hex: '0E 18', decBytes: '14 24', dec: '3608', binary: '00001110 00011000' },
-                    'UTF-16LE': { hex: '18 0E', decBytes: '24 14', dec: '3598', binary: '00011000 00001110' },
-                    'UTF-32BE': { hex: '00 00 0E 18', decBytes: '0 0 14 24', dec: '3616', binary: '00000000 00000000 00001110 00011000' },
-                    'UTF-32LE': { hex: '18 0E 00 00', decBytes: '24 14 0 0', dec: '921600', binary: '00011000 00001110 00000000 00000000' }
-                },
-                codes: {
-                    'HTML': '&#3608;',
-                    'CSS': '\\0E18',
-                    'JavaScript, JSON': '\\u0E18',
-                    'Unix, C, PHP, JAVA': '0x0E18',
-                    'Ruby, PHP': '\\u{0E18}',
-                    'Perl': '\\x{0E18}',
-                    'URL-encode': '%E0%B8%98'
-                }
-            },
-            'U+0E34': {
-                character: 'ิ',
-                name: 'Thai Character Sara I',
-                unicode: 'U+0E34',
-                plane: '0: Plano Multilingue Básico',
-                block: 'Thai',
-                subBlock: 'Thai',
-                version: '1.1 (1993)',
-                category: 'Mark, Nonspacing',
-                script: 'Thai',
-                bidiType: 'NSM',
-                compositionExclusion: 'No',
-                caseMapping: '0E34',
-                simpleCaseMapping: '0E34',
+                caseMapping: '2000',
+                simpleCaseMapping: '2000',
                 graphemeBase: '-',
                 properties: {
-                    'Nome no Unicode': 'Thai Character Sara I',
-                    'Número no Unicode': 'U+0E34',
+                    'Nome no Unicode': 'En Quad',
+                    'Número no Unicode': 'U+2000',
                     'Plano': '0: Plano Multilingue Básico',
-                    'Bloco Unicode': 'Thai',
-                    'Sub-bloco Unicode': 'Thai',
+                    'Bloco Unicode': 'General Punctuation',
+                    'Sub-bloco Unicode': 'Spaces',
                     'Versão Unicode': '1.1 (1993)',
-                    'Categoria': 'Mark, Nonspacing',
-                    'Script': 'Thai',
-                    'Tipo de suporte de espelho emparelhado (bidi)': 'NSM',
+                    'Categoria': 'Separator, Space',
+                    'Script': 'Common',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'WS',
                     'Exclusão de composição': 'No',
-                    'Mudança de caso': '0E34',
-                    'Alteração simples de maiúsculas e minúsculas': '0E34',
+                    'Mudança de caso': '2000',
+                    'Alteração simples de maiúsculas e minúsculas': '2000',
                     'Grapheme_Base': '-'
                 },
                 encoding: {
-                    'UTF-8': { hex: 'E0 B8 B4', decBytes: '224 184 180', dec: '3687412', binary: '11100000 10111000 10110100' },
-                    'UTF-16BE': { hex: '0E 34', decBytes: '14 52', dec: '3636', binary: '00001110 00110100' },
-                    'UTF-16LE': { hex: '34 0E', decBytes: '52 14', dec: '3630', binary: '00110100 00001110' },
-                    'UTF-32BE': { hex: '00 00 0E 34', decBytes: '0 0 14 52', dec: '3636', binary: '00000000 00000000 00001110 00110100' },
-                    'UTF-32LE': { hex: '34 0E 00 00', decBytes: '52 14 0 0', dec: '933888', binary: '00110100 00001110 00000000 00000000' }
+                    'UTF-8': { hex: 'E2 80 80', decBytes: '226 128 128', dec: '8192', binary: '11100010 10000000 10000000' },
+                    'UTF-16BE': { hex: '20 00', decBytes: '32 0', dec: '8192', binary: '00100000 00000000' },
+                    'UTF-16LE': { hex: '00 20', decBytes: '0 32', dec: '8192', binary: '00000000 00100000' },
+                    'UTF-32BE': { hex: '00 00 20 00', decBytes: '0 0 32 0', dec: '8192', binary: '00000000 00000000 00100000 00000000' },
+                    'UTF-32LE': { hex: '00 20 00 00', decBytes: '0 32 0 0', dec: '2097152', binary: '00000000 00100000 00000000 00000000' }
                 },
                 codes: {
-                    'HTML': '&#3636;',
-                    'CSS': '\\0E34',
-                    'JavaScript, JSON': '\\u0E34',
-                    'Unix, C, PHP, JAVA': '0x0E34',
-                    'Ruby, PHP': '\\u{0E34}',
-                    'Perl': '\\x{0E34}',
-                    'URL-encode': '%E0%B8%B4'
+                    'HTML': '&#8192;',
+                    'CSS': '\\2000',
+                    'JavaScript, JSON': '\\u2000',
+                    'Unix, C, PHP, JAVA': '0x2000',
+                    'Ruby, PHP': '\\u{2000}',
+                    'Perl': '\\x{2000}',
+                    'URL-encode': '%E2%80%80'
                 }
             },
-            'U+0E2C': {
-                character: '์',
-                name: 'Thai Character Thanthakhat',
-                unicode: 'U+0E2C',
+            'U+205F': {
+                character: ' ',
+                name: 'Medium Mathematical Space',
+                unicode: 'U+205F',
                 plane: '0: Plano Multilingue Básico',
-                block: 'Thai',
-                subBlock: 'Thai',
-                version: '1.1 (1993)',
-                category: 'Mark, Nonspacing',
-                script: 'Thai',
-                bidiType: 'NSM',
+                block: 'General Punctuation',
+                subBlock: 'Spaces',
+                version: '3.0 (1999)',
+                category: 'Separator, Space',
+                script: 'Common',
+                bidiType: 'WS',
                 compositionExclusion: 'No',
-                caseMapping: '0E2C',
-                simpleCaseMapping: '0E2C',
+                caseMapping: '205F',
+                simpleCaseMapping: '205F',
                 graphemeBase: '-',
                 properties: {
-                    'Nome no Unicode': 'Thai Character Thanthakhat',
-                    'Número no Unicode': 'U+0E2C',
+                    'Nome no Unicode': 'Medium Mathematical Space',
+                    'Número no Unicode': 'U+205F',
                     'Plano': '0: Plano Multilingue Básico',
-                    'Bloco Unicode': 'Thai',
-                    'Sub-bloco Unicode': 'Thai',
-                    'Versão Unicode': '1.1 (1993)',
-                    'Categoria': 'Mark, Nonspacing',
-                    'Script': 'Thai',
-                    'Tipo de suporte de espelho emparelhado (bidi)': 'NSM',
+                    'Bloco Unicode': 'General Punctuation',
+                    'Sub-bloco Unicode': 'Spaces',
+                    'Versão Unicode': '3.0 (1999)',
+                    'Categoria': 'Separator, Space',
+                    'Script': 'Common',
+                    'Tipo de suporte de espelho emparelhado (bidi)': 'WS',
                     'Exclusão de composição': 'No',
-                    'Mudança de caso': '0E2C',
-                    'Alteração simples de maiúsculas e minúsculas': '0E2C',
+                    'Mudança de caso': '205F',
+                    'Alteração simples de maiúsculas e minúsculas': '205F',
                     'Grapheme_Base': '-'
                 },
                 encoding: {
-                    'UTF-8': { hex: 'E0 B8 AC', decBytes: '224 184 172', dec: '3687404', binary: '11100000 10111000 10101100' },
-                    'UTF-16BE': { hex: '0E 2C', decBytes: '14 44', dec: '3628', binary: '00001110 00101100' },
-                    'UTF-16LE': { hex: '2C 0E', decBytes: '44 14', dec: '3628', binary: '00101100 00001110' },
-                    'UTF-32BE': { hex: '00 00 0E 2C', decBytes: '0 0 14 44', dec: '3628', binary: '00000000 00000000 00001110 00101100' },
-                    'UTF-32LE': { hex: '2C 0E 00 00', decBytes: '44 14 0 0', dec: '933888', binary: '00101100 00001110 00000000 00000000' }
+                    'UTF-8': { hex: 'E2 81 9F', decBytes: '226 129 159', dec: '8287', binary: '11100010 10000001 10011111' },
+                    'UTF-16BE': { hex: '20 5F', decBytes: '32 95', dec: '8287', binary: '00100000 01011111' },
+                    'UTF-16LE': { hex: '5F 20', decBytes: '95 32', dec: '8287', binary: '01011111 00100000' },
+                    'UTF-32BE': { hex: '00 00 20 5F', decBytes: '0 0 32 95', dec: '8287', binary: '00000000 00000000 00100000 01011111' },
+                    'UTF-32LE': { hex: '5F 20 00 00', decBytes: '95 32 0 0', dec: '2129920', binary: '01011111 00100000 00000000 00000000' }
                 },
                 codes: {
-                    'HTML': '&#3628;',
-                    'CSS': '\\0E2C',
-                    'JavaScript, JSON': '\\u0E2C',
-                    'Unix, C, PHP, JAVA': '0x0E2C',
-                    'Ruby, PHP': '\\u{0E2C}',
-                    'Perl': '\\x{0E2C}',
-                    'URL-encode': '%E0%B8%AC'
+                    'HTML': '&#8287;',
+                    'CSS': '\\205F',
+                    'JavaScript, JSON': '\\u205F',
+                    'Unix, C, PHP, JAVA': '0x205F',
+                    'Ruby, PHP': '\\u{205F}',
+                    'Perl': '\\x{205F}',
+                    'URL-encode': '%E2%81%9F'
                 }
             }
         };
@@ -663,6 +543,16 @@
             } else {
                 // Caracter padrão se nenhum for especificado
                 loadCharacter('U+007C');
+            }
+
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenu && navMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
             }
         });
 
@@ -683,9 +573,6 @@
             
             // Carregar códigos
             loadCodes();
-            
-            // Carregar imagens
-            loadImages();
         }
 
         function loadProperties() {
@@ -737,43 +624,6 @@
             }
         }
 
-        function loadImages() {
-            const grid = document.getElementById('imagesGrid');
-            grid.innerHTML = '';
-            
-            // Imagens de exemplo (placeholder)
-            const images = [
-                {
-                    title: 'Print do WhatsApp',
-                    description: 'Caractere sendo exibido no WhatsApp',
-                    link: 'https://whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B/104'
-                },
-                {
-                    title: 'Print do Threads',
-                    description: 'Caractere sendo exibido no Threads com spoiler',
-                    link: 'https://www.threads.com/@rtvr5656/post/DVuB19ZDP9P?xmt=AQF0jeGuOB9jF0cdNQjVF_Pbf3tsR3EXHQVOCPiSYRUeS4CrOJ3EnCjc1Hqun12aG96jd_Lu&slof=1'
-                }
-            ];
-            
-            images.forEach(image => {
-                const card = document.createElement('div');
-                card.className = 'image-card';
-                card.innerHTML = `
-                    <div class="image-placeholder">
-                        <i class="fas fa-image fa-3x"></i>
-                    </div>
-                    <div class="image-info">
-                        <h4>${image.title}</h4>
-                        <p>${image.description}</p>
-                        <a href="${image.link}" target="_blank" class="image-link">
-                            <i class="fas fa-external-link-alt"></i> Ver original
-                        </a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
         function switchTab(tabName) {
             // Remover classe active de todas as abas e conteúdos
             document.querySelectorAll('.tab-button').forEach(btn => {
@@ -806,6 +656,59 @@
             }).catch(function(err) {
                 showToast('Erro ao copiar código', 'error');
             });
+        }
+
+        function copyCharacter(character, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(character).then(function() {
+                showToast('Caractere copiado com sucesso!', 'success');
+            }).catch(function(err) {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+
+        function shareCharacter(character, unicodeCode) {
+            const shareData = {
+                title: `Character Hub - ${unicodeCode}`,
+                text: `Confira este caractere especial: ${character}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                z-index: 1001;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
     </script>
 </body>

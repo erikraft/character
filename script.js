@@ -105,7 +105,25 @@ function showToast(message, type = 'success') {
 // Função para abrir página de detalhes do caractere
 function openCharacter(unicodeCode) {
     // Redirecionar para página de detalhes baseada no código Unicode
-    window.location.href = `character.html?unicode=${unicodeCode}`;
+    const characterPages = {
+        'U+007C': 'character/U+007C.html',
+        'U+1160': 'character/U+1160.html',
+        'U+2000': 'character/U+2000.html',
+        'U+205F': 'character/U+205F.html',
+        'U+0E18': 'character/U+0E18.html'
+    };
+    
+    const page = characterPages[unicodeCode];
+    if (page) {
+        window.location.href = page;
+    } else {
+        showToast('Página do caractere não encontrada', 'error');
+    }
+}
+
+// Função para abrir lista completa de caracteres
+function openCharacterList() {
+    window.location.href = 'character-list.html';
 }
 
 // Função para compartilhar caractere

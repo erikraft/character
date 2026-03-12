@@ -4,21 +4,24 @@ Um site pessoal para explorar e compartilhar caracteres especiais Unicode, inclu
 
 ## 🚀 Funcionalidades
 
-- **Exploração de Caracteres**: Descubra caracteres especiais como "｜", "ㅤ" e combinações tailandesas complexas
+- **Exploração de Caracteres**: Descubra caracteres especiais como "｜", "ㅤ", " ", " " e combinações tailandesas complexas
+- **Páginas Individuais**: Cada caractere tem sua própria página detalhada com informações completas
+- **Lista Completa**: Página com todos os caracteres disponíveis e paginação
+- **Busca Integrada**: Barra de busca para encontrar caracteres rapidamente
 - **Informações Técnicas Detalhadas**: Propriedades Unicode completas, codificação e códigos para copiar
 - **Funcionalidade de Copiar**: Copie facilmente qualquer caractere com um clique
+- **Compartilhamento**: Compartilhe caracteres em redes sociais
 - **Integração Social**: Links diretos para WhatsApp Channel e Threads
 - **Design Responsivo**: Experiência perfeita em desktop e dispositivos móveis
-- **Navegação Intuitiva**: Interface moderna com animações suaves
+- **Navegação Intuitiva**: Interface moderna com animações suaves e botões de voltar
 
 ## 🎯 Caracteres Incluídos
 
-### Caracteres Básicos
+### Caracteres Principais
 - **｜** (U+007C) - Vertical Line
-- **ㅤ** (U+1160) - Hangul Filler  
-- **ธ** (U+0E18) - Thai Character Tho Thong
-- **ิ** (U+0E34) - Thai Character Sara I
-- **์** (U+0E2C) - Thai Character Thanthakhat
+- **ㅤ** (U+1160) - Invisível Grande (Hangul Filler)
+- ** ** (U+2000) - Invisível Médio (En Quad)
+- ** ** (U+205F) - Invisível Pequeno (Medium Mathematical Space)
 
 ### Combinações Especiais
 - **Super Stack Character**: Combinação complexa de caracteres tailandeses com diacríticos empilhados
@@ -26,12 +29,20 @@ Um site pessoal para explorar e compartilhar caracteres especiais Unicode, inclu
 ## 📁 Estrutura do Projeto
 
 ```
-character-710ddf1d/
-├── index.html          # Página principal
-├── character.html      # Página de detalhes do caractere
-├── styles.css          # Estilos CSS
-├── script.js           # Funcionalidades JavaScript
-└── README.md           # Este arquivo
+character/
+├── index.html                    # Página principal
+├── character-list.html           # Lista completa de caracteres
+├── character/                    # Diretório de páginas individuais
+│   ├── U+007C.html              # Vertical Line
+│   ├── U+1160.html              # Invisível Grande
+│   ├── U+2000.html              # Invisível Médio
+│   ├── U+205F.html              # Invisível Pequeno
+│   └── Super-Stack-Character.html # Super Stack Character
+├── character.html               # Página genérica de detalhes (legado)
+├── styles.css                   # Estilos CSS
+├── script.js                    # Funcionalidades JavaScript
+├── README.md                    # Este arquivo
+└── favicon.ico                  # Favicon do site
 ```
 
 ## 🛠️ Tecnologias Utilizadas
@@ -80,8 +91,8 @@ character-710ddf1d/
 
 1. **Clone o repositório**:
    ```bash
-   git clone [URL-do-repositório]
-   cd character-710ddf1d
+   git clone https://github.com/erikraft/character/
+   cd character
    ```
 
 2. **Abra o site**:
@@ -90,8 +101,10 @@ character-710ddf1d/
 
 3. **Navegue pelo site**:
    - Explore os caracteres na página inicial
-   - Clique em qualquer caractere para ver detalhes
-   - Use os botões para copiar caracteres
+   - Use a barra de busca para encontrar caracteres específicos
+   - Clique em qualquer caractere para ver detalhes completos
+   - Navegue pela lista completa de caracteres
+   - Use os botões para copiar e compartilhar caracteres
    - Acesse os links sociais para mais conteúdo
 
 ## 📊 Informações Técnicas
