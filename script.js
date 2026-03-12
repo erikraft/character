@@ -157,7 +157,8 @@ function openCharacter(unicodeCode) {
         'U+1160': 'character/U+1160.html',
         'U+2000': 'character/U+2000.html',
         'U+205F': 'character/U+205F.html',
-        'U+0E18': 'character/U+0E18.html'
+        'U+0E18': 'character/U+0E18.html',
+        'U+1FAEA': 'character/U+1FAEA.html'
     };
     
     const page = characterPages[unicodeCode];
