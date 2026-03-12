@@ -220,17 +220,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"></div>
-                    <div class="label">Floral Heart</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Floral Heart</h1>
+    <div class="character-display-large"></div>
+    <div class="character-info">
+        <h1>Floral Heart</h1>
                     <p class="unicode-code">U+2766</p>
                     <p class="character-description">Um elegante smbolo decorativo em formato de corao com elementos florais. Tradicionalmente usado em tipografia clssica e design decorativo, especialmente em textos romnticos, convites e materiais de design vintage.</p>
-                </div>
+    </div>
+</div>
 
                 
                 <div class="character-details">
@@ -402,7 +400,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+2766')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar
@@ -431,7 +429,7 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                showToast('C?digo Unicode copiado!', 'success');
+                showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar cdigo', 'error');
             });

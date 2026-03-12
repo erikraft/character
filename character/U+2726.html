@@ -53,14 +53,15 @@
 
         .space-indicator {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px dashed var(--primary-color);
-            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
             padding: 0.35rem 0.75rem;
             border-radius: 0.5rem;
             font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
 
     </style>
@@ -98,17 +99,15 @@
         </a>
 
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char">&#10022;</div>
-                    <div class="label">Black Diamond Minus White X</div>
-                </div>
-
+            <div class="container">
                 <div class="character-header">
-                    <h1>Black Diamond Minus White X</h1>
+    <div class="character-display-large">&#10022;</div>
+    <div class="character-info">
+        <h1>Black Diamond Minus White X</h1>
                     <p class="unicode-code">U+2726</p>
                     <p class="character-description">Losango preto com X branco, símbolo decorativo de destaque.</p>
-                </div>
+    </div>
+</div>
 
                 <div class="character-details">
                     <div class="detail-section">
@@ -139,39 +138,39 @@
                             <div class="info-panel" data-panel="encoding">
                                 <table class="encoding-table">
                                     <thead>
-                                        <tr><th>Codifica??o</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-8</td>
+                                            <td data-label="Codificação">UTF-8</td>
                                             <td data-label="hex">E2 9C A6</td>
                                             <td data-label="dec (bytes)">226 156 166</td>
                                             <td data-label="dec">10022</td>
                                             <td data-label="binary">11100010 10011100 10100110</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-16BE</td>
+                                            <td data-label="Codificação">UTF-16BE</td>
                                             <td data-label="hex">27 26</td>
                                             <td data-label="dec (bytes)">39 38</td>
                                             <td data-label="dec">10022</td>
                                             <td data-label="binary">00100111 00100110</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-16LE</td>
+                                            <td data-label="Codificação">UTF-16LE</td>
                                             <td data-label="hex">26 27</td>
                                             <td data-label="dec (bytes)">38 39</td>
                                             <td data-label="dec">10022</td>
                                             <td data-label="binary">00100110 00100111</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-32BE</td>
+                                            <td data-label="Codificação">UTF-32BE</td>
                                             <td data-label="hex">00 00 27 26</td>
                                             <td data-label="dec (bytes)">0 0 39 38</td>
                                             <td data-label="dec">10022</td>
                                             <td data-label="binary">00000000 00000000 00100111 00100110</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-32LE</td>
+                                            <td data-label="Codificação">UTF-32LE</td>
                                             <td data-label="hex">26 27 00 00</td>
                                             <td data-label="dec (bytes)">38 39 0 0</td>
                                             <td data-label="dec">10022</td>
@@ -181,7 +180,7 @@
                                 </table>
                             </div>
                             <div class="info-panel" data-panel="codes">
-                                <p>Copie e cole esses c?digos para usar o caractere Black Diamond Minus White X em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+                                <p>Copie e cole esses códigos para usar o caractere Black Diamond Minus White X em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
                                 <div class="code-list">
                                     <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">&amp;#10022;</span></div>
                                     <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">\2726</span></div>
@@ -203,7 +202,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+2726')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter('\u2726', 'U+2726')">
                         <i class="fas fa-share-alt"></i> Compartilhar

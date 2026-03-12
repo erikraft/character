@@ -161,17 +161,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"><span class="invisible-indicator">INVISVEL</span></div>
-                    <div class="label">Zero Width Space</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Zero Width Space</h1>
+    <div class="character-display-large"><span class="invisible-indicator">INVISVEL</span></div>
+    <div class="character-info">
+        <h1>Zero Width Space</h1>
                     <p class="unicode-code">U+200B</p>
                     <p class="character-description">Um espaço de largura zero que permite quebra de linha sem mostrar espaço visualmente.  completamente invisível na maioria das aplicações.</p>
-                </div>
+    </div>
+</div>
 
                 
                 <div class="character-details">
@@ -293,12 +291,12 @@
                     
                     <div class="info-card">
                         <h4>1. Controle de Quebra de Linha</h4>
-                        <p>Permite que o texto quebre em pontos espec?ficos sem mostrar espaços visuais.</p>
+                        <p>Permite que o texto quebre em pontos específicos sem mostrar espaços visuais.</p>
                     </div>
                     
                     <div class="info-card">
                         <h4>2. Separao de Texto</h4>
-                        <p>Usado para separar palavras ou caracteres em sistemas que n?o permitem espaços regulares.</p>
+                        <p>Usado para separar palavras ou caracteres em sistemas que não permitem espaços regulares.</p>
                     </div>
                     
                     <div class="info-card">
@@ -342,7 +340,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+200B')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar
@@ -371,7 +369,7 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                showToast('C?digo Unicode copiado!', 'success');
+                showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar cdigo', 'error');
             });

@@ -53,14 +53,15 @@
 
         .space-indicator {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px dashed var(--primary-color);
-            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
             padding: 0.35rem 0.75rem;
             border-radius: 0.5rem;
             font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
 
     </style>
@@ -74,7 +75,7 @@
                 </div>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="../index.html#home" class="nav-link">In?cio</a>
+                        <a href="../index.html#home" class="nav-link">Início</a>
                     </li>
                     <li class="nav-item">
                         <a href="../index.html#characters" class="nav-link">Caracteres</a>
@@ -98,34 +99,32 @@
         </a>
 
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char">&#8853;</div>
-                    <div class="label">Circle with Plus</div>
-                </div>
-
+            <div class="container">
                 <div class="character-header">
-                    <h1>Circle with Plus</h1>
+    <div class="character-display-large">&#8853;</div>
+    <div class="character-info">
+        <h1>Circle with Plus</h1>
                     <p class="unicode-code">U+2295</p>
-                    <p class="character-description">S?mbolo matem?tico de soma direta ou op??o positiva.</p>
-                </div>
+                    <p class="character-description">Símbolo matemático de soma direta ou opção positiva.</p>
+    </div>
+</div>
 
                 <div class="character-details">
                     <div class="detail-section">
                         <div class="info-tabs" role="tablist">
-                            <button class="info-tab active" data-tab="info">Informa??es t?cnicas</button>
+                            <button class="info-tab active" data-tab="info">Informações técnicas</button>
                             <button class="info-tab" data-tab="props">Propriedades</button>
-                            <button class="info-tab" data-tab="encoding">Codifica??o</button>
-                            <button class="info-tab" data-tab="codes">C?digos para copiar e colar</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para copiar e colar</button>
                         </div>
                         <div class="info-panels">
                             <div class="info-panel active" data-panel="info">
                                 <table class="unicode-table">
                                     <tr><td>Nome no Unicode</td><td>Circled Plus</td></tr>
-                                    <tr><td>N?mero no Unicode</td><td>U+2295</td></tr>
-                                    <tr><td>Plano</td><td>0: Plano Multil?ngue B?sico</td></tr>
+                                    <tr><td>Número no Unicode</td><td>U+2295</td></tr>
+                                    <tr><td>Plano</td><td>0: Plano Multilíngue Básico</td></tr>
                                     <tr><td>Bloco Unicode</td><td>Mathematical Operators</td></tr>
-                                    <tr><td>Vers?o Unicode</td><td>1.1 (1993)</td></tr>
+                                    <tr><td>Versão Unicode</td><td>1.1 (1993)</td></tr>
                                 </table>
                             </div>
                             <div class="info-panel" data-panel="props">
@@ -139,39 +138,39 @@
                             <div class="info-panel" data-panel="encoding">
                                 <table class="encoding-table">
                                     <thead>
-                                        <tr><th>Codifica??o</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-8</td>
+                                            <td data-label="Codificação">UTF-8</td>
                                             <td data-label="hex">E2 8A 95</td>
                                             <td data-label="dec (bytes)">226 138 149</td>
                                             <td data-label="dec">8853</td>
                                             <td data-label="binary">11100010 10001010 10010101</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-16BE</td>
+                                            <td data-label="Codificação">UTF-16BE</td>
                                             <td data-label="hex">22 95</td>
                                             <td data-label="dec (bytes)">34 149</td>
                                             <td data-label="dec">8853</td>
                                             <td data-label="binary">00100010 10010101</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-16LE</td>
+                                            <td data-label="Codificação">UTF-16LE</td>
                                             <td data-label="hex">95 22</td>
                                             <td data-label="dec (bytes)">149 34</td>
                                             <td data-label="dec">8853</td>
                                             <td data-label="binary">10010101 00100010</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-32BE</td>
+                                            <td data-label="Codificação">UTF-32BE</td>
                                             <td data-label="hex">00 00 22 95</td>
                                             <td data-label="dec (bytes)">0 0 34 149</td>
                                             <td data-label="dec">8853</td>
                                             <td data-label="binary">00000000 00000000 00100010 10010101</td>
                                         </tr>
                                         <tr>
-                                            <td data-label="Codifica??o">UTF-32LE</td>
+                                            <td data-label="Codificação">UTF-32LE</td>
                                             <td data-label="hex">95 22 00 00</td>
                                             <td data-label="dec (bytes)">149 34 0 0</td>
                                             <td data-label="dec">8853</td>
@@ -181,7 +180,7 @@
                                 </table>
                             </div>
                             <div class="info-panel" data-panel="codes">
-                                <p>Copie e cole esses c?digos para usar o caractere Circle with Plus em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+                                <p>Copie e cole esses códigos para usar o caractere Circle with Plus em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
                                 <div class="code-list">
                                     <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">&amp;#8853;</span></div>
                                     <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">\2295</span></div>
@@ -203,7 +202,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+2295')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter('\u2295', 'U+2295')">
                         <i class="fas fa-share-alt"></i> Compartilhar

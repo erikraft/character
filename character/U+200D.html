@@ -198,17 +198,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"><span class="invisible-indicator">INVISVEL</span></div>
-                    <div class="label">Zero Width Joiner</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Zero Width Joiner</h1>
+    <div class="character-display-large"><span class="invisible-indicator">INVISVEL</span></div>
+    <div class="character-info">
+        <h1>Zero Width Joiner</h1>
                     <p class="unicode-code">U+200D</p>
                     <p class="character-description">Um caractere de controle invisível que fora a juno de caracteres adjacentes.  mais famoso por seu uso na criao de emojis compostos e complexos, unindo mltiplos caracteres em um nico glifo visual.</p>
-                </div>
+    </div>
+</div>
 
                 
                 <div class="character-details">
@@ -408,7 +406,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+200D')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar
@@ -437,7 +435,7 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                showToast('C?digo Unicode copiado!', 'success');
+                showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar cdigo', 'error');
             });

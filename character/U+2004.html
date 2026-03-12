@@ -9,70 +9,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .character-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .character-display {
-            font-size: 4rem;
-            padding: 3rem;
+        .stack-container {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
             border-radius: 1rem;
-            color: white;
-            text-align: center;
             margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
+            color: white;
         }
         
-        .character-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        .character-display-large {
+            font-size: 8rem;
+            padding: 2rem;
             background: rgba(255, 255, 255, 0.1);
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 1rem;
-            pointer-events: none;
-        }
-        
-        .character-display .char {
-            font-size: 2rem;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            display: inline-block;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .character-display .label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 1rem;
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            min-width: 200px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8fafc;
+            text-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+            word-break: break-all;
+            line-height: 1.2;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
         }
         
         .space-indicator {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: 600;
             display: inline-block;
-            margin-left: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
         
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+        .character-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .unicode-code {
+            font-size: 1.5rem;
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .character-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+        
+        .character-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
         }
         
         .info-card {
@@ -324,16 +334,24 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"> <span class="space-indicator">ESPAÇO MÉDIO</span></div>
-                    <div class="label">Three-Per-Em Space</div>
-                </div>
-                
-                <div class="character-header">
-                    <h1>Three-Per-Em Space</h1>
-                    <p class="unicode-code">U+2004</p>
-                    <p class="character-description">Um espaço com largura de 1/3 de um em, usado em tipografia para criar espaçamento médio entre elementos. É mais largo que os espaços finos mas mais compacto que o espaço regular, ideal para separações moderadas em layout.</p>
+            <div class="container">
+                <div class="stack-container">
+                    <div class="character-header">
+                        <div class="character-display-large"><span class="space-indicator">ESPAÇO MÉDIO</span></div>
+                        <div class="character-info">
+                            <h1>Three-Per-Em Space</h1>
+                            <p class="unicode-code">U+2004</p>
+                            <p class="character-description">Um espaço com largura de 1/3 de um em, usado em tipografia para criar espaçamento médio entre elementos. É mais largo que os espaços finos mas mais compacto que o espaço regular, ideal para separações moderadas em layout.</p>
+                            <div class="character-actions">
+                                <button class="btn btn-primary" onclick="copyCharacter(' ')">
+                                    <i class="fas fa-copy"></i> Copiar Caractere
+                                </button>
+                                <button class="btn btn-secondary" onclick="shareCharacter()">
+                                    <i class="fas fa-share-alt"></i> Compartilhar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="character-details">
@@ -511,18 +529,6 @@
                     <div class="usage-example">
                         <strong>Horários:</strong> 12 : 30
                     </div>
-                </div>
-                
-                <div class="character-actions">
-                    <button class="btn btn-primary" onclick="copyCharacter(' ')">
-                        <i class="fas fa-copy"></i> Copiar Caractere
-                    </button>
-                    <button class="btn btn-secondary" onclick="copyUnicode('U+2004')">
-                        <i class="fas fa-code"></i> Copiar Código
-                    </button>
-                    <button class="btn btn-secondary" onclick="shareCharacter()">
-                        <i class="fas fa-share-alt"></i> Compartilhar
-                    </button>
                 </div>
             </div>
         </section>

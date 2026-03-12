@@ -57,15 +57,16 @@
         }
         
         .space-indicator {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: 600;
             display: inline-block;
-            margin-left: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
         
         .info-grid {
@@ -223,17 +224,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char">　<span class="space-indicator">ESPAÇO LARGO</span></div>
-                    <div class="label">Ideographic Space</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Ideographic Space</h1>
+    <div class="character-display-large"><span class="space-indicator">ESPAÇO LARGO</span></div>
+    <div class="character-info">
+        <h1>Ideographic Space</h1>
                     <p class="unicode-code">U+3000</p>
                     <p class="character-description">Um espaço largo usado em idiomas CJK (Chinês, Japonês, Coreano). Tem largura aproximadamente igual a um caractere ideográfico e é essencial para formatação correta de texto em línguas asiáticas orientais.</p>
-                </div>
+    </div>
+</div>
                 
                 <div class="info-grid">
                     <div class="info-card">

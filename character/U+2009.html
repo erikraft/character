@@ -57,15 +57,16 @@
         }
         
         .space-indicator {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: 600;
             display: inline-block;
-            margin-left: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
         
         .info-grid {
@@ -202,17 +203,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"> <span class="space-indicator">ESPAÇO FINO</span></div>
-                    <div class="label">Thin Space</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Thin Space</h1>
+    <div class="character-display-large"><span class="space-indicator">ESPAÇO FINO</span></div>
+    <div class="character-info">
+        <h1>Thin Space</h1>
                     <p class="unicode-code">U+2009</p>
                     <p class="character-description">Um espaço fino com largura de 1/6 de um em, usado em tipografia para separar elementos que precisam de um espaçamento menor que o espaço normal. É mais largo que o hair space mas mais fino que o espaço regular.</p>
-                </div>
+    </div>
+</div>
                 
                 <div class="info-grid">
                     <div class="info-card">

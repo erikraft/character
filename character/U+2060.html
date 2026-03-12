@@ -196,17 +196,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"><span class="invisible-indicator">INVISVEL</span></div>
-                    <div class="label">Word Joiner</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Word Joiner</h1>
+    <div class="character-display-large"><span class="invisible-indicator">INVISVEL</span></div>
+    <div class="character-info">
+        <h1>Word Joiner</h1>
                     <p class="unicode-code">U+2060</p>
                     <p class="character-description">Um caractere de controle invisível que evita quebra de linha entre as palavras ou caracteres que ele conecta.  semelhante ao Zero Width Non-Breaking Space, mas com comportamento mais consistente em diferentes contextos.</p>
-                </div>
+    </div>
+</div>
 
                 
                 <div class="character-details">
@@ -317,7 +315,7 @@
                     <div class="comparison-item">
                         <h4>Com Non-Breaking Space</h4>
                         <div class="example">"Hello&nbsp;World"</div>
-                        <div class="result">N?o quebra, mas adiciona espaço vis?vel</div>
+                        <div class="result">Não quebra, mas adiciona espaço visível</div>
                     </div>
                 </div>
                 
@@ -365,7 +363,7 @@
                     </div>
                     
                     <div class="usage-example">
-                        <strong>C?digos:</strong> "SKU12345", "ISBN978-3"
+                        <strong>Códigos:</strong> "SKU12345", "ISBN978-3"
                     </div>
                 </div>
                 
@@ -374,7 +372,7 @@
                     
                     <div class="info-card">
                         <h4>Word Joiner vs Non-Breaking Space</h4>
-                        <p>Word Joiner  invisível, enquanto Non-Breaking Space adiciona espaço vis?vel.</p>
+                        <p>Word Joiner  invisível, enquanto Non-Breaking Space adiciona espaço visível.</p>
                     </div>
                     
                     <div class="info-card">
@@ -418,7 +416,7 @@
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
                     <button class="btn btn-secondary" onclick="copyUnicode('U+2060')">
-                        <i class="fas fa-code"></i> Copiar C?digo
+                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar
@@ -447,7 +445,7 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                showToast('C?digo Unicode copiado!', 'success');
+                showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar cdigo', 'error');
             });

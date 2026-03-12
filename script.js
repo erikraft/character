@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Tabs de informa????es t??cnicas
+    // Tabs de informações técnicas
     document.querySelectorAll('.info-tabs').forEach(tabList => {
         const tabs = tabList.querySelectorAll('.info-tab');
         const panels = tabList.parentElement.querySelectorAll('.info-panel');

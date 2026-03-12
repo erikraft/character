@@ -57,15 +57,16 @@
         }
         
         .space-indicator {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: 600;
             display: inline-block;
-            margin-left: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(10px);
         }
         
         .info-grid {
@@ -324,17 +325,15 @@
         </a>
         
         <section class="character-detail">
-            <div class="character-container">
-                <div class="character-display">
-                    <div class="char"> <span class="space-indicator">ESPAÇO NUMÉRICO</span></div>
-                    <div class="label">Figure Space</div>
-                </div>
-                
+            <div class="container">
                 <div class="character-header">
-                    <h1>Figure Space</h1>
+    <div class="character-display-large"><span class="space-indicator">ESPAÇO NUMÉRICO</span></div>
+    <div class="character-info">
+        <h1>Figure Space</h1>
                     <p class="unicode-code">U+2007</p>
                     <p class="character-description">Um espaço com largura igual à dos números (digitos) em fontes monoespaçadas. É essencial para alinhamento perfeito de colunas numéricas em tabelas e documentos financeiros, garantindo que todos os números ocupem o mesmo espaço.</p>
-                </div>
+    </div>
+</div>
                 
                 <div class="character-details">
                     <div class="detail-section">
@@ -535,9 +534,6 @@
                 <div class="character-actions">
                     <button class="btn btn-primary" onclick="copyCharacter(' ')">
                         <i class="fas fa-copy"></i> Copiar Caractere
-                    </button>
-                    <button class="btn btn-secondary" onclick="copyUnicode('U+2007')">
-                        <i class="fas fa-code"></i> Copiar Código
                     </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar

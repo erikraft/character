@@ -996,6 +996,27 @@ section {
     justify-content: center;
     color: #f8fafc;
     text-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    word-break: break-all;
+    line-height: 1.2;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.space-indicator {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(10px);
 }
 
 .character-info h1 {
