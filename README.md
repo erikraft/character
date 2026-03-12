@@ -18,10 +18,10 @@ Um site pessoal para explorar e compartilhar caracteres especiais Unicode, inclu
 ## 🎯 Caracteres Incluídos
 
 ### Caracteres Principais
-- **｜** (U+007C) - Vertical Line
-- **ㅤ** (U+1160) - Invisível Grande (Hangul Filler)
-- ** ** (U+2000) - Invisível Médio (En Quad)
-- ** ** (U+205F) - Invisível Pequeno (Medium Mathematical Space)
+- "｜" (U+007C) - Vertical Line
+- "ㅤ" (U+1160) - Invisível Grande (Hangul Filler)
+-  " " (U+2000) - Invisível Médio (En Quad)
+-  " " (U+205F) - Invisível Pequeno (Medium Mathematical Space)
 
 ### Combinações Especiais
 - **Super Stack Character**: Combinação complexa de caracteres tailandeses com diacríticos empilhados
