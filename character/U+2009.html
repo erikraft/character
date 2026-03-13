@@ -168,6 +168,37 @@
             font-size: 0.8rem;
             margin: 0 0.2rem;
         }
+    
+        .code-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .code-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .code-label {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .code-pill {
+            background: #4f46e5;
+            color: white;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -305,6 +336,45 @@
                     </div>
                 </div>
                 
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-code"></i> Códigos para Copiar e Colar</h3>
+                    
+                    <div class="info-card">
+                        <h4>Copie e cole esses códigos para usar o caractere Thin Space em textos para sites, redes sociais, mensageiros ou postagens de blog.</h4>
+                        
+                        <div class="code-list">
+                            <div class="code-row">
+                                <span class="code-label">HTML</span>
+                                <span class="code-pill">&amp;#8201;</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">CSS</span>
+                                <span class="code-pill">\2009</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">JavaScript, JSON</span>
+                                <span class="code-pill">\u2009</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">Unix, C, PHP, JAVA</span>
+                                <span class="code-pill">0x2009</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">Ruby, PHP</span>
+                                <span class="code-pill">\u{2009}</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">Perl</span>
+                                <span class="code-pill">\x{2009}</span>
+                            </div>
+                            <div class="code-row">
+                                <span class="code-label">URL-encode</span>
+                                <span class="code-pill">%E2%81%09</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="character-actions">
                     <button class="btn btn-primary" onclick="copyCharacter(' ')">
                         <i class="fas fa-copy"></i> Copiar Caractere
@@ -328,9 +398,42 @@
     </footer>
 
     <script src="../script.js"></script>
+    <audio id="successSound" preload="auto">
+        <source src="../media/success.mp3" type="audio/mpeg">
+    </audio>
     <script>
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                playSuccessSound();
+                showToast('Código copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar', 'error');
+            });
+        }
+        
+        // Add click handlers to all code pills
+        document.addEventListener('DOMContentLoaded', function() {
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.style.cursor = 'pointer';
+                pill.addEventListener('click', function() {
+                    const text = this.textContent;
+                    copyToClipboard(text);
+                });
+            });
+        });
+        
         function copyCharacter(character) {
             navigator.clipboard.writeText(character).then(() => {
+                playSuccessSound();
                 showToast('Thin Space copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
@@ -339,6 +442,7 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
+                playSuccessSound();
                 showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');

@@ -275,5 +275,38 @@
     </footer>
 
     <script src="../script.js"></script>
+    <audio id="successSound" preload="auto">
+        <source src="../media/success.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                playSuccessSound();
+                showToast('Código copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar', 'error');
+            });
+        }
+        
+        // Add click handlers to all code pills
+        document.addEventListener('DOMContentLoaded', function() {
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.style.cursor = 'pointer';
+                pill.addEventListener('click', function() {
+                    const text = this.textContent;
+                    copyToClipboard(text);
+                });
+            });
+        });
+    </script>
 </body>
 </html>

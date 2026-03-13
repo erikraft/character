@@ -457,9 +457,42 @@
     </footer>
 
     <script src="../script.js"></script>
+    <audio id="successSound" preload="auto">
+        <source src="../media/success.mp3" type="audio/mpeg">
+    </audio>
     <script>
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                playSuccessSound();
+                showToast('Código copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar', 'error');
+            });
+        }
+        
+        // Add click handlers to all code pills
+        document.addEventListener('DOMContentLoaded', function() {
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.style.cursor = 'pointer';
+                pill.addEventListener('click', function() {
+                    const text = this.textContent;
+                    copyToClipboard(text);
+                });
+            });
+        });
+        
         function copyCharacter(character) {
             navigator.clipboard.writeText(character).then(() => {
+                playSuccessSound();
                 showToast('Black Star copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
@@ -468,16 +501,17 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
+                playSuccessSound();
                 showToast('Código Unicode copiado!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');
             });
         }
         
-        function shareCharacter() {
+        function shareCharacter(character, code) {
             const shareData = {
-                title: 'Character Hub - Black Star (U+2605)',
-                text: 'Confique este símbolo universal: Black Star ★',
+                title: `Character Hub - Black Star (${code})`,
+                text: `Confira este caractere: Black Star ${character}`,
                 url: window.location.href
             };
 

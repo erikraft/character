@@ -149,329 +149,300 @@
     <script src="../script.js"></script>
     <script>
         const characters = [
-            // Invisíveis - Zero Width
             {
-                char: '​',
+                char: '\u200B',
                 name: 'Zero Width Space',
                 code: 'U+200B',
                 page: '../character/U+200B.html'
             },
             {
-                char: '‌',
+                char: '\u200C',
                 name: 'Zero Width Non-Joiner',
                 code: 'U+200C',
                 page: '../character/U+200C.html'
             },
             {
-                char: '‍',
+                char: '\u200D',
                 name: 'Zero Width Joiner',
                 code: 'U+200D',
                 page: '../character/U+200D.html'
             },
             {
-                char: '⁠',
+                char: '\u2060',
                 name: 'Word Joiner',
                 code: 'U+2060',
                 page: '../character/U+2060.html'
             },
-            
-            // Espaços invisíveis raros
             {
-                char: ' ',
+                char: '\u200A',
                 name: 'Hair Space',
                 code: 'U+200A',
                 page: '../character/U+200A.html'
             },
             {
-                char: ' ',
+                char: '\u2009',
                 name: 'Thin Space',
                 code: 'U+2009',
                 page: '../character/U+2009.html'
             },
             {
-                char: ' ',
+                char: '\u2006',
                 name: 'Six-Per-Em Space',
                 code: 'U+2006',
                 page: '../character/U+2006.html'
             },
             {
-                char: ' ',
+                char: '\u2007',
                 name: 'Figure Space',
                 code: 'U+2007',
                 page: '../character/U+2007.html'
             },
             {
-                char: ' ',
+                char: '\u2008',
                 name: 'Punctuation Space',
                 code: 'U+2008',
                 page: '../character/U+2008.html'
             },
-            
-            // Espaços extremamente raros
             {
-                char: ' ',
+                char: '\u2004',
                 name: 'Three-Per-Em Space',
                 code: 'U+2004',
                 page: '../character/U+2004.html'
             },
             {
-                char: ' ',
+                char: '\u2005',
                 name: 'Four-Per-Em Space',
                 code: 'U+2005',
                 page: '../character/U+2005.html'
             },
             {
-                char: '　',
+                char: '\u3000',
                 name: 'Ideographic Space',
                 code: 'U+3000',
                 page: '../character/U+3000.html'
             },
-            
-            // Caracteres invisíveis especiais
             {
-                char: '⁣',
+                char: '\u2063',
                 name: 'Invisible Separator',
                 code: 'U+2063',
                 page: '../character/U+2063.html'
             },
             {
-                char: '⁤',
+                char: '\u2064',
                 name: 'Invisible Plus',
                 code: 'U+2064',
                 page: '../character/U+2064.html'
             },
             {
-                char: '⁡',
+                char: '\u2061',
                 name: 'Function Application',
                 code: 'U+2061',
                 page: '../character/U+2061.html'
             },
-            
-            // Hangul filler
             {
-                char: 'ᅟ',
+                char: '\u115F',
                 name: 'Hangul Choseong Filler',
                 code: 'U+115F',
                 page: '../character/U+115F.html'
             },
             {
-                char: 'ᅠ',
+                char: '\u1160',
                 name: 'Hangul Jungseong Filler',
                 code: 'U+1160',
                 page: '../character/U+1160.html'
             },
-            
-            // Separadores e linhas especiais
             {
-                char: '¦',
+                char: '\u00A6',
                 name: 'Broken Bar',
                 code: 'U+00A6',
                 page: '../character/U+00A6.html'
             },
             {
-                char: '‖',
+                char: '\u2016',
                 name: 'Double Vertical Line',
                 code: 'U+2016',
                 page: '../character/U+2016.html'
             },
             {
-                char: '⋮',
+                char: '\u22EE',
                 name: 'Vertical Ellipsis',
                 code: 'U+22EE',
                 page: '../character/U+22EE.html'
             },
             {
-                char: '⋯',
-                name: 'Triple Vertical Dot',
+                char: '\u22EF',
+                name: 'Triple Dots',
                 code: 'U+22EF',
                 page: '../character/U+22EF.html'
             },
             {
-                char: '⁂',
+                char: '\u2042',
                 name: 'Asterism',
                 code: 'U+2042',
                 page: '../character/U+2042.html'
             },
-            
-            // Símbolos decorativos
             {
-                char: '❦',
+                char: '\u2766',
                 name: 'Floral Heart',
                 code: 'U+2766',
                 page: '../character/U+2766.html'
             },
             {
-                char: '✻',
+                char: '\u273B',
                 name: 'Heavy Teardrop Spoked Asterisk',
                 code: 'U+273B',
                 page: '../character/U+273B.html'
             },
             {
-                char: '✷',
+                char: '\u2737',
                 name: 'Eight Pointed Star',
                 code: 'U+2737',
                 page: '../character/U+2737.html'
             },
             {
-                char: '❇',
+                char: '\u2747',
                 name: 'Sparkle',
                 code: 'U+2747',
                 page: '../character/U+2747.html'
             },
             {
-                char: '✠',
+                char: '\u2720',
                 name: 'Cross Pattée',
                 code: 'U+2720',
                 page: '../character/U+2720.html'
             },
-            
-            // Setas especiais
             {
-                char: '⇒',
+                char: '\u21D2',
                 name: 'Seta Dupla Direita',
                 code: 'U+21D2',
                 page: '../character/U+21D2.html'
             },
             {
-                char: '⇐',
+                char: '\u21D0',
                 name: 'Seta Dupla Esquerda',
                 code: 'U+21D0',
                 page: '../character/U+21D0.html'
             },
             {
-                char: '↷',
+                char: '\u21B7',
                 name: 'Seta Curva',
                 code: 'U+21B7',
                 page: '../character/U+21B7.html'
             },
             {
-                char: '↺',
+                char: '\u21BA',
                 name: 'Seta Circular',
                 code: 'U+21BA',
                 page: '../character/U+21BA.html'
             },
             {
-                char: '⇑',
+                char: '\u21D1',
                 name: 'Seta Para Cima Dupla',
                 code: 'U+21D1',
                 page: '../character/U+21D1.html'
             },
-            
-            // Símbolos especiais
             {
-                char: '⌘',
+                char: '\u2318',
                 name: 'Command Key',
                 code: 'U+2318',
                 page: '../character/U+2318.html'
             },
             {
-                char: '⏏',
+                char: '\u23CF',
                 name: 'Eject Symbol',
                 code: 'U+23CF',
                 page: '../character/U+23CF.html'
             },
             {
-                char: '⏸',
+                char: '\u23F8',
                 name: 'Pause Symbol',
                 code: 'U+23F8',
                 page: '../character/U+23F8.html'
             },
-            
-            // Caracteres "glitch" interessantes
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
                 page: '../character/Super-Stack-Character.html'
             },
             {
-                char: 'Z̑̾͋̓',
+                char: 'Z\u0311\u033E\u034B\u0313',
                 name: 'Glitch Z',
                 code: 'Glitch',
                 page: '../character/Glitch-Z.html'
             },
-            
-            // Caracteres super raros
             {
-                char: '‽',
+                char: '\u203D',
                 name: 'Interrobang',
                 code: 'U+203D',
                 page: '../character/U+203D.html'
             },
             {
-                char: '⸘',
+                char: '\u2E18',
                 name: 'Double Interrobang',
                 code: 'U+2E18',
                 page: '../character/U+2E18.html'
             },
             {
-                char: '※',
+                char: '\u203B',
                 name: 'Reference Mark',
                 code: 'U+203B',
                 page: '../character/U+203B.html'
             },
-            
-            // Símbolos usados em design
             {
-                char: '★',
+                char: '\u2605',
                 name: 'Black Star',
                 code: 'U+2605',
                 page: '../character/U+2605.html'
             },
             {
-                char: '☆',
+                char: '\u2606',
                 name: 'White Star',
                 code: 'U+2606',
                 page: '../character/U+2606.html'
             },
             {
-                char: '⊙',
+                char: '\u2299',
                 name: 'Circle with Dot',
                 code: 'U+2299',
                 page: '../character/U+2299.html'
             },
             {
-                char: '⊕',
+                char: '\u2295',
                 name: 'Circle with Plus',
                 code: 'U+2295',
                 page: '../character/U+2295.html'
             },
             {
-                char: '⊗',
+                char: '\u2297',
                 name: 'Circle with Cross',
                 code: 'U+2297',
                 page: '../character/U+2297.html'
             },
-            
-            // Mais estrelas decorativas
             {
-                char: '☀',
+                char: '\u2600',
                 name: 'Sun with Rays',
                 code: 'U+2600',
                 page: '../character/U+2600.html'
             },
             {
-                char: '☁',
+                char: '\u2601',
                 name: 'Cloud',
                 code: 'U+2601',
                 page: '../character/U+2601.html'
             },
             {
-                char: '✦',
+                char: '\u2726',
                 name: 'Black Diamond Minus White X',
                 code: 'U+2726',
                 page: '../character/U+2726.html'
             },
-            
-            // Mongolian Vowel Separator (super raro)
             {
-                char: '᠎',
+                char: '\u180E',
                 name: 'Mongolian Vowel Separator',
                 code: 'U+180E',
                 page: '../character/U+180E.html'
             },
-            
-            // Caracteres existentes
             {
                 char: '|',
                 name: 'Vertical Line',
@@ -479,28 +450,28 @@
                 page: '../character/U+007C.html'
             },
             {
-                char: ' ',
-                name: 'Invisível Médio',
+                char: '\u2000',
+                name: 'En Quad',
                 code: 'U+2000',
                 page: '../character/U+2000.html'
             },
             {
-                char: ' ',
-                name: 'Invisível Pequeno',
+                char: '\u205F',
+                name: 'Medium Mathematical Space',
                 code: 'U+205F',
                 page: '../character/U+205F.html'
             },
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
                 page: '../character/Super-Stack-Character.html'
             },
             {
-                char: 'Z̑̾͋̓',
-                name: 'Glitch Z',
-                code: 'Glitch',
-                page: '../character/Glitch-Z.html'
+                char: '🫪',
+                name: 'Distorted Face',
+                code: 'U+1FAEA',
+                page: '../character/U+1FAEA.html'
             }
         ];
 

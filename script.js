@@ -1,4 +1,48 @@
 // Funções utilitárias
+
+// Função para reproduzir som de sucesso
+function playSuccessSound() {
+    const audio = document.getElementById('successSound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => console.log('Audio play failed:', e));
+    }
+}
+
+// Função para reproduzir som de erro simples
+function playErrorSound() {
+    const audio = document.getElementById('errorSound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => console.log('Audio play failed:', e));
+    }
+}
+
+// Função para reproduzir som de muitos erros
+function playManyErrorsSound() {
+    const audio = document.getElementById('manyErrorsSound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => console.log('Audio play failed:', e));
+    }
+}
+
+// Contador global de erros
+let errorCount = 0;
+
+// Função para incrementar contador de erros e tocar áudio apropriado
+function incrementErrorCount() {
+    errorCount++;
+    
+    // Se houver muitos erros (5+), tocar o áudio de muitos erros (apenas uma vez)
+    if (errorCount >= 5) {
+        playManyErrorsSound();
+    } else {
+        // Para erros normais, tocar o áudio de erro simples (apenas uma vez)
+        playErrorSound();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Menu mobile toggle
     const mobileMenu = document.getElementById('mobile-menu');
@@ -68,6 +112,7 @@ function copyCharacter(character, event) {
     }
     
     navigator.clipboard.writeText(character).then(function() {
+        playSuccessSound();
         showToast('Caractere copiado com sucesso!', 'success');
     }).catch(function(err) {
         // Fallback para navegadores mais antigos
@@ -82,8 +127,10 @@ function copyCharacter(character, event) {
         
         try {
             document.execCommand('copy');
+            playSuccessSound();
             showToast('Caractere copiado com sucesso!', 'success');
         } catch (err) {
+            incrementErrorCount();
             showToast('Erro ao copiar caractere', 'error');
         }
         
@@ -98,6 +145,7 @@ function copyUnicode(code, event) {
     }
 
     navigator.clipboard.writeText(code).then(function() {
+        playSuccessSound();
         showToast('Código Unicode copiado!', 'success');
     }).catch(function() {
         const textArea = document.createElement('textarea');
@@ -111,8 +159,10 @@ function copyUnicode(code, event) {
 
         try {
             document.execCommand('copy');
+            playSuccessSound();
             showToast('Código Unicode copiado!', 'success');
         } catch (err) {
+            incrementErrorCount();
             showToast('Erro ao copiar código', 'error');
         }
 

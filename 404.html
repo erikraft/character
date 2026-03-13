@@ -150,5 +150,48 @@
             </div>
         </div>
     </div>
+    
+    <!-- Áudios de erro 404 -->
+    <audio id="page404Sound" preload="auto" loop>
+        <source src="media/page_404.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="page404Sound2" preload="auto">
+        <source src="media/page_404_audio_2.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Controle de áudios de erro 404
+        let currentAudio = null;
+
+        function playRandom404Sound() {
+            const sounds = ['page404Sound', 'page404Sound2'];
+            const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+            const audio = document.getElementById(randomSound);
+            
+            if (audio) {
+                // Parar áudio anterior
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+                
+                // Tocar novo áudio
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                currentAudio = audio;
+            }
+        }
+
+        // Iniciar os áudios de erro 404
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tocar um áudio 404 aleatório
+            playRandom404Sound();
+            
+            // Configurar para tocar o outro áudio 404 após 5 segundos
+            setTimeout(() => {
+                playRandom404Sound();
+            }, 5000);
+        });
+    </script>
 </body>
 </html>

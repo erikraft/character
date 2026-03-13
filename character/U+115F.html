@@ -524,7 +524,8 @@
     <script>
         function copyCharacter(character) {
             navigator.clipboard.writeText(character).then(() => {
-                showToast('Hangul Choseong Filler copiado!', 'success');
+                playSuccessSound();
+                showToast(
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
@@ -532,7 +533,8 @@
         
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                showToast('Código Unicode copiado!', 'success');
+                playSuccessSound();
+                showToast(
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');
             });

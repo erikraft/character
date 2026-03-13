@@ -251,5 +251,270 @@
     </footer>
 
     <script src="script.js"></script>
+    <audio id="successSound" preload="auto">
+        <source src="media/success.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="popUpSound" preload="auto">
+        <source src="media/pop-up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="errorSound" preload="auto">
+        <source src="media/error.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="manyErrorsSound" preload="auto">
+        <source src="media/many_errors.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Pop-up Propaganda WhatsApp -->
+    <div id="whatsappPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>🔔 Participe do Nosso Canal!</h3>
+                <button class="popup-close" onclick="closeWhatsAppPopup()">&times;</button>
+            </div>
+            <div class="popup-body">
+                <p>Receba mais caracteres especiais e atualizações exclusivas no nosso WhatsApp Channel!</p>
+                <div class="popup-buttons">
+                    <button class="btn btn-primary" onclick="openWhatsAppChannel()">
+                        <i class="fab fa-whatsapp"></i> Acessar Canal
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeWhatsAppPopup()">
+                        <i class="fas fa-times"></i> Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function playPopUpSound() {
+            const audio = document.getElementById('popUpSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function playErrorSound() {
+            const audio = document.getElementById('errorSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function playManyErrorsSound() {
+            const audio = document.getElementById('manyErrorsSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function incrementErrorCount() {
+            errorCount++;
+            
+            // Se houver muitos erros (5+), tocar o áudio de muitos erros (apenas uma vez)
+            if (errorCount >= 5) {
+                playManyErrorsSound();
+            } else {
+                // Para erros normais, tocar o áudio de erro simples (apenas uma vez)
+                playErrorSound();
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                playSuccessSound();
+                showToast('Código copiado!', 'success');
+            }).catch(() => {
+                incrementErrorCount();
+                playErrorSound();
+                showToast('Erro ao copiar', 'error');
+            });
+        }
+        
+        function copyCharacter(character, event) {
+            if (event) event.stopPropagation();
+            navigator.clipboard.writeText(character).then(() => {
+                playSuccessSound();
+                showToast('Caractere copiado com sucesso!', 'success');
+            }).catch(() => {
+                incrementErrorCount();
+                playErrorSound();
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        
+        function shareCharacter(character, code, event) {
+            if (event) event.stopPropagation();
+            const shareData = {
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        // Add click handlers to all code pills
+        document.addEventListener('DOMContentLoaded', function() {
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.style.cursor = 'pointer';
+                pill.addEventListener('click', function() {
+                    const text = this.textContent;
+                    copyToClipboard(text);
+                });
+            });
+        });
+        
+        // WhatsApp Popup functions
+        let popupShown = false;
+        
+        function showWhatsAppPopup() {
+            if (!popupShown) {
+                const popup = document.getElementById('whatsappPopup');
+                popup.style.display = 'flex';
+                playPopUpSound();
+                popupShown = true;
+                
+                // Salvar no localStorage que já foi mostrado
+                localStorage.setItem('whatsappPopupShown', 'true');
+            }
+        }
+        
+        function closeWhatsAppPopup() {
+            const popup = document.getElementById('whatsappPopup');
+            popup.style.display = 'none';
+        }
+        
+        function openWhatsAppChannel() {
+            window.open('https://www.whatsapp.com/channel/0029VbByq5459PwQ2uEGbn0B', '_blank');
+            closeWhatsAppPopup();
+        }
+        
+        // Mostrar pop-up apenas 1 vez
+        document.addEventListener('DOMContentLoaded', function() {
+            const popupShown = localStorage.getItem('whatsappPopupShown');
+            if (!popupShown) {
+                // Mostrar após 3 segundos na página
+                setTimeout(showWhatsAppPopup, 3000);
+            }
+        });
+    </script>
+    
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 0;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.3s ease;
+        }
+        
+        .popup-header {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem 1rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .popup-body {
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+        
+        .popup-body p {
+            margin-bottom: 1.5rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .popup-buttons .btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </body>
 </html>
