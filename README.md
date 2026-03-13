@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="https://character.erikraft.com/">
+    <img src="./favicon.ico" alt="Character Hub Logo" width="150" height="150">
+  </a>
+</div>
+
 # Character Hub - Caracteres Especiais Unicode
 
 Um site pessoal para explorar e compartilhar caracteres especiais Unicode, incluindo caracteres empilhados e combinações únicas.
