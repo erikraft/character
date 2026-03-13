@@ -909,11 +909,11 @@
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
-                incrementErrorCount();
+                playErrorSound();
                 showToast('Erro ao copiar caractere', 'error');
             });
         }
-
+        
         function shareCharacter(character, code, event) {
             if (event) event.stopPropagation();
             const shareData = {

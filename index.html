@@ -335,7 +335,7 @@
                 playSuccessSound();
                 showToast('Código copiado!', 'success');
             }).catch(() => {
-                incrementErrorCount();
+                // Apenas tocar áudio de erro se realmente houver falha na cópia
                 playErrorSound();
                 showToast('Erro ao copiar', 'error');
             });

@@ -115,26 +115,9 @@ function copyCharacter(character, event) {
         playSuccessSound();
         showToast('Caractere copiado com sucesso!', 'success');
     }).catch(function(err) {
-        // Fallback para navegadores mais antigos
-        const textArea = document.createElement('textarea');
-        textArea.value = character;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        
-        try {
-            document.execCommand('copy');
-            playSuccessSound();
-            showToast('Caractere copiado com sucesso!', 'success');
-        } catch (err) {
-            incrementErrorCount();
-            showToast('Erro ao copiar caractere', 'error');
-        }
-        
-        document.body.removeChild(textArea);
+        // Apenas tocar áudio de erro se realmente houver falha na cópia
+        playErrorSound();
+        showToast('Erro ao copiar caractere', 'error');
     });
 }
 
@@ -148,25 +131,9 @@ function copyUnicode(code, event) {
         playSuccessSound();
         showToast('Código Unicode copiado!', 'success');
     }).catch(function() {
-        const textArea = document.createElement('textarea');
-        textArea.value = code;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-            document.execCommand('copy');
-            playSuccessSound();
-            showToast('Código Unicode copiado!', 'success');
-        } catch (err) {
-            incrementErrorCount();
-            showToast('Erro ao copiar código', 'error');
-        }
-
-        document.body.removeChild(textArea);
+        // Apenas tocar áudio de erro se realmente houver falha na cópia
+        playErrorSound();
+        showToast('Erro ao copiar código', 'error');
     });
 }
 
