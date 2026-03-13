@@ -761,6 +761,23 @@
         let currentCategory = 'all';
         let currentSearch = '';
 
+        // Funções de áudio
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        function playErrorSound() {
+            const audio = document.getElementById('errorSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+
         function renderCharacters() {
             const grid = document.getElementById('characterGrid');
             const startIndex = (currentPage - 1) * itemsPerPage;
@@ -970,10 +987,6 @@
                 }
             });
             
-            // Add real-time search
-            document.getElementById('searchInput').addEventListener('input', () => {
-                performSearch();
-            });
         });
     </script>
     <audio id="successSound" preload="auto">
@@ -982,58 +995,5 @@
     <audio id="errorSound" preload="auto">
         <source src="../media/error.mp3" type="audio/mpeg">
     </audio>
-    <audio id="manyErrorsSound" preload="auto">
-        <source src="../media/many_errors.mp3" type="audio/mpeg">
-    </audio>
-    
-    <script>
-        // Controle de erros
-        let errorCount = 0;
-        
-        function playErrorSound() {
-            const audio = document.getElementById('errorSound');
-            if (audio) {
-                audio.currentTime = 0;
-                audio.play().catch(e => console.log('Audio play failed:', e));
-            }
-        }
-        
-        function playManyErrorsSound() {
-            const audio = document.getElementById('manyErrorsSound');
-            if (audio) {
-                audio.currentTime = 0;
-                audio.play().catch(e => console.log('Audio play failed:', e));
-            }
-        }
-        
-        function incrementErrorCount() {
-            errorCount++;
-            
-            // Se houver muitos erros (5+), tocar o áudio de muitos erros (apenas uma vez)
-            if (errorCount >= 5) {
-                playManyErrorsSound();
-            } else {
-                // Para erros normais, tocar o áudio de erro simples (apenas uma vez)
-                playErrorSound();
-            }
-        }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCharacters();
-            
-            // Add search on Enter key
-            document.getElementById('searchInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
-            
-            // Add real-time search
-            document.getElementById('searchInput').addEventListener('input', () => {
-                performSearch();
-            });
-        });
-    </script>
 </body>
 </html>
