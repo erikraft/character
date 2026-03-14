@@ -460,6 +460,9 @@
     <audio id="successSound" preload="auto">
         <source src="../media/success.mp3" type="audio/mpeg">
     </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="../media/sharing.mp3" type="audio/mpeg">
+    </audio>
     <script>
         function playSuccessSound() {
             const audio = document.getElementById('successSound');
@@ -467,6 +470,15 @@
                 audio.currentTime = 0;
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
+
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
         }
         
         function copyToClipboard(text) {
@@ -489,31 +501,45 @@
                 });
             });
         });
-        
         function copyCharacter(character) {
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
-                showToast('Black Star copiado!', 'success');
+                showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
+        }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
         }
-        
         function copyUnicode(code) {
+            playSharingSound();
             navigator.clipboard.writeText(code).then(() => {
                 playSuccessSound();
-                showToast('Código Unicode copiado!', 'success');
+                showToast('Código copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');
             });
+        }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
         }
-        
         function shareCharacter(character, code) {
+            playSharingSound();
             const shareData = {
-                title: `Character Hub - Black Star (${code})`,
-                text: `Confira este caractere: Black Star ${character}`,
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
                 url: window.location.href
             };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        };
 
             if (navigator.share) {
                 navigator.share(shareData);

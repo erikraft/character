@@ -289,6 +289,9 @@
     <audio id="successSound" preload="auto">
         <source src="../media/success.mp3" type="audio/mpeg">
     </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="../media/sharing.mp3" type="audio/mpeg">
+    </audio>
     <script>
         function playSuccessSound() {
             const audio = document.getElementById('successSound');
@@ -296,6 +299,15 @@
                 audio.currentTime = 0;
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
+
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
         }
         
         function copyToClipboard(text) {
@@ -318,22 +330,33 @@
                 });
             });
         });
-        
         function copyCharacter(character) {
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
-                showToast('Lower Half Block copiado!', 'success');
+                showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
+        }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
         }
-        
-        function shareCharacter() {
+        function shareCharacter(character, code) {
+            playSharingSound();
             const shareData = {
-                title: 'Character Hub - Lower Half Block (U+2584)',
-                text: 'Confira este caractere: Lower Half Block ▄',
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
                 url: window.location.href
             };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        };
 
             if (navigator.share) {
                 navigator.share(shareData);

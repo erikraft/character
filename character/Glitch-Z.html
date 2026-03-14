@@ -319,10 +319,14 @@
     <script src="../script.js"></script>
     <script>
         function copyCharacter(character) {
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
-                showToast(
+                showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
         }
@@ -335,13 +339,21 @@
                 showToast('Erro ao copiar componentes', 'error');
             });
         }
-        
-        function shareCharacter() {
+        function shareCharacter(character, code) {
+            playSharingSound();
             const shareData = {
-                title: 'Character Hub - Glitch Z',
-                text: 'Confira este efeito glitch com combining marks: Z\u0311\u033E\u034B\u0313',
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
                 url: window.location.href
             };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        };
 
             if (navigator.share) {
                 navigator.share(shareData);

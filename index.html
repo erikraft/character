@@ -183,7 +183,7 @@
                 </div>
                 
                 <div class="view-more-container">
-                    <button class="btn btn-outline" onclick="openCharacterList()">
+                    <button class="btn btn-outline" onclick="window.location.href='character/explore.html'">
                         <i class="fas fa-th"></i> Ver Mais
                     </button>
                 </div>
@@ -191,10 +191,10 @@
                 <div class="special-combinations">
                     <h3>Combinações Especiais</h3>
                     <div class="combination-card" onclick="window.location.href='character/Super-Stack-Character.html'" style="cursor: pointer;">
-                        <div class="combination-display">ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์</div>
+                        <div class="combination-display">ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์</div>
                         <h4>Super Stack Character</h4>
                         <p>Combinação especial de caracteres tailandeses com diacríticos empilhados</p>
-                        <button class="btn btn-primary" onclick="copyCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์', event)">
+                        <button class="btn btn-primary" onclick="copyCharacter('ธิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์์', event)">
                             <i class="fas fa-copy"></i> Copiar Combo
                         </button>
                         <div class="combination-links">
@@ -263,6 +263,9 @@
     <audio id="manyErrorsSound" preload="auto">
         <source src="media/many_errors.mp3" type="audio/mpeg">
     </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="media/sharing.mp3" type="audio/mpeg">
+    </audio>
     
     <!-- Pop-up Propaganda WhatsApp -->
     <div id="whatsappPopup" class="popup-overlay" style="display: none;">
@@ -318,6 +321,14 @@
             }
         }
         
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
         function incrementErrorCount() {
             errorCount++;
             
@@ -343,6 +354,7 @@
         
         function copyCharacter(character, event) {
             if (event) event.stopPropagation();
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
@@ -355,6 +367,7 @@
         
         function shareCharacter(character, code, event) {
             if (event) event.stopPropagation();
+            playSharingSound();
             const shareData = {
                 title: `Character Hub - ${code}`,
                 text: `Confira este caractere especial: ${character}`,

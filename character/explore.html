@@ -777,6 +777,14 @@
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
         }
+        
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
 
         function renderCharacters() {
             const grid = document.getElementById('characterGrid');
@@ -922,6 +930,7 @@
 
         function copyCharacter(character, event) {
             if (event) event.stopPropagation();
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
@@ -933,6 +942,7 @@
         
         function shareCharacter(character, code, event) {
             if (event) event.stopPropagation();
+            playSharingSound();
             const shareData = {
                 title: `Character Hub - ${code}`,
                 text: `Confira este caractere especial: ${character}`,
@@ -994,6 +1004,9 @@
     </audio>
     <audio id="errorSound" preload="auto">
         <source src="../media/error.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="../media/sharing.mp3" type="audio/mpeg">
     </audio>
 </body>
 </html>

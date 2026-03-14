@@ -371,6 +371,53 @@
             font-size: 0.9rem;
             color: #6b7280;
         }
+        
+        .platform-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .platform-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .platform-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 1rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+        }
+        
+        .platform-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.5rem;
+        }
+        
+        .platform-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -556,12 +603,36 @@
                             <div class="name">Cabeça Explodindo</div>
                         </div>
                         <div class="style-variation">
-                            <div class="char">🫪</div>
+                            <div class="char" style="color: black;">🫪</div>
                             <div class="name">Distorted Face</div>
                         </div>
                         <div class="style-variation">
                             <div class="char">😱</div>
                             <div class="name">Rosto Gritando</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="emoji-examples">
+                    <h3><i class="fas fa-image"></i> Visualização em Diferentes Plataformas</h3>
+                    
+                    <div class="platform-showcase">
+                        <div class="platform-card">
+                            <img src="../media/image/Google_Noto_Color_Emoji_2025_distorted-face.png" alt="Google Noto Color Emoji 2025" class="platform-image">
+                            <div class="platform-name">Google Noto Color Emoji 2025</div>
+                            <div class="platform-description">Implementação do Google para Android e web</div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <img src="../media/image/Discord_2025_distorted-face.png" alt="Discord 2025" class="platform-image">
+                            <div class="platform-name">Discord 2025</div>
+                            <div class="platform-description">Versão personalizada do Discord para chat</div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <img src="../media/image/WhatsApp_2026_distorted-face.png" alt="WhatsApp 2026" class="platform-image">
+                            <div class="platform-name">WhatsApp 2026</div>
+                            <div class="platform-description">Implementação mais recente do WhatsApp</div>
                         </div>
                     </div>
                 </div>
@@ -595,43 +666,43 @@
                 </div>
                 
                 <div class="usage-examples">
-                    <h3><i class="fas fa-lightbulb"></i> Aplicações Modernas</h3>
+                    <h3 style="color: black;"><i class="fas fa-lightbulb" style="color: black;"></i> Aplicações Modernas</h3>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
                         <h4>1. Redes Sociais</h4>
                         <p>Perfeito para reagir a conteúdo surpreendente ou bizarro de forma divertida.</p>
                     </div>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-bottom: 1rem;">
                         <h4>2. Chat e Mensagens</h4>
                         <p>Usado para expressar choque humorístico em conversas informais.</p>
                     </div>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-bottom: 1rem;">
                         <h4>3. Memes e Conteúdo Viral</h4>
                         <p>Ideal para criar memes sobre situações confusas ou surpreendentes.</p>
                     </div>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-bottom: 1rem;">
                         <h4>4. Gaming e Streaming</h4>
                         <p>Popular em comunidades de gaming para reagir a momentos inesperados.</p>
                     </div>
                 </div>
                 
                 <div class="usage-examples">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Informações de Lançamento</h3>
+                    <h3 style="color: black;"><i class="fas fa-exclamation-triangle" style="color: black;"></i> Informações de Lançamento</h3>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
                         <h4>Lançamento Recente</h4>
                         <p>Lançado oficialmente em setembro de 2025 como parte do Unicode 17.0 e Emoji 17.0.</p>
                     </div>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-bottom: 1rem;">
                         <h4>Compatibilidade</h4>
                         <p>Pode não ser suportado em sistemas mais antigos ou aplicativos que não foram atualizados.</p>
                     </div>
                     
-                    <div class="info-card">
+                    <div class="info-card" style="margin-bottom: 1rem;">
                         <h4>Proposta L2/24‑250</h4>
                         <p>Aprovado pelo Unicode Consortium como parte do processo de adição de novos emojis.</p>
                     </div>
@@ -660,6 +731,9 @@
     <audio id="successSound" preload="auto">
         <source src="../media/success.mp3" type="audio/mpeg">
     </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="../media/sharing.mp3" type="audio/mpeg">
+    </audio>
     <script>
         function playSuccessSound() {
             const audio = document.getElementById('successSound');
@@ -667,6 +741,15 @@
                 audio.currentTime = 0;
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
+
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
         }
         
         function copyToClipboard(text) {
@@ -689,29 +772,29 @@
                 });
             });
         });
-        
         function copyCharacter(character) {
+            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
-                showToast('Distorted Face copiado!', 'success');
+                showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
         }
-        
         function copyUnicode(code) {
+            playSharingSound();
             navigator.clipboard.writeText(code).then(() => {
                 playSuccessSound();
-                showToast('Código Unicode copiado!', 'success');
+                showToast('Código copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');
             });
         }
-        
-        function shareCharacter() {
+        function shareCharacter(character, code) {
+            playSharingSound();
             const shareData = {
-                title: 'Character Hub - Distorted Face (U+1FAEA)',
-                text: 'Confira este novo emoji lançado recentemente: Distorted Face 🫪',
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
                 url: window.location.href
             };
 

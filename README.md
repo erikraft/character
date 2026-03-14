@@ -87,7 +87,6 @@ O projeto atualmente inclui mais de 50 caracteres especiais organizados por cate
 ```
 character/
 ├── index.html                    # Página principal
-├── character.html               # Página genérica de detalhes (legado)
 ├── 404.html                     # Página de erro personalizada
 ├── character/                    # Diretório de páginas individuais (50+ arquivos)
 │   ├── explore.html             # Sistema completo de exploração
