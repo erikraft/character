@@ -270,7 +270,6 @@
         }
         
         function copyCharacter(character) {
-            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
@@ -280,7 +279,6 @@
         }
         
         function copyUnicode(code) {
-            playSharingSound();
             navigator.clipboard.writeText(code).then(() => {
                 playSuccessSound();
                 showToast('Código copiado com sucesso!', 'success');

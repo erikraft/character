@@ -467,7 +467,6 @@
             });
         });
         function copyCharacter(character) {
-            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');

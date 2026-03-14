@@ -347,14 +347,12 @@
                 showToast('Código copiado!', 'success');
             }).catch(() => {
                 // Apenas tocar áudio de erro se realmente houver falha na cópia
-                playErrorSound();
                 showToast('Erro ao copiar', 'error');
             });
         }
         
         function copyCharacter(character, event) {
             if (event) event.stopPropagation();
-            playSharingSound();
             navigator.clipboard.writeText(character).then(() => {
                 playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
