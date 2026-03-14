@@ -315,5 +315,3 @@ Contribuições são bem-vindas! Por favor:
 ---
 
 **Character Hub** - Explorando o fascinante mundo dos caracteres Unicode especiais! 🌟
-
-*Última atualização: Março 2026 - Versão 2.0 com 50+ caracteres e sistemas avançados de busca e exploração*
