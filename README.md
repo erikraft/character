@@ -283,12 +283,39 @@ character/
 - [x] Modo escuro/claro automático
 - [ ] Animações avançadas para caracteres especiais
 - [ ] Integração com APIs Unicode externas
-- [ ] Sistema de tags e categorias avançado
+- [x] Sistema de tags e categorias avançado
 - [ ] Histórico de caracteres copiados
 
-## 📝 Licença
+## ⚙️ Funcionalidades Implementadas
 
-Este projeto é para uso pessoal e educacional. Sinta-se à vontade para usar e modificar conforme necessário.
+### ✅ Sistema de Favoritos
+- **Persistência**: Salva favoritos no localStorage do navegador
+- **Interface**: Botões de favoritar em cada caractere
+- **Seção dedicada**: Área especial para visualizar favoritos
+- **Feedback visual**: Ícones e textos que mudam dinamicamente
+- **Áudio**: Som de confirmação ao favoritar
+
+### ✅ Tema Automático (Dark/Light)
+- **Detecção automática**: Baseado nas preferências do sistema
+- **Toggle manual**: Botão para alternar entre temas
+- **Persistência**: Salva preferência do usuário
+- **Adaptação completa**: Todos os elementos funcionam em ambos os temas
+- **Transições suaves**: Animações entre mudanças de tema
+
+### ✅ Histórico de Cópias
+- **Registro automático**: Toda cópia é registrada
+- **Limite inteligente**: Mantém até 50 itens mais recentes
+- **Timestamp**: Mostra quando cada caractere foi copiado
+- **Gestão completa**: Opção de limpar todo o histórico
+- **Integração**: Funciona com favoritos e compartilhamento
+
+### ✅ Sistema de Categorias e Tags Avançado
+- **10 Categorias**: Espaços, Símbolos, Matemáticos, Setas, Faces, Formas, Especiais, Invisíveis, Astros, Personalizados
+- **10 Tags**: Popular, Unicode, Social, Oculto, Raro, Útil, Divertido, Profissional, Artístico, Técnico
+- **Filtros combinados**: Categoria + tags simultaneamente
+- **Busca avançada**: Por nome, código OU tags
+- **Interface visual**: Cores e ícones para cada categoria/tag com tags visíveis
+- **Feedback em tempo real**: Contagem de resultados e sumário de filtros ativos
 
 ## 🤝 Contribuições
 

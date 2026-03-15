@@ -183,6 +183,416 @@ class FavoritesManager {
     }
 }
 
+// Sistema de Categorias e Tags Avançado
+class CategoryTagManager {
+    constructor() {
+        this.categories = this.initializeCategories();
+        this.tags = this.initializeTags();
+        this.characterData = this.initializeCharacterData();
+        this.activeFilters = {
+            category: 'all',
+            tags: []
+        };
+        this.init();
+    }
+
+    initializeCategories() {
+        return {
+            'all': { name: 'Todos', icon: 'fas fa-th', color: '#6366f1' },
+            'spaces': { name: 'Espaços', icon: 'fas fa-space', color: '#22d3ee' },
+            'symbols': { name: 'Símbolos', icon: 'fas fa-asterisk', color: '#f59e0b' },
+            'math': { name: 'Matemáticos', icon: 'fas fa-calculator', color: '#10b981' },
+            'arrows': { name: 'Setas', icon: 'fas fa-arrows-alt', color: '#ef4444' },
+            'faces': { name: 'Faces', icon: 'fas fa-smile', color: '#8b5cf6' },
+            'shapes': { name: 'Formas', icon: 'fas fa-shapes', color: '#f97316' },
+            'special': { name: 'Especiais', icon: 'fas fa-star', color: '#ec4899' },
+            'invisible': { name: 'Invisíveis', icon: 'fas fa-eye-slash', color: '#6b7280' },
+            'custom': { name: 'Personalizados', icon: 'fas fa-cog', color: '#14b8a6' }
+        };
+    }
+
+    initializeTags() {
+        return {
+            'popular': { name: 'Popular', color: '#ef4444' },
+            'unicode': { name: 'Unicode', color: '#3b82f6' },
+            'social': { name: 'Social', color: '#10b981' },
+            'hidden': { name: 'Oculto', color: '#6b7280' },
+            'rare': { name: 'Raro', color: '#8b5cf6' },
+            'useful': { name: 'Útil', color: '#f59e0b' },
+            'fun': { name: 'Divertido', color: '#ec4899' },
+            'professional': { name: 'Profissional', color: '#6366f1' },
+            'artistic': { name: 'Artístico', color: '#14b8a6' },
+            'technical': { name: 'Técnico', color: '#f97316' }
+        };
+    }
+
+    initializeCharacterData() {
+        return {
+            '｜': { 
+                name: 'Vertical Line', 
+                category: 'symbols', 
+                tags: ['popular', 'useful', 'technical'],
+                description: 'Linha vertical usada para separação visual'
+            },
+            'ㅤ': { 
+                name: 'Invisível Coreano', 
+                category: 'invisible', 
+                tags: ['hidden', 'unicode', 'rare'],
+                description: 'Caractere invisível do alfabeto coreano'
+            },
+            ' ': { 
+                name: 'Invisível Médio', 
+                category: 'invisible', 
+                tags: ['hidden', 'unicode', 'useful'],
+                description: 'Espaço invisível de largura média'
+            },
+            ' ': { 
+                name: 'Invisível Fino', 
+                category: 'invisible', 
+                tags: ['hidden', 'unicode', 'rare'],
+                description: 'Espaço invisível de largura fina'
+            },
+            '🫪': { 
+                name: 'Distorted Face', 
+                category: 'faces', 
+                tags: ['popular', 'fun', 'social'],
+                description: 'Face distorcida para expressões'
+            }
+        };
+    }
+
+    init() {
+        this.createCategoryFilter();
+        this.createTagFilter();
+        this.setupSearchIntegration();
+        this.updateCharacterDisplay();
+    }
+
+    createCategoryFilter() {
+        const characterGrid = document.getElementById('characterGrid') || document.getElementById('searchResults');
+        if (!characterGrid) return;
+        
+        const filterContainer = document.createElement('div');
+        filterContainer.className = 'filter-container';
+        filterContainer.innerHTML = `
+            <h3 class="filter-title">Categorias</h3>
+            <div class="category-filters" id="categoryFilters">
+                ${Object.entries(this.categories).map(([key, cat]) => `
+                    <button class="category-btn ${key === 'all' ? 'active' : ''}" 
+                            data-category="${key}" 
+                            style="--cat-color: ${cat.color}">
+                        <i class="${cat.icon}"></i>
+                        <span>${cat.name}</span>
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        
+        characterGrid.parentNode.insertBefore(filterContainer, characterGrid);
+        
+        // Adicionar eventos
+        filterContainer.addEventListener('click', (e) => {
+            if (e.target.closest('.category-btn')) {
+                const btn = e.target.closest('.category-btn');
+                const category = btn.dataset.category;
+                this.setCategoryFilter(category);
+            }
+        });
+    }
+
+    createTagFilter() {
+        const filterContainer = document.querySelector('.filter-container');
+        const tagFilterHtml = `
+            <h3 class="filter-title">Tags</h3>
+            <div class="tag-filters" id="tagFilters">
+                ${Object.entries(this.tags).map(([key, tag]) => `
+                    <button class="tag-btn" 
+                            data-tag="${key}" 
+                            style="--tag-color: ${tag.color}">
+                        <span>${tag.name}</span>
+                    </button>
+                `).join('')}
+            </div>
+            <div class="active-filters" id="activeFilters">
+                <div class="filter-summary">
+                    <span id="filterCount">Mostrando todos os caracteres</span>
+                    <button class="clear-filters-btn" onclick="categoryTagManager.clearAllFilters()" style="display: none;">
+                        <i class="fas fa-times"></i> Limpar filtros
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        filterContainer.insertAdjacentHTML('beforeend', tagFilterHtml);
+        
+        // Adicionar eventos
+        filterContainer.addEventListener('click', (e) => {
+            if (e.target.closest('.tag-btn')) {
+                const btn = e.target.closest('.tag-btn');
+                const tag = btn.dataset.tag;
+                this.toggleTagFilter(tag);
+            }
+        });
+    }
+
+    setCategoryFilter(category) {
+        this.activeFilters.category = category;
+        this.updateCategoryButtons();
+        
+        // Se estiver na página de busca, filtrar resultados existentes
+        if (document.getElementById('searchResults')) {
+            const searchInput = document.querySelector('.search-box input');
+            this.filterExistingResults(searchInput?.value || '');
+        } else {
+            this.updateCharacterDisplay();
+            this.updateFilterSummary();
+        }
+    }
+
+    toggleTagFilter(tag) {
+        const index = this.activeFilters.tags.indexOf(tag);
+        if (index > -1) {
+            this.activeFilters.tags.splice(index, 1);
+        } else {
+            this.activeFilters.tags.push(tag);
+        }
+        this.updateTagButtons();
+        
+        // Se estiver na página de busca, filtrar resultados existentes
+        if (document.getElementById('searchResults')) {
+            const searchInput = document.querySelector('.search-box input');
+            this.filterExistingResults(searchInput?.value || '');
+        } else {
+            this.updateCharacterDisplay();
+            this.updateFilterSummary();
+        }
+    }
+
+    clearAllFilters() {
+        this.activeFilters = { category: 'all', tags: [] };
+        this.updateCategoryButtons();
+        this.updateTagButtons();
+        
+        // Se estiver na página de busca, filtrar resultados existentes
+        if (document.getElementById('searchResults')) {
+            const searchInput = document.querySelector('.search-box input');
+            this.filterExistingResults(searchInput?.value || '');
+        } else {
+            this.updateCharacterDisplay();
+            this.updateFilterSummary();
+        }
+    }
+
+    updateCategoryButtons() {
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.category === this.activeFilters.category);
+        });
+    }
+
+    updateTagButtons() {
+        document.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.classList.toggle('active', this.activeFilters.tags.includes(btn.dataset.tag));
+        });
+    }
+
+    updateFilterSummary() {
+        const filterCount = document.getElementById('filterCount');
+        const clearBtn = document.querySelector('.clear-filters-btn');
+        
+        const hasFilters = this.activeFilters.category !== 'all' || this.activeFilters.tags.length > 0;
+        clearBtn.style.display = hasFilters ? 'flex' : 'none';
+        
+        if (hasFilters) {
+            const categoryName = this.categories[this.activeFilters.category].name;
+            const tagNames = this.activeFilters.tags.map(tag => this.tags[tag].name);
+            let summary = `Filtrando por: ${categoryName}`;
+            if (tagNames.length > 0) {
+                summary += ` + ${tagNames.join(', ')}`;
+            }
+            filterCount.textContent = summary;
+        } else {
+            filterCount.textContent = 'Mostrando todos os caracteres';
+        }
+    }
+
+    getFilteredCharacters() {
+        return Object.entries(this.characterData).filter(([unicode, data]) => {
+            const categoryMatch = this.activeFilters.category === 'all' || 
+                               data.category === this.activeFilters.category;
+            const tagsMatch = this.activeFilters.tags.length === 0 || 
+                             this.activeFilters.tags.some(tag => data.tags.includes(tag));
+            return categoryMatch && tagsMatch;
+        });
+    }
+
+    updateCharacterDisplay() {
+        const characterGrid = document.getElementById('characterGrid');
+        const searchResults = document.getElementById('searchResults');
+        const targetContainer = characterGrid || searchResults;
+        
+        if (!targetContainer) return;
+        
+        // Se estiver na página de busca, não substituir o conteúdo existente
+        if (searchResults && !characterGrid) {
+            this.setupSearchPageFilters();
+            return;
+        }
+        
+        const filteredCharacters = this.getFilteredCharacters();
+        
+        if (filteredCharacters.length === 0) {
+            targetContainer.innerHTML = `
+                <div class="no-results" style="grid-column: 1 / -1;">
+                    <i class="fas fa-search"></i>
+                    <h3>Nenhum caractere encontrado</h3>
+                    <p>Tente ajustar os filtros ou limpar todos os filtros</p>
+                </div>
+            `;
+            return;
+        }
+        
+        targetContainer.innerHTML = `
+            <div class="character-list-grid">
+                ${filteredCharacters.map(([unicode, data]) => `
+                    <div class="character-list-item" data-unicode="${unicode}" data-category="${data.category}" data-tags="${data.tags.join(',')}" onclick="navigateToCharacter('${unicode}')">
+                        <div class="character-list-display">${unicode}</div>
+                        <div class="character-list-info">
+                            <h3>${data.name}</h3>
+                            <p>${unicode}</p>
+                            <p style="color: var(--primary-color); font-size: 0.8rem;">${this.categories[data.category]?.name || data.category}</p>
+                        </div>
+                        <div class="character-list-description">${data.description}</div>
+                        <div class="character-tags">
+                            ${data.tags.map(tag => `
+                                <span class="character-tag" style="--tag-color: ${this.tags[tag].color}">
+                                    ${this.tags[tag].name}
+                                </span>
+                            `).join('')}
+                        </div>
+                        <div class="character-list-actions">
+                            <button class="btn btn-sm btn-primary" onclick="copyCharacter('${unicode}', event)">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${unicode}', '${unicode}', event)">
+                                <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                            <button class="btn btn-sm favorite-btn" onclick="favoritesManager.addFavorite('${unicode}', '${unicode}', '${data.name}', event)">
+                                <i class="far fa-heart"></i> Favoritar
+                            </button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        // Atualizar botões de favorito
+        if (typeof favoritesManager !== 'undefined') {
+            favoritesManager.updateFavoriteButtons();
+        }
+    }
+
+    setupSearchIntegration() {
+        // Integrar com a busca existente
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            const originalValue = searchInput.value;
+            searchInput.addEventListener('input', (e) => {
+                this.performSearch(e.target.value);
+            });
+        }
+    }
+
+    setupSearchPageFilters() {
+        // Para a página de busca, vamos adicionar filtros que funcionam com a busca existente
+        const searchInput = document.querySelector('.search-box input');
+        if (searchInput) {
+            // Adicionar evento para filtrar resultados existentes
+            searchInput.addEventListener('input', (e) => {
+                this.filterExistingResults(e.target.value);
+            });
+        }
+    }
+
+    filterExistingResults(query) {
+        const characterItems = document.querySelectorAll('.character-list-item');
+        const lowerQuery = query.toLowerCase();
+        let visibleCount = 0;
+        
+        characterItems.forEach(item => {
+            const name = item.querySelector('h3').textContent.toLowerCase();
+            const unicode = item.querySelector('p').textContent.toLowerCase();
+            const tags = item.dataset.tags?.toLowerCase() || '';
+            
+            // Aplicar filtros de categoria e tags
+            const categoryMatch = this.activeFilters.category === 'all' || 
+                               item.dataset.category === this.activeFilters.category;
+            const tagsMatch = this.activeFilters.tags.length === 0 || 
+                             (item.dataset.tags && this.activeFilters.tags.some(tag => item.dataset.tags.includes(tag)));
+            
+            const queryMatch = !query || name.includes(lowerQuery) || 
+                              unicode.includes(lowerQuery) || 
+                              tags.includes(lowerQuery);
+            
+            const shouldShow = categoryMatch && tagsMatch && queryMatch;
+            item.style.display = shouldShow ? 'flex' : 'none';
+            
+            if (shouldShow) visibleCount++;
+        });
+        
+        // Atualizar informações de resultados
+        this.updateSearchResultsInfo(visibleCount, query);
+    }
+
+    updateSearchResultsInfo(count, query) {
+        const subtitle = document.getElementById('searchSubtitle');
+        if (subtitle) {
+            if (query) {
+                subtitle.textContent = `${count} resultados para "${query}"`;
+            } else {
+                subtitle.textContent = `Mostrando ${count} caracteres`;
+            }
+        }
+    }
+
+    performSearch(query) {
+        const characterItems = document.querySelectorAll('.character-list-item');
+        const lowerQuery = query.toLowerCase();
+        
+        characterItems.forEach(item => {
+            const name = item.querySelector('h3').textContent.toLowerCase();
+            const unicode = item.querySelector('p').textContent.toLowerCase();
+            const tags = item.dataset.tags.toLowerCase();
+            
+            const matches = name.includes(lowerQuery) || 
+                          unicode.includes(lowerQuery) || 
+                          tags.includes(lowerQuery);
+            
+            item.style.display = matches ? 'flex' : 'none';
+        });
+        
+        // Atualizar contagem de resultados
+        const visibleItems = Array.from(characterItems).filter(item => item.style.display !== 'none');
+        const filterCount = document.getElementById('filterCount');
+        const resultsInfo = document.getElementById('resultsInfo');
+        
+        if (filterCount) {
+            if (query) {
+                filterCount.textContent = `${visibleItems.length} resultados para "${query}"`;
+            } else {
+                this.updateFilterSummary();
+            }
+        }
+        
+        if (resultsInfo) {
+            if (query) {
+                resultsInfo.textContent = `Encontrados ${visibleItems.length} caracteres para "${query}"`;
+            } else {
+                resultsInfo.textContent = '';
+            }
+        }
+    }
+}
+
 // Sistema de Tema Automático
 class ThemeManager {
     constructor() {
@@ -253,6 +663,7 @@ class ThemeManager {
 // Inicializar sistemas
 let favoritesManager;
 let themeManager;
+let categoryTagManager;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar sistema de favoritos
@@ -260,6 +671,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inicializar sistema de tema
     themeManager = new ThemeManager();
+    
+    // Inicializar sistema de categorias e tags nas páginas apropriadas
+    if (window.location.pathname.includes('explore.html') || window.location.href.includes('explore.html') ||
+        window.location.pathname.includes('search/index.html') || window.location.href.includes('search/index.html')) {
+        categoryTagManager = new CategoryTagManager();
+    }
 
     // Menu mobile toggle
     const mobileMenu = document.getElementById('mobile-menu');
@@ -620,7 +1037,6 @@ window.CharacterHub = {
     copyCharacter,
     copyUnicode,
     shareCharacter,
-    searchCharacters,
     filterByCategory,
     exportCharacters,
     getCharacterInfo,
