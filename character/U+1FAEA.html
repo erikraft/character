@@ -75,7 +75,7 @@
         }
         
         .info-card {
-            background: white;
+            background: var(--bg-primary);
             border: 2px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
@@ -117,8 +117,13 @@
             margin: 2rem 0;
         }
         
+        .usage-examples h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+        
         .usage-example {
-            background: white;
+            background: var(--bg-primary);
             padding: 1rem;
             border-radius: var(--radius-md);
             margin: 1rem 0;
@@ -167,7 +172,7 @@
         }
         
         .style-variation {
-            background: white;
+            background: var(--bg-primary);
             border: 2px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
@@ -294,9 +299,9 @@
 
         .unicode-table td, .encoding-table td, .encoding-table th, .codes-table td {
             padding: 0.65rem 0;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border-color);
             text-align: left;
-            color: #1f2937;
+            color: var(--text-primary);
             transition: color 0.2s ease;
             word-break: break-word;
             overflow-wrap: anywhere;
@@ -304,19 +309,19 @@
 
         .unicode-table td:first-child, .encoding-table th, .codes-table td:first-child {
             font-weight: 500;
-            color: #6b7280;
-            border-color: #e5e7eb;
+            color: var(--text-secondary);
+            border-color: var(--border-color);
             width: 45%;
         }
 
         .unicode-table td:nth-child(2), .encoding-table td:not(:first-child), .codes-table td:nth-child(2) {
             font-family: monospace;
-            color: #1f2937;
+            color: var(--text-primary);
             font-weight: 600;
         }
 
         .encoding-table th {
-            color: #6b7280;
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
@@ -332,11 +337,11 @@
             justify-content: space-between;
             gap: 1rem;
             padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .code-label {
-            color: #6b7280;
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
@@ -352,24 +357,24 @@
         }
 
         .info-card h3 {
-            color: #6366f1;
+            color: var(--primary-color);
             margin-bottom: 1rem;
             font-size: 1.2rem;
         }
 
         .info-card h4 {
-            color: #1f2937;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .info-card p {
-            color: #6b7280;
+            color: var(--text-secondary);
             line-height: 1.5;
         }
 
         .style-variation .name {
             font-size: 0.9rem;
-            color: #6b7280;
+            color: var(--text-secondary);
         }
         
         .platform-showcase {
@@ -666,7 +671,7 @@
                 </div>
                 
                 <div class="usage-examples">
-                    <h3 style="color: black;"><i class="fas fa-lightbulb" style="color: black;"></i> Aplicações Modernas</h3>
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Modernas</h3>
                     
                     <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
                         <h4>1. Redes Sociais</h4>
@@ -690,7 +695,7 @@
                 </div>
                 
                 <div class="usage-examples">
-                    <h3 style="color: black;"><i class="fas fa-exclamation-triangle" style="color: black;"></i> Informações de Lançamento</h3>
+                    <h3><i class="fas fa-exclamation-triangle"></i> Informações de Lançamento</h3>
                     
                     <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
                         <h4>Lançamento Recente</h4>
