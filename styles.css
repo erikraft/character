@@ -24,6 +24,9 @@
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
+    --favorite-btn-bg: linear-gradient(135deg, #ef4444, #dc2626);
+    --favorite-btn-hover: linear-gradient(135deg, #dc2626, #b91c1c);
+    --favorite-btn-active: linear-gradient(135deg, #10b981, #059669);
 }
 
 /* Dark Mode Variables */
@@ -42,6 +45,9 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --favorite-btn-bg: linear-gradient(135deg, #f87171, #ef4444);
+    --favorite-btn-hover: linear-gradient(135deg, #ef4444, #dc2626);
+    --favorite-btn-active: linear-gradient(135deg, #34d399, #10b981);
 }
 
 body {
@@ -294,6 +300,21 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-favorite {
+    background: var(--favorite-btn-bg);
+    color: white;
+    border: none;
+}
+
+.btn-favorite:hover {
+    background: var(--favorite-btn-hover);
+    transform: translateY(-2px);
+}
+
+.btn-favorite.favorited {
+    background: var(--favorite-btn-active);
+}
+
 .btn-outline {
     background: transparent;
     color: var(--primary-color);
@@ -478,6 +499,8 @@ section {
     background: var(--bg-tertiary);
     border-radius: var(--radius-md);
     padding: 1rem;
+    overflow: hidden;
+    line-height: 1;
 }
 
 .character-card h3 {

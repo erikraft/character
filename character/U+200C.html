@@ -370,9 +370,6 @@
                     <button class="btn btn-primary" onclick="copyCharacter('')">
                         <i class="fas fa-copy"></i> Copiar Caractere
                     </button>
-                    <button class="btn btn-secondary" onclick="copyUnicode('U+200C')">
-                        <i class="fas fa-code"></i> Copiar Código
-                    </button>
                     <button class="btn btn-secondary" onclick="shareCharacter()">
                         <i class="fas fa-share-alt"></i> Compartilhar
                     </button>
@@ -392,41 +389,29 @@
     <script>
         function copyCharacter(character) {
             navigator.clipboard.writeText(character).then(() => {
-                playSuccessSound();
+                if (typeof playSuccessSound === 'function') playSuccessSound();
                 showToast('Caractere copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar caractere', 'error');
             });
-        }).catch(() => {
-                showToast('Erro ao copiar caractere', 'error');
-            });
         }
+
         function copyUnicode(code) {
             navigator.clipboard.writeText(code).then(() => {
-                playSuccessSound();
+                if (typeof playSuccessSound === 'function') playSuccessSound();
                 showToast('Código copiado com sucesso!', 'success');
             }).catch(() => {
                 showToast('Erro ao copiar código', 'error');
             });
-        }).catch(() => {
-                showToast('Erro ao copiar cdigo', 'error');
-            });
         }
+
         function shareCharacter(character, code) {
-            playSharingSound();
+            if (typeof playSharingSound === 'function') playSharingSound();
             const shareData = {
                 title: `Character Hub - ${code}`,
                 text: `Confira este caractere especial: ${character}`,
                 url: window.location.href
             };
-
-            if (navigator.share) {
-                navigator.share(shareData);
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                showToast('Link copiado para compartilhar!', 'success');
-            }
-        };
 
             if (navigator.share) {
                 navigator.share(shareData);
@@ -447,7 +432,7 @@
                 position: fixed;
                 bottom: 2rem;
                 right: 2rem;
-                background: ${type === 'success'  '#10b981' : '#ef4444'};
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
                 color: white;
                 padding: 1rem 1.5rem;
                 border-radius: 0.5rem;

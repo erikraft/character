@@ -17,15 +17,20 @@
         
         .list-header {
             text-align: center;
+            margin-top: 120px; /* espaço abaixo do header */
             margin-bottom: 2rem;
+            padding: 0 1rem;
         }
         
         .search-section {
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 2rem;
+            padding: 2rem 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .search-container {
@@ -33,6 +38,7 @@
             gap: 0.5rem;
             max-width: 500px;
             width: 100%;
+            margin-bottom: 1rem;
         }
         
         .search-input {
@@ -42,12 +48,12 @@
             border-radius: var(--radius-md);
             font-size: 1rem;
             transition: all 0.3s ease;
-            color: #000000 !important;
-            background-color: #ffffff !important;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         
         .search-input::placeholder {
-            color: #6b7280 !important;
+            color: var(--text-secondary);
         }
         
         .search-input:focus {
@@ -70,19 +76,32 @@
             background: var(--primary-dark);
         }
         
+        .filter-group {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-align: left;
+        }
+        
         .category-filter {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            max-width: 800px;
+            gap: 0.75rem;
+            justify-content: flex-start;
             width: 100%;
         }
         
         .category-btn {
             padding: 0.5rem 1rem;
             border: 2px solid var(--border-color);
-            background: white;
+            background: var(--bg-primary);
             color: var(--text-primary);
             border-radius: var(--radius-md);
             cursor: pointer;
@@ -101,6 +120,39 @@
             border-color: var(--primary-color);
         }
         
+        .tag-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .tag-popular { border-color: #ef4444; color: #ef4444; }
+        .tag-unicode { border-color: #3b82f6; color: #3b82f6; }
+        .tag-social { border-color: #10b981; color: #10b981; }
+        .tag-oculto { border-color: #6b7280; color: #6b7280; }
+        .tag-raro { border-color: #8b5cf6; color: #8b5cf6; }
+        .tag-util { border-color: #f59e0b; color: #f59e0b; }
+        .tag-divertido { border-color: #ec4899; color: #ec4899; }
+        .tag-profissional { border-color: #6366f1; color: #6366f1; }
+        .tag-artistico { border-color: #06b6d4; color: #06b6d4; }
+        .tag-tecnico { border-color: #f97316; color: #f97316; }
+
+        .tag-btn:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+        
+        .tag-btn.active {
+            background: var(--primary-color);
+            color: white !important;
+            border-color: var(--primary-color) !important;
+        }
+        
         .results-info {
             text-align: center;
             color: var(--text-secondary);
@@ -114,20 +166,16 @@
             color: var(--text-primary);
         }
         
-        .list-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-        
         .character-list-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
+            width: 100%;
         }
         
         .character-list-item {
-            background: white;
+            background: var(--bg-primary);
             border: 2px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
@@ -175,17 +223,7 @@
             margin-bottom: 1rem;
             line-height: 1.4;
         }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
-            color: white;
-            border: none;
-        }
-        
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #4b5563, #374151);
-            transform: translateY(-2px);
-        }
+
         
         .character-list-actions {
             display: flex;
@@ -205,7 +243,7 @@
         .pagination-btn {
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
-            background: white;
+            background: var(--bg-primary);
             color: var(--text-primary);
             border-radius: var(--radius-md);
             cursor: pointer;
@@ -268,16 +306,34 @@
     </style>
 </head>
 <body>
-    <a href="../index.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Voltar para Lista
-    </a>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="../index.html#home" class="nav-link">Início</a></li>
+                    <li class="nav-item"><a href="../index.html#favorites-section" class="nav-link">Favoritos</a></li>
+                    <li class="nav-item"><a href="../index.html#characters" class="nav-link">Caracteres</a></li>
+                    <li class="nav-item"><a href="../index.html#contact" class="nav-link">Contato</a></li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="list-header">
+        <h1>Explorar Caracteres</h1>
+        <p>Descubra caracteres especiais únicos e úteis</p>
+    </div>
 
     <div class="character-list-container">
-        <div class="list-header">
-            <h1>Explorar Caracteres</h1>
-            <p>Explore todos os caracteres especiais Unicode disponíveis</p>
-        </div>
-
+        
         <div class="search-section">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Pesquisar caracteres..." class="search-input">
@@ -286,17 +342,20 @@
                 </button>
             </div>
             
-            <div class="category-filter" id="categoryFilter">
-                <button class="category-btn active" onclick="filterByCategory('all')">Todos</button>
-                <button class="category-btn" onclick="filterByCategory('Invisível')">Invisíveis</button>
-                <button class="category-btn" onclick="filterByCategory('Espaço')">Espaços</button>
-                <button class="category-btn" onclick="filterByCategory('Decorativo')">Decorativos</button>
-                <button class="category-btn" onclick="filterByCategory('Seta')">Setas</button>
-                <button class="category-btn" onclick="filterByCategory('Separador')">Separadores</button>
-                <button class="category-btn" onclick="filterByCategory('Símbolo')">Símbolos</button>
-                <button class="category-btn" onclick="filterByCategory('Glitch')">Glitch</button>
-                <button class="category-btn" onclick="filterByCategory('Raro')">Raros</button>
-                <button class="category-btn" onclick="filterByCategory('Combinação')">Combinações</button>
+            <div class="filter-group">
+                <div class="filter-label">Categorias</div>
+                <div class="category-filter">
+                    <button class="category-btn active" onclick="filterByCategory('all')">Todos</button>
+                    <button class="category-btn" onclick="filterByCategory('Invisível')">Invisível</button>
+                    <button class="category-btn" onclick="filterByCategory('Espaço')">Espaço</button>
+                    <button class="category-btn" onclick="filterByCategory('Separador')">Separador</button>
+                    <button class="category-btn" onclick="filterByCategory('Decorativo')">Decorativo</button>
+                    <button class="category-btn" onclick="filterByCategory('Símbolo')">Símbolo</button>
+                    <button class="category-btn" onclick="filterByCategory('Raro')">Raro</button>
+                    <button class="category-btn" onclick="filterByCategory('Glitch')">Glitch</button>
+                    <button class="category-btn" onclick="filterByCategory('Combinação')">Combinação</button>
+                    <button class="category-btn" onclick="filterByCategory('Emoji')">Emoji</button>
+                </div>
             </div>
         </div>
 
@@ -312,7 +371,73 @@
     </div>
 
     <script>
-        const allCharacters = [
+        // Theme Manager local para explore.html
+        class ThemeManager {
+            constructor() {
+                this.theme = this.loadTheme();
+                this.init();
+            }
+
+            init() {
+                this.addThemeToggle();
+                this.applyTheme();
+                this.setupSystemPreferenceListener();
+            }
+
+            loadTheme() {
+                const stored = localStorage.getItem('theme');
+                if (stored) {
+                    return stored;
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            saveTheme(theme) {
+                localStorage.setItem('theme', theme);
+                this.theme = theme;
+                this.applyTheme();
+            }
+
+            applyTheme() {
+                document.documentElement.setAttribute('data-theme', this.theme);
+                this.updateThemeToggle();
+            }
+
+            toggleTheme() {
+                const newTheme = this.theme === 'light' ? 'dark' : 'light';
+                this.saveTheme(newTheme);
+                showToast(`Tema ${newTheme === 'dark' ? 'escuro' : 'claro'} ativado`, 'success');
+            }
+
+            addThemeToggle() {
+                const navContainer = document.querySelector('.nav-container');
+                if (!navContainer || document.getElementById('theme-toggle')) return;
+                const themeToggle = document.createElement('button');
+                themeToggle.id = 'theme-toggle';
+                themeToggle.className = 'theme-toggle';
+                themeToggle.onclick = () => this.toggleTheme();
+                navContainer.appendChild(themeToggle);
+            }
+
+            updateThemeToggle() {
+                const toggle = document.getElementById('theme-toggle');
+                if (toggle) {
+                    toggle.innerHTML = this.theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                }
+            }
+
+            setupSystemPreferenceListener() {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                mediaQuery.addListener((e) => {
+                    if (!localStorage.getItem('theme')) {
+                        this.saveTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        }
+
+
+        const exploreCharacters = [
             {
                 char: '\u200B',
                 name: 'Zero Width Space',
@@ -594,7 +719,7 @@
                 page: 'U+23F8.html',
             },
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
                 category: 'Glitch',
@@ -730,7 +855,7 @@
                 page: 'U+205F.html',
             },
             {
-                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์์์',
+                char: 'ธิิิิิิิิิิิิิิิิิิิิิิิิ์์์์์์์์์์์์์์์์์์์์์์',
                 name: 'Super Stack Character',
                 code: 'Stacked',
                 category: 'Combinação',
@@ -757,9 +882,9 @@
 
         let currentPage = 1;
         const itemsPerPage = 12;
-        let filteredCharacters = [...allCharacters];
-        let currentCategory = 'all';
+        let filteredCharacters = [...exploreCharacters];
         let currentSearch = '';
+        let currentCategory = 'all';
 
         // Funções de áudio
         function playSuccessSound() {
@@ -786,6 +911,85 @@
             }
         }
 
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'characterFavorites') {
+                filteredCharacters = [...exploreCharacters];
+                renderCharacters();
+                updateFavoriteButtons();
+            }
+        });
+
+        // Sistema de Favoritos
+        function loadFavorites() {
+            const f = localStorage.getItem('characterFavorites');
+            if (!f) return [];
+            try {
+                let parsed = JSON.parse(f);
+                let updated = false;
+                parsed = parsed.map(item => {
+                    if (item.character && !item.char) {
+                        updated = true;
+                        return {
+                            char: item.character,
+                            name: item.name || '',
+                            code: item.unicode || item.code || '',
+                            page: item.unicode || item.page || item.code || ''
+                        };
+                    }
+                    return item;
+                });
+                if (updated) localStorage.setItem('characterFavorites', JSON.stringify(parsed));
+                return parsed;
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function toggleFavorite(char, name, code, page, event) {
+            if (event) event.stopPropagation();
+
+            let favorites = loadFavorites();
+            const exists = favorites.find(f => f.char === char);
+
+            if (exists) {
+                favorites = favorites.filter(f => f.char !== char);
+                localStorage.setItem('characterFavorites', JSON.stringify(favorites));
+                updateFavoriteButtons();
+            } else {
+                favorites.push({
+                    char: char,
+                    name: name,
+                    code: code,
+                    page: page || code
+                });
+                localStorage.setItem('characterFavorites', JSON.stringify(favorites));
+
+                const sound = document.getElementById("favoriteSound");
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play().catch(e => console.log('Audio play failed:', e));
+                }
+                updateFavoriteButtons();
+            }
+        }
+
+        function updateFavoriteButtons() {
+            const favorites = loadFavorites();
+
+            document.querySelectorAll(".btn-favorite").forEach(btn => {
+                const char = btn.dataset.char;
+                const isFav = favorites.find(f => f.char === char);
+
+                if (isFav) {
+                    btn.innerHTML = '<i class="fas fa-heart"></i>';
+                    btn.classList.add('favorited');
+                } else {
+                    btn.innerHTML = '<i class="far fa-heart"></i>';
+                    btn.classList.remove('favorited');
+                }
+            });
+        }
+
         function renderCharacters() {
             const grid = document.getElementById('characterGrid');
             const startIndex = (currentPage - 1) * itemsPerPage;
@@ -797,7 +1001,7 @@
                     <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
                         <i class="fas fa-search" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
                         <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Nenhum caractere encontrado</h3>
-                        <p style="color: var(--text-secondary);">Tente ajustar sua pesquisa ou categoria.</p>
+                        <p style="color: var(--text-secondary);">Tente ajustar sua pesquisa.</p>
                     </div>
                 `;
                 document.getElementById('pagination').innerHTML = '';
@@ -807,7 +1011,7 @@
 
             grid.innerHTML = pageCharacters.map(character => `
                 <div class="character-list-item" onclick="navigateToCharacter('${character.page}')">
-                    <div class="character-list-display ${character.code === 'Stacked' || character.code === 'Glitch' ? 'super-stack-display' : ''}">${character.char}</div>
+                    <div class="character-list-display">${character.char}</div>
                     <div class="character-list-info">
                         <h3>${character.name}</h3>
                         <p>${character.code}</p>
@@ -820,6 +1024,9 @@
                         </button>
                         <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${character.char}', '${character.code}', event)">
                             <i class="fas fa-share-alt"></i> Compartilhar
+                        </button>
+                        <button class="btn btn-sm btn-favorite" data-char="${character.char}" onclick="toggleFavorite('${character.char}','${character.name}','${character.code}','${character.page}',event)">
+                            <i class="fas fa-heart"></i>
                         </button>
                     </div>
                 </div>
@@ -883,26 +1090,33 @@
 
         function filterByCategory(category) {
             currentCategory = category;
+            currentPage = 1;
             
             // Update active button
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // Find the button that was clicked
+            const clickedBtn = document.querySelector(`.category-btn[onclick*="'${category}'"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+            }
             
             applyFilters();
         }
 
         function applyFilters() {
-            filteredCharacters = allCharacters.filter(character => {
-                const matchesCategory = currentCategory === 'all' || character.category === currentCategory;
+            filteredCharacters = exploreCharacters.filter(character => {
                 const matchesSearch = currentSearch === '' || 
                     character.name.toLowerCase().includes(currentSearch) ||
                     character.code.toLowerCase().includes(currentSearch) ||
                     character.description.toLowerCase().includes(currentSearch) ||
                     character.char.includes(currentSearch);
                 
-                return matchesCategory && matchesSearch;
+                const matchesCategory = currentCategory === 'all' || character.category === currentCategory;
+                
+                return matchesSearch && matchesCategory;
             });
             
             currentPage = 1;
@@ -911,12 +1125,15 @@
 
         function updateResultsInfo(total) {
             const resultsInfo = document.getElementById('resultsInfo');
-            if (currentSearch || currentCategory !== 'all') {
-                const categoryText = currentCategory !== 'all' ? `categoria "${currentCategory}"` : '';
-                const searchText = currentSearch ? `pesquisa "${currentSearch}"` : '';
-                const separator = (categoryText && searchText) ? ' e ' : '';
-                
-                resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${categoryText}${separator}${searchText}`;
+            let categoryText = currentCategory === 'all' ? '' : `categoria "${currentCategory}"`;
+            let searchText = currentSearch ? `pesquisa "${currentSearch}"` : '';
+            
+            if (categoryText && searchText) {
+                resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${categoryText} e ${searchText}`;
+            } else if (categoryText) {
+                resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${categoryText}`;
+            } else if (searchText) {
+                resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${searchText}`;
             } else {
                 resultsInfo.innerHTML = `Mostrando ${total} caracteres no total`;
             }
@@ -987,7 +1204,20 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar ThemeManager
+            const themeManager = new ThemeManager();
+            
+            // Resetar filtros para garantir que comece com 'all'
+            currentCategory = 'all';
+            currentSearch = '';
+            filteredCharacters = [...exploreCharacters];
+            
+            // Debug: Verificar se o array está correto
+            console.log('Total de caracteres:', exploreCharacters.length);
+            console.log('Filtros iniciais:', { currentCategory, currentSearch, filteredCharactersLength: filteredCharacters.length });
+            
             renderCharacters();
+            updateFavoriteButtons();
             
             // Add search on Enter key
             document.getElementById('searchInput').addEventListener('keypress', (e) => {
@@ -995,7 +1225,6 @@
                     performSearch();
                 }
             });
-            
         });
     </script>
     <audio id="successSound" preload="auto">
@@ -1006,6 +1235,9 @@
     </audio>
     <audio id="sharingSound" preload="auto">
         <source src="../media/sharing.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="favoriteSound" preload="auto">
+        <source src="../media/favorite.mp3" type="audio/mpeg">
     </audio>
 </body>
 </html>

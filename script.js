@@ -78,27 +78,28 @@ class FavoritesManager {
     }
 
     addFavorite(character, unicode, name) {
-        const existingIndex = this.favorites.findIndex(fav => fav.unicode === unicode);
-        if (existingIndex === -1) {
-            this.favorites.push({ character, unicode, name });
-            this.saveFavorites();
-            playFavoriteSound();
-            showToast('Adicionado aos favoritos!', 'success');
-        } else {
-            this.removeFavorite(unicode);
-        }
+            const existingIndex = this.favorites.findIndex(fav => fav.unicode === unicode || fav.code === unicode);
+            if (existingIndex === -1) {
+                // Ensure dual compatibility
+                this.favorites.push({ character, unicode, name, char: character, code: unicode, page: unicode });
+                this.saveFavorites();
+                playFavoriteSound();
+                showToast('Adicionado aos favoritos!', 'success');
+            } else {
+                this.removeFavorite(unicode);
+            }
         this.updateFavoriteButtons();
         this.updateFavoritesSection();
     }
 
     removeFavorite(unicode) {
-        this.favorites = this.favorites.filter(fav => fav.unicode !== unicode);
+        this.favorites = this.favorites.filter(fav => fav.unicode !== unicode && fav.code !== unicode);
         this.saveFavorites();
         showToast('Removido dos favoritos', 'info');
     }
 
     isFavorite(unicode) {
-        return this.favorites.some(fav => fav.unicode === unicode);
+        return this.favorites.some(fav => fav.unicode === unicode || fav.code === unicode);
     }
 
     addFavoriteButtons() {
@@ -109,7 +110,7 @@ class FavoritesManager {
             const name = card.querySelector('h3').textContent;
             
             // Verificar se já tem botão de favorito
-            if (!card.querySelector('.favorite-btn')) {
+            if (!card.querySelector('.favorite-btn') && !card.querySelector('.btn-favorite')) {
                 const actionsDiv = card.querySelector('.card-actions');
                 const favoriteBtn = document.createElement('button');
                 favoriteBtn.className = 'btn btn-sm favorite-btn';
@@ -141,6 +142,12 @@ class FavoritesManager {
     }
 
     updateFavoritesSection() {
+        // Se renderFavorites (de index.html) existir, chama ele para não duplicar seções
+        if (typeof renderFavorites === 'function') {
+            renderFavorites();
+            return;
+        }
+
         // Remover seção existente
         const existingSection = document.getElementById('favorites-section');
         if (existingSection) {
@@ -601,8 +608,8 @@ class ThemeManager {
     }
 
     init() {
-        this.applyTheme();
         this.addThemeToggle();
+        this.applyTheme();
         this.setupSystemPreferenceListener();
     }
 
@@ -634,10 +641,10 @@ class ThemeManager {
 
     addThemeToggle() {
         const navContainer = document.querySelector('.nav-container');
+        if (!navContainer || document.getElementById('theme-toggle')) return;
         const themeToggle = document.createElement('button');
         themeToggle.id = 'theme-toggle';
         themeToggle.className = 'theme-toggle';
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         themeToggle.onclick = () => this.toggleTheme();
         navContainer.appendChild(themeToggle);
     }
@@ -802,6 +809,14 @@ function showToast(message, type = 'success') {
 
 // Função para abrir página de detalhes do caractere
 function openCharacter(unicodeCode) {
+    const isInsideCharacterFolder = window.location.pathname.includes('/character/') || window.location.href.includes('/character/');
+
+    if (unicodeCode.endsWith('.html')) {
+        const basePath = isInsideCharacterFolder ? '' : 'character/';
+        window.location.href = basePath + unicodeCode;
+        return;
+    }
+
     // Redirecionar para página de detalhes baseada no código Unicode
     const characterPages = {
         'U+007C': 'character/U+007C.html',
@@ -814,8 +829,10 @@ function openCharacter(unicodeCode) {
     
     const page = characterPages[unicodeCode];
     if (page) {
-        window.location.href = page;
+        const prefix = isInsideCharacterFolder ? '../' : '';
+        window.location.href = prefix + page;
     } else {
+        playErrorSound();
         showToast('Página do caractere não encontrada', 'error');
     }
 }

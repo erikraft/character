@@ -125,6 +125,9 @@
                             <button class="btn btn-sm btn-secondary" onclick="shareCharacter('｜', 'U+007C', event)">
                                 <i class="fas fa-share-alt"></i> Compartilhar
                             </button>
+                            <button class="btn btn-sm btn-favorite" data-char="｜" onclick="toggleFavorite('｜', 'Vertical Line', 'U+007C', 'U+007C', event)">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                     
@@ -138,6 +141,9 @@
                             </button>
                             <button class="btn btn-sm btn-secondary" onclick="shareCharacter('ㅤ', 'U+1160', event)">
                                 <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                            <button class="btn btn-sm btn-favorite" data-char="ㅤ" onclick="toggleFavorite('ㅤ', 'Invisível Grande', 'U+1160', 'U+1160', event)">
+                                <i class="far fa-heart"></i>
                             </button>
                         </div>
                     </div>
@@ -153,6 +159,9 @@
                             <button class="btn btn-sm btn-secondary" onclick="shareCharacter(' ', 'U+2000', event)">
                                 <i class="fas fa-share-alt"></i> Compartilhar
                             </button>
+                            <button class="btn btn-sm btn-favorite" data-char=" " onclick="toggleFavorite(' ', 'Invisível Médio', 'U+2000', 'U+2000', event)">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                     
@@ -167,6 +176,9 @@
                             <button class="btn btn-sm btn-secondary" onclick="shareCharacter(' ', 'U+205F', event)">
                                 <i class="fas fa-share-alt"></i> Compartilhar
                             </button>
+                            <button class="btn btn-sm btn-favorite" data-char=" " onclick="toggleFavorite(' ', 'Invisível Pequeno', 'U+205F', 'U+205F', event)">
+                                <i class="far fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                     
@@ -180,6 +192,9 @@
                             </button>
                             <button class="btn btn-sm btn-secondary" onclick="shareCharacter('🫪', 'U+1FAEA', event)">
                                 <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                            <button class="btn btn-sm btn-favorite" data-char="🫪" onclick="toggleFavorite('🫪', 'Distorted Face', 'U+1FAEA', 'U+1FAEA', event)">
+                                <i class="far fa-heart"></i>
                             </button>
                         </div>
                     </div>
@@ -201,6 +216,15 @@
                             <i class="fas fa-copy"></i> Copiar Combo
                         </button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="favorites-section" class="characters">
+            <div class="container">
+                <h2 class="section-title">Meus Favoritos</h2>
+                <div id="favorites-container" class="character-grid">
+                    <!-- Os favoritos serão carregados aqui dinamicamente -->
                 </div>
             </div>
         </section>
@@ -422,6 +446,151 @@
                 // Mostrar após 3 segundos na página
                 setTimeout(showWhatsAppPopup, 3000);
             }
+        });
+        
+        function windowFavoritesSync(e) {
+            if (e.key === 'characterFavorites') {
+                renderFavorites();
+                updateFavoriteButtons();
+            }
+        }
+        window.addEventListener('storage', windowFavoritesSync);
+
+        function loadFavorites() {
+            const f = localStorage.getItem('characterFavorites');
+            if (!f) return [];
+            try {
+                let parsed = JSON.parse(f);
+                let updated = false;
+                parsed = parsed.map(item => {
+                    if (item.character && !item.char) {
+                        updated = true;
+                        return {
+                            char: item.character,
+                            name: item.name || '',
+                            code: item.unicode || item.code || '',
+                            page: item.unicode || item.page || item.code || ''
+                        };
+                    }
+                    return item;
+                });
+                if (updated) localStorage.setItem('characterFavorites', JSON.stringify(parsed));
+                return parsed;
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function toggleFavorite(char, name, code, page, event) {
+            if (event) event.stopPropagation();
+
+            let favorites = loadFavorites();
+            const exists = favorites.find(f => f.char === char);
+
+            if (exists) {
+                // Remover dos favoritos
+                favorites = favorites.filter(f => f.char !== char);
+                localStorage.setItem('characterFavorites', JSON.stringify(favorites));
+
+                renderFavorites();
+                updateFavoriteButtons();
+            } else {
+                // Adicionar aos favoritos
+                favorites.push({
+                    char: char,
+                    name: name,
+                    code: code,
+                    page: page || code
+                });
+                localStorage.setItem('characterFavorites', JSON.stringify(favorites));
+
+                const sound = document.getElementById("favoriteSound");
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play().catch(e => console.log('Audio play failed:', e));
+                }
+
+                renderFavorites();
+                updateFavoriteButtons();
+            }
+        }
+
+        function updateFavoriteButtons() {
+            const favorites = loadFavorites();
+
+            document.querySelectorAll(".btn-favorite").forEach(btn => {
+                const char = btn.dataset.char;
+                const isFav = favorites.find(f => f.char === char);
+
+                if (isFav) {
+                    btn.innerHTML = '<i class="fas fa-heart"></i>';
+                    btn.classList.add('favorited');
+                } else {
+                    btn.innerHTML = '<i class="far fa-heart"></i>';
+                    btn.classList.remove('favorited');
+                }
+            });
+        }
+
+        function renderFavorites() {
+            const favoritesContainer = document.getElementById('favorites-container');
+            
+            // Verificar se o elemento existe antes de tentar usar
+            if (!favoritesContainer) {
+                console.warn('Elemento #favorites-container não encontrado');
+                return;
+            }
+            
+            const favorites = loadFavorites();
+            
+            if (favorites.length === 0) {
+                favoritesContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-heart" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Nenhum favorito ainda</h3>
+                        <p style="color: var(--text-secondary);">Adicione caracteres aos seus favoritos para vê-los aqui!</p>
+                    </div>
+                `;
+            } else {
+                favoritesContainer.innerHTML = favorites.map(fav => `
+                    <div class="character-card" onclick="openCharacter('${fav.page}')">
+                        <div class="character-display">${fav.char}</div>
+                        <h3>${fav.name}</h3>
+                        <p>${fav.code}</p>
+                        <div class="card-actions">
+                            <button class="btn btn-sm btn-primary" onclick="copyCharacter('${fav.char}', event)">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${fav.char}', '${fav.code}', event)">
+                                <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                            <button class="btn btn-sm btn-favorite" data-char="${fav.char}" onclick="toggleFavorite('${fav.char}','${fav.name}','${fav.code}','${fav.page}',event)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function removeFavorite(char, name, code, page, event) {
+            if (event) event.stopPropagation();
+            
+            const favorites = loadFavorites();
+            const updatedFavorites = favorites.filter(fav => fav.char !== char);
+            
+            localStorage.setItem('characterFavorites', JSON.stringify(updatedFavorites));
+            
+            playErrorSound();
+            showToast('Removido dos favoritos', 'success');
+            
+            renderFavorites();
+        }
+
+        // Carregar favoritos quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFavorites();
+            updateFavoriteButtons();
         });
     </script>
     
