@@ -5,6 +5,15 @@ function playSuccessSound() {
     const audio = document.getElementById('successSound');
     if (audio) {
         audio.currentTime = 0;
+        audio.play();
+    }
+}
+
+// Função para reproduzir som de favorito
+function playFavoriteSound() {
+    const audio = document.getElementById('favoriteSound');
+    if (audio) {
+        audio.currentTime = 0;
         audio.play().catch(e => console.log('Audio play failed:', e));
     }
 }
@@ -43,7 +52,215 @@ function incrementErrorCount() {
     }
 }
 
+// Sistema de Favoritos
+class FavoritesManager {
+    constructor() {
+        this.favorites = this.loadFavorites();
+        this.init();
+    }
+
+    init() {
+        // Adicionar botões de favorito aos cards existentes
+        this.addFavoriteButtons();
+        // Atualizar estado dos botões
+        this.updateFavoriteButtons();
+        // Adicionar seção de favoritos se houver itens
+        this.updateFavoritesSection();
+    }
+
+    loadFavorites() {
+        const stored = localStorage.getItem('characterFavorites');
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    saveFavorites() {
+        localStorage.setItem('characterFavorites', JSON.stringify(this.favorites));
+    }
+
+    addFavorite(character, unicode, name) {
+        const existingIndex = this.favorites.findIndex(fav => fav.unicode === unicode);
+        if (existingIndex === -1) {
+            this.favorites.push({ character, unicode, name });
+            this.saveFavorites();
+            playFavoriteSound();
+            showToast('Adicionado aos favoritos!', 'success');
+        } else {
+            this.removeFavorite(unicode);
+        }
+        this.updateFavoriteButtons();
+        this.updateFavoritesSection();
+    }
+
+    removeFavorite(unicode) {
+        this.favorites = this.favorites.filter(fav => fav.unicode !== unicode);
+        this.saveFavorites();
+        showToast('Removido dos favoritos', 'info');
+    }
+
+    isFavorite(unicode) {
+        return this.favorites.some(fav => fav.unicode === unicode);
+    }
+
+    addFavoriteButtons() {
+        const cards = document.querySelectorAll('.character-card');
+        cards.forEach(card => {
+            const unicode = card.querySelector('p').textContent;
+            const character = card.querySelector('.character-display').textContent;
+            const name = card.querySelector('h3').textContent;
+            
+            // Verificar se já tem botão de favorito
+            if (!card.querySelector('.favorite-btn')) {
+                const actionsDiv = card.querySelector('.card-actions');
+                const favoriteBtn = document.createElement('button');
+                favoriteBtn.className = 'btn btn-sm favorite-btn';
+                favoriteBtn.innerHTML = '<i class="far fa-heart"></i> Favoritar';
+                favoriteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    this.addFavorite(character, unicode, name);
+                };
+                actionsDiv.appendChild(favoriteBtn);
+            }
+        });
+    }
+
+    updateFavoriteButtons() {
+        const cards = document.querySelectorAll('.character-card');
+        cards.forEach(card => {
+            const unicode = card.querySelector('p').textContent;
+            const favoriteBtn = card.querySelector('.favorite-btn');
+            if (favoriteBtn) {
+                if (this.isFavorite(unicode)) {
+                    favoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Desfavoritar';
+                    favoriteBtn.classList.add('favorited');
+                } else {
+                    favoriteBtn.innerHTML = '<i class="far fa-heart"></i> Favoritar';
+                    favoriteBtn.classList.remove('favorited');
+                }
+            }
+        });
+    }
+
+    updateFavoritesSection() {
+        // Remover seção existente
+        const existingSection = document.getElementById('favorites-section');
+        if (existingSection) {
+            existingSection.remove();
+        }
+
+        if (this.favorites.length > 0) {
+            const charactersSection = document.getElementById('characters');
+            const favoritesSection = document.createElement('section');
+            favoritesSection.id = 'favorites-section';
+            favoritesSection.className = 'characters';
+            favoritesSection.innerHTML = `
+                <div class="container">
+                    <h2 class="section-title">Meus Favoritos</h2>
+                    <div class="character-grid" id="favorites-grid">
+                        ${this.favorites.map(fav => `
+                            <div class="character-card">
+                                <div class="character-display">${fav.character}</div>
+                                <h3>${fav.name}</h3>
+                                <p>${fav.unicode}</p>
+                                <div class="card-actions">
+                                    <button class="btn btn-sm btn-primary" onclick="copyCharacter('${fav.character}', event)">
+                                        <i class="fas fa-copy"></i> Copiar
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" onclick="shareCharacter('${fav.character}', '${fav.unicode}', event)">
+                                        <i class="fas fa-share-alt"></i> Compartilhar
+                                    </button>
+                                    <button class="btn btn-sm favorite-btn favorited" onclick="favoritesManager.addFavorite('${fav.character}', '${fav.unicode}', '${fav.name}', event)">
+                                        <i class="fas fa-heart"></i> Desfavoritar
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            charactersSection.parentNode.insertBefore(favoritesSection, charactersSection);
+        }
+    }
+}
+
+// Sistema de Tema Automático
+class ThemeManager {
+    constructor() {
+        this.theme = this.loadTheme();
+        this.init();
+    }
+
+    init() {
+        this.applyTheme();
+        this.addThemeToggle();
+        this.setupSystemPreferenceListener();
+    }
+
+    loadTheme() {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+            return stored;
+        }
+        // Usar preferência do sistema se não houver salva
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    saveTheme(theme) {
+        localStorage.setItem('theme', theme);
+        this.theme = theme;
+        this.applyTheme();
+    }
+
+    applyTheme() {
+        document.documentElement.setAttribute('data-theme', this.theme);
+        this.updateThemeToggle();
+    }
+
+    toggleTheme() {
+        const newTheme = this.theme === 'light' ? 'dark' : 'light';
+        this.saveTheme(newTheme);
+        showToast(`Tema ${newTheme === 'dark' ? 'escuro' : 'claro'} ativado`, 'success');
+    }
+
+    addThemeToggle() {
+        const navContainer = document.querySelector('.nav-container');
+        const themeToggle = document.createElement('button');
+        themeToggle.id = 'theme-toggle';
+        themeToggle.className = 'theme-toggle';
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggle.onclick = () => this.toggleTheme();
+        navContainer.appendChild(themeToggle);
+    }
+
+    updateThemeToggle() {
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+            toggle.innerHTML = this.theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+    }
+
+    setupSystemPreferenceListener() {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addListener((e) => {
+            // Só mudar automaticamente se o usuário não tiver definido manualmente
+            if (!localStorage.getItem('theme')) {
+                this.saveTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    }
+}
+
+// Inicializar sistemas
+let favoritesManager;
+let themeManager;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar sistema de favoritos
+    favoritesManager = new FavoritesManager();
+    
+    // Inicializar sistema de tema
+    themeManager = new ThemeManager();
+
     // Menu mobile toggle
     const mobileMenu = document.getElementById('mobile-menu');
     const navMenu = document.querySelector('.nav-menu');

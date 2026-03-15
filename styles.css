@@ -26,6 +26,24 @@
     --radius-xl: 1rem;
 }
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary-color: #818cf8;
+    --primary-dark: #6366f1;
+    --secondary-color: #67e8f9;
+    --accent-color: #fbbf24;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-tertiary: #374151;
+    --border-color: #4b5563;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
@@ -48,6 +66,11 @@ body {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
+    transition: background 0.3s ease;
+}
+
+[data-theme="dark"] .header {
+    background: rgba(17, 24, 39, 0.95);
 }
 
 .navbar {
@@ -336,7 +359,7 @@ section {
 }
 
 .feature-card {
-    background: white;
+    background: var(--bg-primary);
     padding: 1.5rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -408,7 +431,7 @@ section {
 }
 
 .character-card {
-    background: white;
+    background: var(--bg-primary);
     border: 2px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 1.5rem 1rem;
@@ -556,7 +579,7 @@ section {
 }
 
 .contact-card {
-    background: white;
+    background: var(--bg-primary);
     padding: 2rem;
     border-radius: var(--radius-xl);
     text-align: center;
@@ -591,10 +614,14 @@ section {
 
 /* Footer */
 .footer {
-    background: var(--text-primary);
+    background: #1f2937;
     color: white;
     text-align: center;
     padding: 2rem 0;
+}
+
+[data-theme="dark"] .footer {
+    background: #111827;
 }
 
 .footer p {
@@ -609,7 +636,7 @@ section {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--bg-primary);
         width: 100%;
         text-align: center;
         transition: 0.3s;
@@ -1050,7 +1077,7 @@ section {
 }
 
 .detail-section {
-    background: #ffffff;
+    background: var(--bg-primary);
     padding: 2rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -1092,7 +1119,7 @@ section {
 
 .related-characters {
     margin-top: 2.5rem;
-    background: #ffffff;
+    background: var(--bg-primary);
     padding: 1.5rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -1132,7 +1159,7 @@ section {
 
 .related-card .related-char {
     font-size: 2rem;
-    background: #ffffff;
+    background: var(--bg-primary);
     border-radius: var(--radius-md);
     padding: 0.5rem 0.75rem;
     min-height: 3rem;
@@ -1199,4 +1226,58 @@ section {
 
 .toast.error {
     background: #ef4444;
+}
+
+.toast.info {
+    background: #3b82f6;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+/* Favorite Buttons */
+.favorite-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background: var(--bg-tertiary);
+    color: #ef4444;
+    border-color: #ef4444;
+    transform: translateY(-1px);
+}
+
+.favorite-btn.favorited {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+.favorite-btn.favorited:hover {
+    background: #dc2626;
+    border-color: #dc2626;
 }

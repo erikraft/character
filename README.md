@@ -277,10 +277,10 @@ character/
 
 ## 🎯 Roadmap Futuro
 
-- [ ] Sistema de favoritos para salvar caracteres
+- [x] Sistema de favoritos para salvar caracteres
 - [ ] Exportação em diferentes formatos (JSON, CSV)
 - [ ] API REST para acesso programático
-- [ ] Modo escuro/claro automático
+- [x] Modo escuro/claro automático
 - [ ] Animações avançadas para caracteres especiais
 - [ ] Integração com APIs Unicode externas
 - [ ] Sistema de tags e categorias avançado
