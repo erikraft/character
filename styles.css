@@ -474,8 +474,7 @@ section {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    transform: scaleX(0);
+        transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
