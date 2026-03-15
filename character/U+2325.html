@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Option Key</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        .character-display-large { font-size: 6rem; padding: 3rem; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 1rem; color: white; text-align: center; margin: 2rem 0; position: relative; overflow: hidden; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .info-card { background: var(--bg-primary); border: 2px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--primary-color); }
+        .info-card h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; }
+        .unicode-table, .encoding-table, .codes-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; table-layout: fixed; }
+        .unicode-table td, .encoding-table td, .encoding-table th, .codes-table td { padding: 0.65rem 0; border-bottom: 1px solid var(--border-color); text-align: left; color: var(--text-primary); transition: color 0.2s ease; word-break: break-word; overflow-wrap: anywhere; }
+        .unicode-table td:first-child, .encoding-table th, .codes-table td:first-child { font-weight: 500; color: var(--text-secondary); border-color: var(--border-color); width: 45%; }
+        .unicode-table td:nth-child(2), .encoding-table td:not(:first-child), .codes-table td:nth-child(2) { font-family: monospace; color: var(--text-primary); font-weight: 600; }
+        .encoding-table th { color: var(--text-secondary); font-weight: 500; }
+        .code-list { display: grid; gap: 0.75rem; margin-top: 1rem; }
+        .code-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+        .code-label { color: var(--text-secondary); font-weight: 500; }
+        .code-pill { background: #4f46e5; color: white; padding: 0.35rem 0.8rem; border-radius: 999px; font-family: monospace; font-weight: 600; font-size: 0.9rem; white-space: nowrap; cursor: pointer; }
+        .character-actions { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1rem; }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary { background: linear-gradient(135deg, #6b7280, #4b5563); color: white; border: none; }
+        .btn-secondary:hover { background: linear-gradient(135deg, #4b5563, #374151); transform: translateY(-2px); }
+        .usage-examples { background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-lg); margin: 2rem 0; }
+        .usage-examples h3 { color: var(--text-primary); margin-bottom: 1.5rem; }
+        .info-card h4 { color: var(--text-primary); margin-bottom: 0.5rem; }
+        .info-card p { color: var(--text-secondary); line-height: 1.5; }
+        .info-panels { margin-top: 2rem; }
+        .info-panel { display: none; }
+        .info-panel.active { display: block; }
+        .info-tabs { display: flex; gap: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; overflow-x: auto; }
+        .info-tab { background: none; border: none; font-size: 1rem; color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-radius: var(--radius-md); transition: all 0.3s ease; white-space: nowrap; }
+        .info-tab.active { background: var(--primary-color); color: white; }
+        .info-tab:hover:not(.active) { background: var(--bg-tertiary); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="/" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="/#home" class="nav-link">Início</a></li>
+                    <li class="nav-item"><a href="/#characters" class="nav-link">Caracteres</a></li>
+                    <li class="nav-item"><a href="/#contact" class="nav-link">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: 80px;">
+        <div class="container">
+            <a href="explore" class="back-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary-color); text-decoration: none; margin-bottom: 2rem; transition: color 0.3s ease; font-weight: 500;">
+                <i class="fas fa-arrow-left"></i> Voltar para Explorar
+            </a>
+            
+            <section class="character-detail">
+                <div class="character-header" style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; flex-wrap: wrap;">
+                    <div class="character-display-large" style="flex: 0 0 200px; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 6rem; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 1rem; color: white; box-shadow: var(--shadow-lg); margin: 0;">⌥</div>
+                    <div class="character-info" style="flex: 1; min-width: 300px;">
+                        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-primary);">Option Key</h1>
+                        <p class="unicode-code" style="font-family: monospace; font-size: 1.2rem; color: var(--primary-color); margin-bottom: 1rem; background: var(--bg-secondary); display: inline-block; padding: 0.25rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">U+2325</p>
+                        <p class="character-description" style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6;">Caracter Unicode: Option Key</p>
+                    </div>
+                </div>
+
+                <div class="character-details">
+                    <div class="detail-section">
+                        <div class="info-tabs" role="tablist">
+                            <button class="info-tab active" data-tab="info">Informações técnicas</button>
+                            <button class="info-tab" data-tab="props">Propriedades</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para copiar e colar</button>
+                        </div>
+                        <div class="info-panels">
+                            <div class="info-panel active" data-panel="info">
+                                <table class="unicode-table">
+                                    <tr><td>Nome no Unicode</td><td>Option Key</td></tr>
+                                    <tr><td>Número no Unicode</td><td>U+2325</td></tr>
+                                    <tr><td>Categoria</td><td>So</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="props">
+                                <table class="unicode-table">
+                                    <tr><td>Bloco</td><td>Miscellaneous Technical</td></tr>
+                                    <tr><td>Versão Unicode</td><td>1.1</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="encoding">
+                                <table class="encoding-table">
+                                    <thead>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        
+<tr>
+    <td data-label="Codificação">UTF-8</td>
+    <td data-label="hex">E2 8C A5</td>
+    <td data-label="dec (bytes)">226 140 165</td>
+    <td data-label="dec">14847141</td>
+    <td data-label="binary">11100010 10001100 10100101</td>
+</tr>
+<tr>
+    <td data-label="Codificação">UTF-16BE</td>
+    <td data-label="hex">23 25</td>
+    <td data-label="dec (bytes)">35 37</td>
+    <td data-label="dec">8997</td>
+    <td data-label="binary">00100011 00100101</td>
+</tr>
+<tr>
+    <td data-label="Codificação">UTF-16LE</td>
+    <td data-label="hex">25 23</td>
+    <td data-label="dec (bytes)">37 35</td>
+    <td data-label="dec">9507</td>
+    <td data-label="binary">00100101 00100011</td>
+</tr>
+<tr>
+    <td data-label="Codificação">UTF-32BE</td>
+    <td data-label="hex">00 00 23 25</td>
+    <td data-label="dec (bytes)">0 0 35 37</td>
+    <td data-label="dec">8997</td>
+    <td data-label="binary">00000000 00000000 00100011 00100101</td>
+</tr>
+<tr>
+    <td data-label="Codificação">UTF-32LE</td>
+    <td data-label="hex">25 23 00 00</td>
+    <td data-label="dec (bytes)">37 35 0 0</td>
+    <td data-label="dec">623050752</td>
+    <td data-label="binary">00100101 00100011 00000000 00000000</td>
+</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+<div class="info-panel" data-panel="codes">
+    <p style="margin-bottom: 1rem; color: var(--text-secondary);">Copie e cole esses códigos para usar o caractere Option Key em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+    <div class="code-list">
+        <div class="code-row"><span class="code-label">HTML</span><span class="code-pill">&amp;#8997;</span></div>
+        <div class="code-row"><span class="code-label">CSS</span><span class="code-pill">\2325</span></div>
+        <div class="code-row"><span class="code-label">JavaScript, JSON</span><span class="code-pill">\u2325</span></div>
+        <div class="code-row"><span class="code-label">UTF-8 URL-encode</span><span class="code-pill">%E2%8C%A5</span></div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('⌥')"><i class="fas fa-copy"></i> Copiar Caractere</button>
+                    <button class="btn btn-secondary" onclick="shareCharacter('⌥', 'U+2325')"><i class="fas fa-share-alt"></i> Compartilhar</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.info-tab');
+            const panels = document.querySelectorAll('.info-panel');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    const panelId = tab.getAttribute('data-tab');
+                    document.querySelector(`.info-panel[data-panel="${panelId}"]`).classList.add('active');
+                });
+            });
+
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    navigator.clipboard.writeText(this.textContent);
+                    alert('Código copiado!');
+                });
+            });
+        });
+
+        function copyCharacter(char) {
+            navigator.clipboard.writeText(char);
+            alert('Caractere copiado com sucesso!');
+        }
+
+        function shareCharacter(char, hex) {
+            if (navigator.share) {
+                navigator.share({
+                    title: `Character Hub - ${hex}`,
+                    text: `Confira este caractere especial: ${char}`,
+                    url: window.location.href
+                });
+            } else {
+                alert('Compartilhamento não suportado neste navegador.');
+            }
+        }
+    </script>
+</body>
+</html>
