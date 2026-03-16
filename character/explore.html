@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +15,15 @@
             margin: 0 auto;
             padding: 2rem 1rem;
         }
-        
+
         .list-header {
             text-align: center;
-            margin-top: 120px; /* espaço abaixo do header */
+            margin-top: 120px;
+            /* espaço abaixo do header */
             margin-bottom: 2rem;
             padding: 0 1rem;
         }
-        
+
         .search-section {
             margin-bottom: 3rem;
             display: flex;
@@ -29,18 +31,16 @@
             align-items: center;
             gap: 2rem;
             padding: 2rem 1rem;
-            width: 100%;
-            box-sizing: border-box;
         }
-        
+
         .search-container {
             display: flex;
             gap: 0.5rem;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             margin-bottom: 1rem;
         }
-        
+
         .search-input {
             flex: 1;
             padding: 0.75rem 1rem;
@@ -51,17 +51,17 @@
             background: var(--bg-primary);
             color: var(--text-primary);
         }
-        
+
         .search-input::placeholder {
             color: var(--text-secondary);
         }
-        
+
         .search-input:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
-        
+
         .search-btn {
             padding: 0.75rem 1.5rem;
             background: var(--primary-color);
@@ -71,16 +71,16 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .search-btn:hover {
             background: var(--primary-dark);
         }
-        
+
         .filter-group {
             width: 100%;
             margin-bottom: 1.5rem;
         }
-        
+
         .filter-label {
             display: block;
             font-size: 1.2rem;
@@ -89,7 +89,7 @@
             color: var(--text-primary);
             text-align: left;
         }
-        
+
         .category-filter {
             display: flex;
             flex-wrap: wrap;
@@ -97,7 +97,7 @@
             justify-content: flex-start;
             width: 100%;
         }
-        
+
         .category-btn {
             padding: 0.5rem 1rem;
             border: 2px solid var(--border-color);
@@ -108,18 +108,18 @@
             transition: all 0.3s ease;
             font-size: 0.9rem;
         }
-        
+
         .category-btn:hover {
             border-color: var(--primary-color);
             color: var(--primary-color);
         }
-        
+
         .category-btn.active {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
         }
-        
+
         .tag-btn {
             padding: 0.4rem 0.8rem;
             border: 1px solid var(--border-color);
@@ -131,49 +131,88 @@
             font-size: 0.8rem;
         }
 
-        .tag-popular { border-color: #ef4444; color: #ef4444; }
-        .tag-unicode { border-color: #3b82f6; color: #3b82f6; }
-        .tag-social { border-color: #10b981; color: #10b981; }
-        .tag-oculto { border-color: #6b7280; color: #6b7280; }
-        .tag-raro { border-color: #8b5cf6; color: #8b5cf6; }
-        .tag-util { border-color: #f59e0b; color: #f59e0b; }
-        .tag-divertido { border-color: #ec4899; color: #ec4899; }
-        .tag-profissional { border-color: #6366f1; color: #6366f1; }
-        .tag-artistico { border-color: #06b6d4; color: #06b6d4; }
-        .tag-tecnico { border-color: #f97316; color: #f97316; }
+        .tag-popular {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .tag-unicode {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .tag-social {
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .tag-oculto {
+            border-color: #6b7280;
+            color: #6b7280;
+        }
+
+        .tag-raro {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+        }
+
+        .tag-util {
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .tag-divertido {
+            border-color: #ec4899;
+            color: #ec4899;
+        }
+
+        .tag-profissional {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        .tag-artistico {
+            border-color: #06b6d4;
+            color: #06b6d4;
+        }
+
+        .tag-tecnico {
+            border-color: #f97316;
+            color: #f97316;
+        }
 
         .tag-btn:hover {
             opacity: 0.8;
             transform: scale(1.05);
         }
-        
+
         .tag-btn.active {
             background: var(--primary-color);
             color: white !important;
             border-color: var(--primary-color) !important;
         }
-        
+
         .results-info {
             text-align: center;
             color: var(--text-secondary);
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
-        
+
         .list-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--text-primary);
         }
-        
+
         .character-list-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
             width: 100%;
         }
-        
+
         .character-list-item {
             background: var(--bg-primary);
             border: 2px solid var(--border-color);
@@ -183,13 +222,13 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .character-list-item:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-xl);
             border-color: var(--primary-color);
         }
-        
+
         .character-list-display {
             font-size: 2.5rem;
             margin-bottom: 1rem;
@@ -203,20 +242,20 @@
             line-height: 0.8;
             overflow: hidden;
         }
-        
+
         .character-list-info h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
-        
+
         .character-list-info p {
             color: var(--text-secondary);
             margin-bottom: 0.5rem;
             font-family: monospace;
             font-size: 0.9rem;
         }
-        
+
         .character-list-description {
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -224,14 +263,13 @@
             line-height: 1.4;
         }
 
-        
         .character-list-actions {
             display: flex;
             gap: 0.5rem;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .pagination {
             display: flex;
             justify-content: center;
@@ -239,7 +277,7 @@
             gap: 0.5rem;
             margin-top: 3rem;
         }
-        
+
         .pagination-btn {
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
@@ -250,24 +288,24 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-        
+
         .pagination-btn:hover {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
         }
-        
+
         .pagination-btn.active {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
         }
-        
+
         .pagination-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
+
         .back-btn {
             position: absolute;
             top: 2rem;
@@ -284,29 +322,212 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .back-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
         }
-        
+
         @media (max-width: 768px) {
             .character-list-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
                 gap: 1rem;
             }
-            
+
             .back-btn {
                 position: static;
                 margin-bottom: 2rem;
                 width: 100%;
                 justify-content: center;
             }
+
+            .list-header {
+                margin-top: 100px;
+                margin-bottom: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .list-header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                padding: 1.5rem 0.5rem;
+                gap: 1.5rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .search-btn {
+                width: 100%;
+                padding: 0.875rem;
+            }
+
+            .category-filter {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .category-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .character-list-item {
+                padding: 1rem;
+            }
+
+            .character-list-display {
+                font-size: 2rem;
+                min-height: 2.5rem;
+                padding: 0.75rem;
+            }
+
+            .character-list-info h3 {
+                font-size: 1rem;
+            }
+
+            .character-list-info p {
+                font-size: 0.8rem;
+            }
+
+            .character-list-description {
+                font-size: 0.8rem;
+            }
+
+            .character-list-actions {
+                gap: 0.25rem;
+            }
+
+            .btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
         }
-    </style>
-</head>
-<body>
-    <header class="header">
+
+        @media (max-width: 480px) {
+            .character-list-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .list-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .search-section {
+                padding: 1rem 0.25rem;
+            }
+
+            .category-filter {
+                gap: 0.4rem;
+            }
+
+            .category-btn {
+                padding: 0.35rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .character-list-item {
+                padding: 0.75rem;
+            }
+
+            .character-list-display {
+                font-size: 1.75rem;
+                min-height: 2.25rem;
+                padding: 0.5rem;
+            }
+
+            .character-list-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+
+            .pagination-btn {
+                padding: 0.5rem 1rem;
+                border: 1px solid var(--border-color);
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                border-radius: var(--radius-md);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+            .pagination-btn:hover {
+                background: var(--primary-color);
+                color: white;
+                border-color: var(--primary-color);
+            }
+
+            .pagination-btn.active {
+                background: var(--primary-color);
+                color: white;
+                border-color: var(--primary-color);
+            }
+
+            .pagination-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .back-btn {
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.75rem 1.5rem;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: var(--radius-md);
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+
+            .back-btn:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+            }
+
+            /* Mobile Menu Toggle Styles */
+            .nav-toggle.active .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .nav-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .nav-toggle.active .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .nav-toggle .bar {
+                transition: all 0.3s ease;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <header>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
@@ -325,7 +546,7 @@
                 </div>
             </div>
         </nav>
-    </header>
+        </header>
 
     <div class="list-header">
         <h1>Explorar Caracteres</h1>
@@ -333,7 +554,7 @@
     </div>
 
     <div class="character-list-container">
-        
+
         <div class="search-section">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Pesquisar caracteres..." class="search-input">
@@ -341,7 +562,7 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-            
+
             <div class="filter-group">
                 <div class="filter-label">Categorias</div>
                 <div class="category-filter">
@@ -355,6 +576,7 @@
                     <button class="category-btn" onclick="filterByCategory('Glitch')">Glitch</button>
                     <button class="category-btn" onclick="filterByCategory('Combinação')">Combinação</button>
                     <button class="category-btn" onclick="filterByCategory('Emoji')">Emoji</button>
+                    <button class="category-btn" onclick="filterByCategory('Tecnológico')">Tecnológico</button>
                 </div>
             </div>
         </div>
@@ -903,12 +1125,36 @@
                 page: 'U+300D.html',
             },
             {
+                char: '《',
+                name: 'Left Double Angle Bracket',
+                code: 'U+300A',
+                category: 'Símbolo',
+                description: 'Aspa dupla em ângulo esquerda usada em textos asiáticos.',
+                page: 'U+300A.html',
+            },
+            {
+                char: '》',
+                name: 'Right Double Angle Bracket',
+                code: 'U+300B',
+                category: 'Símbolo',
+                description: 'Aspa dupla em ângulo direita usada em textos asiáticos.',
+                page: 'U+300B.html',
+            },
+            {
                 char: '「」',
                 name: 'Corner Brackets Combination',
                 code: 'Combination',
                 category: 'Combinação',
                 description: 'Combinação de aspas de canto japonesas.',
                 page: 'Corner-Brackets.html',
+            },
+            {
+                char: '《》',
+                name: 'Double Angle Brackets Combination',
+                code: 'Combination',
+                category: 'Combinação',
+                description: 'Combinação de aspas duplas em ângulo asiáticas.',
+                page: 'Double-Angle-Brackets.html',
             },
             {
                 char: '╺',
@@ -936,11 +1182,11 @@
             },
             {
                 char: 'ඞ',
-                name: 'Among Us Character',
-                code: 'U+0DDE',
+                name: 'Sinhala Letter Kantaja Naasikyaya',
+                code: 'U+0D9E',
                 category: 'Raro',
-                description: 'Caractere que se parece com o Among Us.',
-                page: 'U+0DDE.html',
+                description: 'Letra sinhala que se tornou popular como meme do Among Us.',
+                page: 'U+0D9E.html',
             },
             {
                 char: '⌥',
@@ -1094,7 +1340,7 @@
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
         }
-        
+
         function playErrorSound() {
             const audio = document.getElementById('errorSound');
             if (audio) {
@@ -1102,7 +1348,7 @@
                 audio.play().catch(e => console.log('Audio play failed:', e));
             }
         }
-        
+
         function playSharingSound() {
             const audio = document.getElementById('sharingSound');
             if (audio) {
@@ -1111,7 +1357,7 @@
             }
         }
 
-        window.addEventListener('storage', function(e) {
+        window.addEventListener('storage', function (e) {
             if (e.key === 'characterFavorites') {
                 filteredCharacters = [...exploreCharacters];
                 renderCharacters();
@@ -1239,21 +1485,21 @@
         function renderPagination() {
             const pagination = document.getElementById('pagination');
             const totalPages = Math.ceil(filteredCharacters.length / itemsPerPage);
-            
+
             if (totalPages <= 1) {
                 pagination.innerHTML = '';
                 return;
             }
-            
+
             let paginationHTML = '';
-            
+
             // Previous button
             paginationHTML += `
                 <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
                     <i class="fas fa-chevron-left"></i>
                 </button>
             `;
-            
+
             // Page numbers
             for (let i = 1; i <= totalPages; i++) {
                 paginationHTML += `
@@ -1262,14 +1508,14 @@
                     </button>
                 `;
             }
-            
+
             // Next button
             paginationHTML += `
                 <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             `;
-            
+
             pagination.innerHTML = paginationHTML;
         }
 
@@ -1291,34 +1537,34 @@
         function filterByCategory(category) {
             currentCategory = category;
             currentPage = 1;
-            
+
             // Update active button
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             // Find the button that was clicked
             const clickedBtn = document.querySelector(`.category-btn[onclick*="'${category}'"]`);
             if (clickedBtn) {
                 clickedBtn.classList.add('active');
             }
-            
+
             applyFilters();
         }
 
         function applyFilters() {
             filteredCharacters = exploreCharacters.filter(character => {
-                const matchesSearch = currentSearch === '' || 
+                const matchesSearch = currentSearch === '' ||
                     character.name.toLowerCase().includes(currentSearch) ||
                     character.code.toLowerCase().includes(currentSearch) ||
                     character.description.toLowerCase().includes(currentSearch) ||
                     character.char.includes(currentSearch);
-                
+
                 const matchesCategory = currentCategory === 'all' || character.category === currentCategory;
-                
+
                 return matchesSearch && matchesCategory;
             });
-            
+
             currentPage = 1;
             renderCharacters();
         }
@@ -1327,7 +1573,7 @@
             const resultsInfo = document.getElementById('resultsInfo');
             let categoryText = currentCategory === 'all' ? '' : `categoria "${currentCategory}"`;
             let searchText = currentSearch ? `pesquisa "${currentSearch}"` : '';
-            
+
             if (categoryText && searchText) {
                 resultsInfo.innerHTML = `Encontrados ${total} caracteres para ${categoryText} e ${searchText}`;
             } else if (categoryText) {
@@ -1355,7 +1601,7 @@
                 showToast('Erro ao copiar caractere', 'error');
             });
         }
-        
+
         function shareCharacter(character, code, event) {
             if (event) event.stopPropagation();
             playSharingSound();
@@ -1406,26 +1652,54 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Inicializar ThemeManager
             const themeManager = new ThemeManager();
-            
+
             // Resetar filtros para garantir que comece com 'all'
             currentCategory = 'all';
             currentSearch = '';
             filteredCharacters = [...exploreCharacters];
-            
+
             // Debug: Verificar se o array está correto
             console.log('Total de caracteres:', exploreCharacters.length);
             console.log('Filtros iniciais:', { currentCategory, currentSearch, filteredCharactersLength: filteredCharacters.length });
-            
+
             renderCharacters();
             updateFavoriteButtons();
-            
+
             // Add search on Enter key
             document.getElementById('searchInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     performSearch();
                 }
             });
+
+            // Mobile Menu Toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (mobileMenu && navMenu) {
+                mobileMenu.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close mobile menu when clicking on a link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target)) {
+                        mobileMenu.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
         });
+
     </script>
     <audio id="successSound" preload="auto">
         <source src="../media/success.mp3" type="audio/mpeg">
@@ -1440,4 +1714,5 @@
         <source src="../media/favorite.mp3" type="audio/mpeg">
     </audio>
 </body>
+
 </html>
