@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Hub - Mathematical Double-Struck Capital X</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .character-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .character-display {
+            font-size: 6rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #1DA1F2, #14171A, #657786);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        .character-display .char {
+            font-size: 5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .character-display .label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-card td {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-card td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 40%;
+        }
+        
+        .usage-examples {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .usage-examples h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .usage-example {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .emoji-examples {
+            background: linear-gradient(135deg, #1DA1F2, #14171A, #657786);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .emoji-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .emoji-example h4 {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .emoji-example .example {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            font-family: monospace;
+        }
+        
+        .emoji-example .description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .style-variations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .style-variation {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .style-variation:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .style-variation .char {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .style-variation .name {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .history-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .history-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 2px solid white;
+        }
+        
+        .timeline-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-item p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .character-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .character-actions .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .character-actions .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .character-actions .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .character-actions .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            border: none;
+        }
+        
+        .character-actions .btn-secondary:hover {
+            background: linear-gradient(135deg, #4b5563, #374151);
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para tabelas e texto em fundo branco */
+        .unicode-table, .encoding-table, .codes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            table-layout: fixed;
+        }
+
+        .unicode-table td, .encoding-table td, .encoding-table th, .codes-table td {
+            padding: 0.65rem 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        .unicode-table td:first-child, .encoding-table th, .codes-table td:first-child {
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+            width: 45%;
+        }
+
+        .unicode-table td:nth-child(2), .encoding-table td:not(:first-child), .codes-table td:nth-child(2) {
+            font-family: monospace;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .encoding-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .code-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .code-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .code-pill {
+            background: #4f46e5;
+            color: white;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-family: monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .style-variation .name {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .platform-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .platform-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .platform-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 1rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+        }
+        
+        .platform-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.5rem;
+        }
+        
+        .platform-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="/" style="color: inherit; text-decoration: none;">Character Hub</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="/#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/#characters" class="nav-link">Caracteres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/#contact" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <a href="explore" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Voltar para Explorar
+        </a>
+        
+        <section class="character-detail">
+            <div class="container">
+                <div class="character-header">
+    <div class="character-display-large">𝕏</div>
+    <div class="character-info">
+        <h1>Mathematical Double-Struck Capital X</h1>
+                    <p class="unicode-code">U+1D54F</p>
+                    <p class="character-description">Um caractere matemático com traço duplo que se tornou famoso como o logo do Twitter (agora X). Usado originalmente em notação matemática para representar conjuntos ou espaços.</p>
+    </div>
+</div>
+
+                
+                <div class="character-details">
+                    <div class="detail-section">
+                        <div class="info-tabs" role="tablist">
+                            <button class="info-tab active" data-tab="info">Informações técnicas</button>
+                            <button class="info-tab" data-tab="props">Propriedades</button>
+                            <button class="info-tab" data-tab="encoding">Codificação</button>
+                            <button class="info-tab" data-tab="codes">Códigos para copiar e colar</button>
+                        </div>
+                        <div class="info-panels">
+                            <div class="info-panel active" data-panel="info">
+                                <table class="unicode-table">
+                                    <tr><td>Nome no Unicode</td><td>Mathematical Double-Struck Capital X</td></tr>
+                                    <tr><td>Número no Unicode</td><td>U+1D54F</td></tr>
+                                    <tr><td>Plano</td><td>1: Plano Multilingue Suplementar</td></tr>
+                                    <tr><td>Bloco Unicode</td><td>Mathematical Alphanumeric Symbols</td></tr>
+                                    <tr><td>Versão Unicode</td><td>4.1 (2005)</td></tr>
+                                    <tr><td>Categoria</td><td>Letter, Uppercase</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="props">
+                                <table class="unicode-table">
+                                    <tr><td>Categoria</td><td>Mathematical Symbol, Letter</td></tr>
+                                    <tr><td>Script</td><td>Common</td></tr>
+                                    <tr><td>Classe de Combinação</td><td>0</td></tr>
+                                    <tr><td>Mirrored</td><td>No</td></tr>
+                                    <tr><td>Apresentação</td><td>Símbolo</td></tr>
+                                </table>
+                            </div>
+                            <div class="info-panel" data-panel="encoding">
+                                <table class="encoding-table">
+                                    <thead>
+                                        <tr><th>Codificação</th><th>hex</th><th>dec (bytes)</th><th>dec</th><th>binary</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-8</td>
+                                            <td data-label="hex">F0 9D 95 8F</td>
+                                            <td data-label="dec (bytes)">240 157 149 143</td>
+                                            <td data-label="dec">120143</td>
+                                            <td data-label="binary">11110000 10011101 10010101 10001111</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16BE</td>
+                                            <td data-label="hex">D8 35 D0 4F</td>
+                                            <td data-label="dec (bytes)">216 53 208 79</td>
+                                            <td data-label="dec">120143</td>
+                                            <td data-label="binary">11011000 00110101 11010000 01001111</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-16LE</td>
+                                            <td data-label="hex">35 D8 4F D0</td>
+                                            <td data-label="dec (bytes)">53 216 79 208</td>
+                                            <td data-label="dec">120143</td>
+                                            <td data-label="binary">00110101 11011000 01001111 11010000</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32BE</td>
+                                            <td data-label="hex">00 01 D5 4F</td>
+                                            <td data-label="dec (bytes)">0 1 213 79</td>
+                                            <td data-label="dec">120143</td>
+                                            <td data-label="binary">00000000 00000001 11010101 01001111</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Codificação">UTF-32LE</td>
+                                            <td data-label="hex">4F D5 01 00</td>
+                                            <td data-label="dec (bytes)">79 213 1 0</td>
+                                            <td data-label="dec">120143</td>
+                                            <td data-label="binary">01001111 11010101 00000001 00000000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+<div class="info-panel" data-panel="codes">
+    <p>Copie e cole esses códigos para usar o caractere Mathematical Double-Struck Capital X em textos para sites, redes sociais, mensageiros ou postagens de blog.</p>
+
+    <div class="code-list">
+        <div class="code-row">
+            <span class="code-label">HTML</span>
+            <span class="code-pill">&amp;#120143;</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">CSS</span>
+            <span class="code-pill">\1D54F</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">JavaScript, JSON</span>
+            <span class="code-pill">\uD835\uDD4F</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">Unix, C, PHP, JAVA</span>
+            <span class="code-pill">0x1D54F</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">Ruby, PHP</span>
+            <span class="code-pill">\u{1D54F}</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">Perl</span>
+            <span class="code-pill">\x{1D54F}</span>
+        </div>
+
+        <div class="code-row">
+            <span class="code-label">URL-encode</span>
+            <span class="code-pill">%F0%9D%95%8F</span>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+                
+                <div class="emoji-examples">
+                    <h3><i class="fas fa-star"></i> Variações Matemáticas</h3>
+                    
+                    <div class="style-variations">
+                        <div class="style-variation">
+                            <div class="char">𝕏</div>
+                            <div class="name">Double-Struck X</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">𝕩</div>
+                            <div class="name">Double-Struck x (minúsculo)</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">X</div>
+                            <div class="name">X Padrão</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">𝔛</div>
+                            <div class="name">Fraktur X</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">𝖃</div>
+                            <div class="name">Sans-Serif Bold X</div>
+                        </div>
+                        <div class="style-variation">
+                            <div class="char">𝗫</div>
+                            <div class="name">Sans-Serif Bold Italic X</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="emoji-examples">
+                    <h3><i class="fab fa-twitter"></i> Conexão com o Twitter/X</h3>
+                    
+                    <div class="platform-showcase">
+                        <div class="platform-card">
+                            <div class="platform-image" style="font-size: 3rem; display: flex; align-items: center; justify-content: center;">𝕏</div>
+                            <div class="platform-name">Twitter Rebranding</div>
+                            <div class="platform-description">Em julho de 2023, Elon Musk rebrandou o Twitter para X, usando este símbolo</div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-image" style="font-size: 3rem; display: flex; align-items: center; justify-content: center;">🐦</div>
+                            <div class="platform-name">Antigo Logo</div>
+                            <div class="platform-description">O famoso pássaro azul que foi substituído pelo 𝕏</div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-image" style="font-size: 3rem; display: flex; align-items: center; justify-content: center;">📱</div>
+                            <div class="platform-name">Aplicativo X</div>
+                            <div class="platform-description">O aplicativo móvel agora exibe o novo símbolo 𝕏</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="emoji-examples">
+                    <h3><i class="fas fa-comment"></i> Exemplos de Uso</h3>
+                    
+                    <div class="emoji-example">
+                        <h4>Identificação da Plataforma</h4>
+                        <div class="example">Postei isso no 𝕏 hoje</div>
+                        <div class="description">Usado para se referir à plataforma social X/Twitter</div>
+                    </div>
+                    
+                    <div class="emoji-example">
+                        <h4>Notação Matemática</h4>
+                        <div class="example">Seja 𝕏 o espaço vetorial</div>
+                        <div class="description">Uso acadêmico original em matemática</div>
+                    </div>
+                    
+                    <div class="emoji-example">
+                        <h4>Branding e Marketing</h4>
+                        <div class="example">Siga-nos no 𝕏: @exemplo</div>
+                        <div class="description">Empresas usam em materiais de marketing</div>
+                    </div>
+                    
+                    <div class="emoji-example">
+                        <h4>Cultura Pop</h4>
+                        <div class="example">O meme do 𝕏 está bombando!</div>
+                        <div class="description">Referências na cultura digital e memes</div>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-lightbulb"></i> Aplicações Modernas</h3>
+                    
+                    <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
+                        <h4>1. Redes Sociais</h4>
+                        <p>Perfeito para se referir à plataforma X/Twitter em posts e bios.</p>
+                    </div>
+                    
+                    <div class="info-card" style="margin-bottom: 1rem;">
+                        <h4>2. Matemática Acadêmica</h4>
+                        <p>Usado em papers matemáticos para representar conjuntos ou espaços específicos.</p>
+                    </div>
+                    
+                    <div class="info-card" style="margin-bottom: 1rem;">
+                        <h4>3. Branding Corporativo</h4>
+                        <p>Empresas usam em materiais de marketing relacionados à plataforma X.</p>
+                    </div>
+                    
+                    <div class="info-card" style="margin-bottom: 1rem;">
+                        <h4>4. Design Digital</h4>
+                        <p>Popular em designs modernos por sua estética única e reconhecimento global.</p>
+                    </div>
+                </div>
+                
+                <div class="usage-examples">
+                    <h3><i class="fas fa-history"></i> História e Evolução</h3>
+                    
+                    <div class="info-card" style="margin-top: 1.5rem; margin-bottom: 1rem;">
+                        <h4>Criação Matemática</h4>
+                        <p>Criado em 2005 como parte dos Símbolos Alfanuméricos Matemáticos do Unicode para uso em notação matemática formal.</p>
+                    </div>
+                    
+                    <div class="info-card" style="margin-bottom: 1rem;">
+                        <h4>Popularização em 2023</h4>
+                        <p>Ganhou fama mundial quando Elon Musk escolheu este símbolo para rebrandear o Twitter como X.</p>
+                    </div>
+                    
+                    <div class="info-card" style="margin-bottom: 1rem;">
+                        <h4>Adoção Cultural</h4>
+                        <p> rapidamente adotado pela cultura digital como símbolo da nova era das redes sociais.</p>
+                    </div>
+                </div>
+                
+                <div class="character-actions">
+                    <button class="btn btn-primary" onclick="copyCharacter('𝕏')">
+                        <i class="fas fa-copy"></i> Copiar Caractere
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareCharacter()">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Character Hub. Todos os direitos reservados.</p>
+            <p>Explorando o fascinante mundo dos caracteres Unicode</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <audio id="successSound" preload="auto">
+        <source src="../media/success.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sharingSound" preload="auto">
+        <source src="../media/sharing.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        function playSuccessSound() {
+            const audio = document.getElementById('successSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+
+        function playSharingSound() {
+            const audio = document.getElementById('sharingSound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+        
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                playSuccessSound();
+                showToast('Código copiado!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar', 'error');
+            });
+        }
+        
+        // Add click handlers to all code pills
+        document.addEventListener('DOMContentLoaded', function() {
+            const codePills = document.querySelectorAll('.code-pill');
+            codePills.forEach(pill => {
+                pill.style.cursor = 'pointer';
+                pill.addEventListener('click', function() {
+                    const text = this.textContent;
+                    copyToClipboard(text);
+                });
+            });
+        });
+        function copyCharacter(character) {
+            navigator.clipboard.writeText(character).then(() => {
+                playSuccessSound();
+                showToast('Caractere copiado com sucesso!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar caractere', 'error');
+            });
+        }
+        function copyUnicode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                playSuccessSound();
+                showToast('Código copiado com sucesso!', 'success');
+            }).catch(() => {
+                showToast('Erro ao copiar código', 'error');
+            });
+        }
+        function shareCharacter(character, code) {
+            playSharingSound();
+            const shareData = {
+                title: `Character Hub - ${code}`,
+                text: `Confira este caractere especial: ${character}`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Link copiado para compartilhar!', 'success');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.info-tab');
+            const panels = document.querySelectorAll('.info-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetPanel = tab.dataset.tab;
+
+                    // Remove active class from all tabs and panels
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding panel
+                    tab.classList.add('active');
+                    document.querySelector(`[data-panel="${targetPanel}"]`).classList.add('active');
+                });
+            });
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
